@@ -8,39 +8,28 @@ using Vector3 = UnityEngine.Vector3;
 public class Player : MonoBehaviour
 {
     
-    private PlayerSoundEffect soundEffects;
-    private Rigidbody rigidbody;
-    Vector3 vec = new Vector3(1, 0, 0);
 
-    private float speed = 5.0f;
+    private float speed = 2.0f;
+    private PlayerSoundEffect soundEffects;
+    private int score = 0;
+    private Rigidbody rigidbody;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
         soundEffects = GetComponent<PlayerSoundEffect>();
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation |  RigidbodyConstraints.FreezePositionZ;
+    }
+
+    void FixedUpdate() {
+        Vector3 direction = new Vector3(0, 0, Input.GetAxis("Vertical"));
+        rigidbody.velocity = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
+    }
+
+    void Update() {
         
     }
 
-    private void FixedUpdate()
-    {
-        
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, 0).normalized;;
-        transform.Translate(direction * (speed * Time.deltaTime));
-        
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
+    void OnCollisionEnter(Collision other) {
 
     }
 }

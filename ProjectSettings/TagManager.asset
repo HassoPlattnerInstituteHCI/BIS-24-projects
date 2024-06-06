@@ -9,6 +9,12 @@ TagManager:
   - Wall
   - Enemy
   - Ball
+  - ItTrail
+  - MeTrail
+  - PerceptionCone
+  - PlayerScoreLine
+  - EnemyScoreLine
+  - ScoreLine
   layers:
   - Default
   - TransparentFX

@@ -3,96 +3,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
-{
+public class Ball : MonoBehaviour {
 
-    private bool playerGetScore = false;
-    private bool enemyGetScore = false;
+    public float defaultSpeed = 5f;
+
+    private bool isOutOfBounds = false;
     private PlayerSoundEffect soundEffects;
-    public float speed;
+    private float speed;
 
     private Vector3 direction;
 
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         soundEffects = GetComponent<PlayerSoundEffect>();
-        rigidbody = GetComponent<Rigidbody>();
-        direction = CreateVectorByDegree(45);
+        rb = GetComponent<Rigidbody>();
+        Reset();
     }
 
-    private void FixedUpdate()
-    {
-        Vector3 movement = direction * speed;
-        rigidbody.velocity = movement;
+    private void FixedUpdate() {
+        Vector3 movement = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
+        rb.velocity = movement;
     }
 
-    private void Update()
-    {
-        if (transform.position.z <= -16.55 || transform.position.z >= -3.16 && playerGetScore==false)
-        {
-            soundEffects.PlayScoreClip();
-            // Destroy(gameObject, clipTime);
-            playerGetScore = true;
-        }
+    private void Update() {
+       if (isOutOfBounds) {
+            this.Reset();
+            isOutOfBounds = false;
+       }
     }
 
-    private Vector3 CreateVectorByDegree(float degrees)
-    {
-        var angle = degrees * Mathf.Deg2Rad;
-        var x = Mathf.Cos(angle);
-        var y = Mathf.Sin(angle);
-
-        return new Vector3(x, 0, y);
+    private void Reset() {
+        transform.position = Vector3.zero;
+        direction = Vector3.left;
+        speed = defaultSpeed;
     }
 
-    void OnCollisionEnter(Collision other)
-    {
+    private Vector3 ComputeReflection(Collision other) {
+        Vector3 normal = other.GetContact(0).normal.normalized;
+        Vector3 collisionPoint = other.GetContact(0).point;
         
-        Vector3 normal = other.GetContact(0).normal;
-        Vector3 reflection = Vector3.Reflect(direction, normal);
-    
-        direction = reflection;
-        
-        if (other.collider.CompareTag("Player") )
-        {
+        float hitFactor = (collisionPoint.z - other.transform.position.z) / other.collider.bounds.size.z;
+        hitFactor = Mathf.Max(-0.5f, Mathf.Min(0.5f, hitFactor)); // disallow very steep angles
+        hitFactor = normal.x == 1 ? hitFactor * (-1): hitFactor;
+
+        Vector3 reflection = Quaternion.Euler(0, hitFactor * 45, 0) * normal;
+        return reflection;
+    }
+
+    void OnCollisionEnter(Collision other) {
+        Vector3 reflection = Vector3.Reflect(direction, other.GetContact(0).normal);
+
+        if (other.collider.CompareTag("Player")) {
             soundEffects.PlayPaddleClip();
-        }else if (other.collider.CompareTag("Enemy"))
-        {
-            soundEffects.PlayPaddleClip();  
+            reflection = ComputeReflection(other);
         }
-        else if (other.collider.CompareTag("Wall"))
-        {
+        else if (other.collider.CompareTag("Enemy")) {
+            soundEffects.PlayPaddleClip();
+            reflection = ComputeReflection(other);
+        }
+        else if (other.collider.CompareTag("Wall")) {
             soundEffects.PlayWallClip();
         }
-    
-        
-    
+        else if (other.collider.CompareTag("ScoreLine")) {
+            soundEffects.PlayScoreClip();
+            isOutOfBounds = true;
+        }
+
+        this.direction = reflection;
+
     }
-    
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     GameObject other = collision.gameObject;
-    //     
-    //     
-    //     if (other.CompareTag("Player"))
-    //     {
-    //         soundEffects.PlayPaddleClip();
-    //     }else if (other.CompareTag("Enemy"))
-    //     {
-    //         soundEffects.PlayPaddleClip();  
-    //     }
-    //     else if (other.CompareTag("Wall"))
-    //     {
-    //         soundEffects.PlayWallClip();
-    //     }
-    //
-    //     
-    //
-    // }
-    //
-    //
-    //
-    
 }
+
+
+// talk about collision, trigger, isKinematic 
