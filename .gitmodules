@@ -1,0 +1,3 @@
+[submodule "assets/unity-dualpanto-toolkit"]
+	path = assets/unity-dualpanto-toolkit
+	url = https://github.com/HassoPlattnerInstituteHCI/unity-dualpanto-toolkit.git
