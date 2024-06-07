@@ -68,7 +68,11 @@ public class Ball : MonoBehaviour {
         else if (other.collider.CompareTag("Wall")) {
             soundEffects.PlayWallClip();
         }
-        else if (other.collider.CompareTag("ScoreLine")) {
+        else if (other.collider.CompareTag("PlayerScoreLine")) {
+            soundEffects.PlayPositiveScoreClip();
+            isOutOfBounds = true;
+        }
+        else if (other.collider.CompareTag("EnemyScoreLine")) {
             soundEffects.PlayScoreClip();
             isOutOfBounds = true;
         }

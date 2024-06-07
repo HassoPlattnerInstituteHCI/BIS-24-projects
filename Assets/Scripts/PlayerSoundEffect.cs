@@ -6,6 +6,7 @@ public class PlayerSoundEffect : MonoBehaviour
     public AudioClip paddleClip;
     public AudioClip wallClip;
     public AudioClip scoreClip;
+    public AudioClip positiveScoreClip;
     private AudioSource audioSource;
 
     void Start()
@@ -26,5 +27,10 @@ public class PlayerSoundEffect : MonoBehaviour
     public void PlayScoreClip()
     {
         audioSource.PlayOneShot(scoreClip);
+    }
+
+    public void PlayPositiveScoreClip()
+    {
+        audioSource.PlayOneShot(positiveScoreClip);
     }
 }
