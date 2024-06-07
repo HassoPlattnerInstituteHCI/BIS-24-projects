@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
-    public float defaultSpeed = 5f;
+    public float defaultSpeed = 5f; // public attributes can be set in the editor
 
     private bool isOutOfBounds = false;
     private PlayerSoundEffect soundEffects;
@@ -21,33 +21,33 @@ public class Ball : MonoBehaviour {
         Reset();
     }
 
-    private void FixedUpdate() {
+    void FixedUpdate() {
         Vector3 movement = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
         rb.velocity = movement;
     }
 
-    private void Update() {
+    void Update() {
        if (isOutOfBounds) {
             this.Reset();
             isOutOfBounds = false;
        }
     }
 
-    private void Reset() {
+    void Reset() {
         transform.position = Vector3.zero;
         direction = Vector3.left;
         speed = defaultSpeed;
     }
 
-    private Vector3 ComputeReflection(Collision other) {
+    Vector3 ComputeReflection(Collision other) {
         Vector3 normal = other.GetContact(0).normal.normalized;
         Vector3 collisionPoint = other.GetContact(0).point;
         
         float hitFactor = (collisionPoint.z - other.transform.position.z) / other.collider.bounds.size.z;
-        hitFactor = Mathf.Max(-0.5f, Mathf.Min(0.5f, hitFactor)); // disallow very steep angles
-        hitFactor = normal.x == 1 ? hitFactor * (-1): hitFactor;
+        hitFactor = Mathf.Max(-0.4f, Mathf.Min(0.4f, hitFactor)); // disallow very steep angles
+        hitFactor = normal.x > 0 ? hitFactor * (-1): hitFactor;
 
-        Vector3 reflection = Quaternion.Euler(0, hitFactor * 45, 0) * normal;
+        Vector3 reflection = Quaternion.Euler(0, hitFactor * 180, 0) * new Vector3(normal.x, 0, 0);
         return reflection;
     }
 
@@ -72,6 +72,10 @@ public class Ball : MonoBehaviour {
 
         this.direction = reflection;
 
+    }
+
+    public Vector3 GetDirection() {
+        return this.direction;
     }
 }
 

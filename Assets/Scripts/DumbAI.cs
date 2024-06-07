@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * moves in a straight line and bounces off walls.
+ */
 public class DumbAI : MonoBehaviour
 {
     public float speed = 2f;
@@ -20,11 +23,11 @@ public class DumbAI : MonoBehaviour
 
     }
 
-    private void FixedUpdate() {
+    void FixedUpdate() {
         rb.velocity = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
     }
 
-    private void OnCollisionEnter(Collision other) {
+    void OnCollisionEnter(Collision other) {
         
         if (other.collider.CompareTag("Wall")) {
             this.direction *= -1;

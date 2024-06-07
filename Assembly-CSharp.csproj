@@ -138,8 +138,8 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\SpeechIn.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\MySpeechOutScript.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\VoiceCommandBase.cs" />
-    <Compile Include="Assets\Enemy.cs" />
     <Compile Include="Assets\Scripts\DumbAI.cs" />
+    <Compile Include="Assets\Scripts\GreedyAI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\unity-dualpanto-toolkit\Assets\Resources\Visualization\Path.compute" />
