@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
-    public float defaultSpeed = 5f; // public attributes can be set in the editor
+    public float startingSpeed = 3f; // public attributes which can be set in the editor
+    public float maxSpeed = 5f;
+    private float speed;
 
     private bool isOutOfBounds = false;
     private PlayerSoundEffect soundEffects;
-    private float speed;
 
     private Vector3 direction;
 
@@ -28,15 +29,16 @@ public class Ball : MonoBehaviour {
 
     void Update() {
        if (isOutOfBounds) {
-            this.Reset();
             isOutOfBounds = false;
+            Reset();
        }
     }
 
     void Reset() {
         transform.position = Vector3.zero;
-        direction = Vector3.left;
-        speed = defaultSpeed;
+        int randomAngle = UnityEngine.Random.Range(-20, 20);
+        direction = Quaternion.Euler(0, randomAngle, 0) * Vector3.left;
+        speed = startingSpeed;
     }
 
     Vector3 ComputeReflection(Collision other) {
@@ -57,6 +59,7 @@ public class Ball : MonoBehaviour {
         if (other.collider.CompareTag("Player")) {
             soundEffects.PlayPaddleClip();
             reflection = ComputeReflection(other);
+            speed = Mathf.Min(maxSpeed, speed + 0.1f);
         }
         else if (other.collider.CompareTag("Enemy")) {
             soundEffects.PlayPaddleClip();

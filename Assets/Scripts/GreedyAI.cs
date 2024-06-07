@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
- * 
+ * tracks position of the ball, moves back to central position after hitting the ball.
  */
 
 public class GreedyAI : MonoBehaviour
