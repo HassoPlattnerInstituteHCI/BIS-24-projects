@@ -22,7 +22,7 @@ public class DumbAI : MonoBehaviour
     void Update() {
 
     }
-
+    // FixedUpdate is called once per physics update
     void FixedUpdate() {
         rb.velocity = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
     }

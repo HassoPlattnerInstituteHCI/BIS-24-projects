@@ -7,12 +7,12 @@ public class Ball : MonoBehaviour {
 
     public float startingSpeed = 3f; // public attributes which can be set in the editor
     public float maxSpeed = 5f;
-    private float speed;
-
-    private bool isOutOfBounds = false;
     private PlayerSoundEffect soundEffects;
+    private float speed;
+    private Vector3 initPosition = new Vector3(0, 0, 3);
+    private Vector3 direction; // modify this to change ball's movement
+    private bool isOutOfBounds = false;
 
-    private Vector3 direction;
 
     private Rigidbody rb;
     // Start is called before the first frame update
@@ -22,6 +22,7 @@ public class Ball : MonoBehaviour {
         Reset();
     }
 
+    // FixedUpdate is called once per physics update
     void FixedUpdate() {
         Vector3 movement = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
         rb.velocity = movement;
@@ -35,7 +36,7 @@ public class Ball : MonoBehaviour {
     }
 
     void Reset() {
-        transform.position = Vector3.zero;
+        transform.position = initPosition;
         int initAngle = UnityEngine.Random.Range(-20, 20);
         direction = Quaternion.Euler(0, initAngle, 0) * new Vector3(0, 0, -1);
         speed = startingSpeed;
@@ -83,10 +84,15 @@ public class Ball : MonoBehaviour {
 
     }
 
+    void OnTriggerEnter(Collider other) {
+        
+        if (other.CompareTag("Speedboost")) {
+            speed = Mathf.Min(maxSpeed, speed + 1f);
+            Destroy(other.gameObject); // a single speedboost can only be used once
+        }
+    }
+
     public Vector3 GetDirection() {
         return this.direction;
     }
 }
-
-
-// talk about collision, trigger, isKinematic 

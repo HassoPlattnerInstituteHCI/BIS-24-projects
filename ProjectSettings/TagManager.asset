@@ -15,6 +15,7 @@ TagManager:
   - PlayerScoreLine
   - EnemyScoreLine
   - ScoreLine
+  - Speedboost
   layers:
   - Default
   - TransparentFX
