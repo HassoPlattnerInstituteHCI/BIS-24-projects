@@ -36,8 +36,8 @@ public class Ball : MonoBehaviour {
 
     void Reset() {
         transform.position = Vector3.zero;
-        int randomAngle = UnityEngine.Random.Range(-20, 20);
-        direction = Quaternion.Euler(0, randomAngle, 0) * Vector3.left;
+        int initAngle = UnityEngine.Random.Range(-20, 20);
+        direction = Quaternion.Euler(0, initAngle, 0) * new Vector3(0, 0, -1);
         speed = startingSpeed;
     }
 
@@ -45,11 +45,13 @@ public class Ball : MonoBehaviour {
         Vector3 normal = other.GetContact(0).normal.normalized;
         Vector3 collisionPoint = other.GetContact(0).point;
         
-        float hitFactor = (collisionPoint.z - other.transform.position.z) / other.collider.bounds.size.z;
+        float hitFactor = (collisionPoint.x - other.transform.position.x) / other.collider.bounds.size.x;
         hitFactor = Mathf.Max(-0.4f, Mathf.Min(0.4f, hitFactor)); // disallow very steep angles
-        hitFactor = normal.x > 0 ? hitFactor * (-1): hitFactor;
+        hitFactor = normal.z < 0 ? hitFactor * (-1): hitFactor;
+        Debug.Log(hitFactor);
+        Debug.Log(normal);
 
-        Vector3 reflection = Quaternion.Euler(0, hitFactor * 180, 0) * new Vector3(normal.x, 0, 0);
+        Vector3 reflection = Quaternion.Euler(0, hitFactor * 180, 0) * new Vector3(0, 0, normal.z);
         return reflection;
     }
 

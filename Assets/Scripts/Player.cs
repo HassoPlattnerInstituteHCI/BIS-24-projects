@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate() {
-        Vector3 direction = new Vector3(0, 0, Input.GetAxis("Vertical"));
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         rigidbody.velocity = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
     }
 

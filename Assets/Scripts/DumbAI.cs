@@ -15,7 +15,7 @@ public class DumbAI : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
-        direction = Vector3.forward;
+        direction = Vector3.right;
     }
 
     // Update is called once per frame

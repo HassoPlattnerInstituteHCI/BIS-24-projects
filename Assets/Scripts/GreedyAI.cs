@@ -17,7 +17,7 @@ public class GreedyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
-        direction = Vector3.forward;
+        direction = Vector3.right;
 
         ball = GameObject.Find("Ball");
     }
@@ -35,18 +35,21 @@ public class GreedyAI : MonoBehaviour
 
     bool IsBallHeadingTowardsMe() {
         Vector3 ballDirection = ball.GetComponent<Ball>().GetDirection();
-        return ballDirection.x > 0;
+        return ballDirection.z > 0;
     }
 
     void MoveTowardsBall() {
-        direction = ball.transform.position.z > this.transform.position.z 
-            ? Vector3.forward
-            : Vector3.back;
+        direction = ball.transform.position.x > this.transform.position.x 
+            ? Vector3.right
+            : Vector3.left;
     }
 
     void MoveTowardsCenter() {
-        direction = (-0.2f < this.transform.position.z && this.transform.position.z < 0.2f)
-            ? Vector3.back
-            : Vector3.forward;
+        if (-0.2f < this.transform.position.x)
+            direction = Vector3.left;
+        else if (this.transform.position.x < 0.2f)
+            direction = Vector3.right;
+        else
+            direction = Vector3.zero;
     }
 }
