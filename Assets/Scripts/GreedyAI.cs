@@ -45,9 +45,9 @@ public class GreedyAI : MonoBehaviour
     }
 
     void MoveTowardsCenter() {
-        if (-0.2f < this.transform.position.x)
+        if (0.2f < this.transform.position.x)
             direction = Vector3.left;
-        else if (this.transform.position.x < 0.2f)
+        else if (this.transform.position.x < -0.2f)
             direction = Vector3.right;
         else
             direction = Vector3.zero;
