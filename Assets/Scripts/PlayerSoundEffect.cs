@@ -1,5 +1,5 @@
 using UnityEngine;
-using SpeechIO;
+// using SpeechIO;
 public class PlayerSoundEffect : MonoBehaviour
 {
 

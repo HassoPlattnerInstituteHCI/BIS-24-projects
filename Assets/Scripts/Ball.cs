@@ -49,8 +49,6 @@ public class Ball : MonoBehaviour {
         float hitFactor = (collisionPoint.x - other.transform.position.x) / other.collider.bounds.size.x;
         hitFactor = Mathf.Max(-0.4f, Mathf.Min(0.4f, hitFactor)); // disallow very steep angles
         hitFactor = normal.z < 0 ? hitFactor * (-1): hitFactor;
-        Debug.Log(hitFactor);
-        Debug.Log(normal);
 
         Vector3 reflection = Quaternion.Euler(0, hitFactor * 180, 0) * new Vector3(0, 0, normal.z);
         return reflection;
@@ -72,11 +70,11 @@ public class Ball : MonoBehaviour {
             soundEffects.PlayWallClip();
         }
         else if (other.collider.CompareTag("PlayerScoreLine")) {
-            soundEffects.PlayPositiveScoreClip();
+            soundEffects.PlayScoreClip();
             isOutOfBounds = true;
         }
         else if (other.collider.CompareTag("EnemyScoreLine")) {
-            soundEffects.PlayScoreClip();
+            soundEffects.PlayPositiveScoreClip();
             isOutOfBounds = true;
         }
 
