@@ -6,7 +6,6 @@ using UnityEngine;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-
 public class GameManager : MonoBehaviour
 {
 
@@ -29,29 +28,34 @@ public class GameManager : MonoBehaviour
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
         
+        // TODO 1: remove this comment-out
         Introduction();
     }
     
     async void Introduction()
     {
-        await Task.Delay(1000);
         Level level = GetComponent<Level>();
         await level.PlayIntroduction(0.2f, 3000);
         await Task.Delay(1000);
-        await ResetGame();
+        
+        // TODO 2:
+        await StartGame();
     }
 
-    async Task ResetGame()
+    async Task StartGame()
     {
-        
-        // await Task.Delay(1000);
+        await Task.Delay(1000);
+
+        // TODO 4: activate PlayerWall game object at Unity editor, and remove this comment-out
         await RenderObstacle();
+        
         await Task.Delay(1000);
         
         Instantiate(player, playerSpawn);
         Instantiate(enemy, new Vector3(0.35f, 0.0f, -5.64f), Quaternion.identity);
         GameObject sb = Instantiate(ball, ballSpawn);
         
+        // TODO 3:
         await _lowerHandle.SwitchTo(sb, 50.0f);
         _upperHandle.Free();
     }
@@ -64,11 +68,5 @@ public class GameManager : MonoBehaviour
             collider.CreateObstacle();
             collider.Enable();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

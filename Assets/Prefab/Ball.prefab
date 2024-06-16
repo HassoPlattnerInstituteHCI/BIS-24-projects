@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2679806300996291412}
   - component: {fileID: 2679806300996291409}
   - component: {fileID: 2679806300996291414}
+  - component: {fileID: -992485206603230082}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -243,3 +244,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingSpeed: 1
   maxSpeed: 5
+--- !u!114 &-992485206603230082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2679806300996291369}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2df53186b824679997fe41c56f3c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tag: Enemy
+  isUpper: 0
+  handleFree: 0
+  powerFactor: 1

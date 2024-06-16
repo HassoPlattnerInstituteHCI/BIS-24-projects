@@ -9,6 +9,7 @@ public class Recoil : MonoBehaviour
 
     public string tag = "Ball";
     public bool isUpper = true;
+    public bool handleFree = false;
 
     public float powerFactor = 1.0f;
     // Start is called before the first frame update
@@ -32,7 +33,7 @@ public class Recoil : MonoBehaviour
         {
             ContactPoint contact = other.contacts[0];
             Vector3 RecoilDirection = Vector3.Normalize(transform.position - contact.point);
-            handle.MoveToPosition(transform.position + powerFactor * RecoilDirection, 10.0f, true);
+            handle.MoveToPosition(transform.position + powerFactor * RecoilDirection, 10.0f, handleFree);
         }
     }
 }

@@ -26,26 +26,15 @@ public class Player : MonoBehaviour
             : (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>();
 
     }
+    
 
-    void FixedUpdate()
-    {
-        //     Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-        //     rigidbody.velocity = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
-        // }
-    }
-
-    void Update()
-        {
-
-        }
-
-    async void OnCollisionEnter(Collision other)
-    {
-        if (other.collider.CompareTag("Ball"))
-        {
-            ContactPoint contact = other.contacts[0];
-            Vector3 RecoilDirection = Vector3.Normalize(transform.position - contact.point);
-            await handle.MoveToPosition(transform.position + 1 * RecoilDirection, 10.0f, true);
-        }
-    }
+    // async void OnCollisionEnter(Collision other)
+    // {
+    //     if (other.collider.CompareTag("Ball"))
+    //     {
+    //         ContactPoint contact = other.contacts[0];
+    //         Vector3 RecoilDirection = Vector3.Normalize(transform.position - contact.point);
+    //         await handle.MoveToPosition(transform.position + 1 * RecoilDirection, 10.0f, true);
+    //     }
+    // }
 }
