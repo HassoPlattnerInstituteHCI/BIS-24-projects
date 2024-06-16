@@ -492,29 +492,6 @@ MonoBehaviour:
   onUpper: 1
   onLower: 0
   isPassable: 0
---- !u!1 &924451030 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
-  m_PrefabInstance: {fileID: 1510418595}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &924451038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 924451030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3641cb2c93d1147329c8613720b5d38b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 2679806300996291369, guid: 9bce193ed8d28416a9adf9b20b31e868, type: 3}
-  player: {fileID: 150134710521834442, guid: 441037ebba41d4b828b943f7ab8d7c16, type: 3}
-  enemy: {fileID: 4242981128842410164, guid: 9b8b53a9c950345a18f2508921416837, type: 3}
-  ballSpawn: {fileID: 31632579}
-  playerSpawn: {fileID: 1758622441}
-  enemySpawn: {fileID: 446581538}
 --- !u!1 &1106986764
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         _lowerHandle = GetComponent<LowerHandle>();
         
         // TODO 1: remove this comment-out
-        Introduction();
+        // Introduction();
     }
     
     async void Introduction()
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         await Task.Delay(1000);
         
         // TODO 2:
-        await StartGame();
+        // await StartGame();
     }
 
     async Task StartGame()
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         await Task.Delay(1000);
 
         // TODO 4: activate PlayerWall game object at Unity editor, and remove this comment-out
-        await RenderObstacle();
+        // await RenderObstacle();
         
         await Task.Delay(1000);
         
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         GameObject sb = Instantiate(ball, ballSpawn);
         
         // TODO 3:
-        await _lowerHandle.SwitchTo(sb, 50.0f);
+        // await _lowerHandle.SwitchTo(sb, 50.0f);
         _upperHandle.Free();
     }
 
