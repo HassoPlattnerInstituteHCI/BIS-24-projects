@@ -2,23 +2,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DualPantoToolkit;
 public class Ball : MonoBehaviour {
 
     public float startingSpeed = 3f; // public attributes which can be set in the editor
     public float maxSpeed = 5f;
     private PlayerSoundEffect soundEffects;
     private float speed;
-    private Vector3 initPosition = new Vector3(0, 0, 3);
+    private Vector3 initPosition = new Vector3(-1.15f, 0, -9.93f);
     private Vector3 direction; // modify this to change ball's movement
     private bool isOutOfBounds = false;
-
+    private GameObject go;
+    PantoHandle handle;
 
     private Rigidbody rb;
     // Start is called before the first frame update
     void Start() {
+        handle = (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>();
         soundEffects = GetComponent<PlayerSoundEffect>();
         rb = GetComponent<Rigidbody>();
+        go = GetComponent<GameObject>();
         Reset();
     }
 
@@ -54,7 +57,7 @@ public class Ball : MonoBehaviour {
         return reflection;
     }
 
-    void OnCollisionEnter(Collision other) {
+    async void OnCollisionEnter(Collision other) {
         Vector3 reflection = Vector3.Reflect(direction, other.GetContact(0).normal);
 
         if (other.collider.CompareTag("Player")) {
@@ -65,6 +68,11 @@ public class Ball : MonoBehaviour {
         else if (other.collider.CompareTag("Enemy")) {
             soundEffects.PlayPaddleClip();
             reflection = ComputeReflection(other);
+            
+            ContactPoint contact = other.contacts[0];
+            Vector3 RecoilDirection = Vector3.Normalize(transform.position - contact.point);
+            await handle.MoveToPosition(transform.position + 1.0f * RecoilDirection, 10.0f, true);
+            await handle.SwitchTo(gameObject, 50.0f);
         }
         else if (other.collider.CompareTag("Wall")) {
             soundEffects.PlayWallClip();
@@ -76,6 +84,18 @@ public class Ball : MonoBehaviour {
         else if (other.collider.CompareTag("EnemyScoreLine")) {
             soundEffects.PlayPositiveScoreClip();
             isOutOfBounds = true;
+        }
+        else if (other.collider.CompareTag("ItHandle"))
+        {
+            Physics.IgnoreCollision(other.collider, GetComponent<Collider>());
+        }
+        else if (other.collider.CompareTag("MeHandle"))
+        {
+            Physics.IgnoreCollision(other.collider, GetComponent<Collider>());
+        }
+        else if (other.collider.CompareTag("PlayerWall"))
+        {
+            Physics.IgnoreCollision(other.collider, GetComponent<Collider>()); 
         }
 
         this.direction = reflection;

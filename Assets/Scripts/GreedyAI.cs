@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +14,19 @@ public class GreedyAI : MonoBehaviour
     private Rigidbody rb;
     private Vector3 direction;
     private GameObject ball;
+    
 
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
         direction = Vector3.right;
 
-        ball = GameObject.Find("Ball");
+        ball = GameObject.FindGameObjectsWithTag("Ball")[0];
+    }
+
+    private void Update()
+    {
+        ball = GameObject.FindGameObjectsWithTag("Ball")[0];
     }
 
     void FixedUpdate() {
