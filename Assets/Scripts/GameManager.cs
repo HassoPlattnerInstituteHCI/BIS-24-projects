@@ -9,14 +9,13 @@ using Task = System.Threading.Tasks.Task;
 public class GameManager : MonoBehaviour
 {
 
-    public GameObject ball;
-    public GameObject player;
-    public GameObject enemy;
+    //public GameObject ball;
+    public GameObject caldron;
+    public GameObject potion;
 
-    public Transform ballSpawn;
-    public Transform playerSpawn;
-    public Transform enemySpawn;
-    
+    public Transform caldron_spawn;
+    public Transform potion_spawn;
+
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     
@@ -29,7 +28,7 @@ public class GameManager : MonoBehaviour
         _lowerHandle = GetComponent<LowerHandle>();
         
         // TODO 1: remove this comment-out
-        // Introduction();
+        Introduction();
     }
     
     async void Introduction()
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
         await Task.Delay(1000);
         
         // TODO 2:
-        // await StartGame();
+        await StartGame();
     }
 
     async Task StartGame()
@@ -51,16 +50,15 @@ public class GameManager : MonoBehaviour
         
         await Task.Delay(1000);
         
-        Instantiate(player, playerSpawn);
-        Instantiate(enemy, new Vector3(0.35f, 0.0f, -5.64f), Quaternion.identity);
-        GameObject sb = Instantiate(ball, ballSpawn);
+        Instantiate(caldron, caldron_spawn);
+        Instantiate(potion, potion_spawn);
         
         // TODO 3:
-        // await _lowerHandle.SwitchTo(sb, 50.0f);
+        await _lowerHandle.SwitchTo(potion, 50.0f);
         _upperHandle.Free();
     }
 
-    async Task RenderObstacle()
+    /*async Task RenderObstacle()
     {
         pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
         foreach (PantoCollider collider in pantoColliders)
@@ -68,5 +66,5 @@ public class GameManager : MonoBehaviour
             collider.CreateObstacle();
             collider.Enable();
         }
-    }
+    }*/
 }
