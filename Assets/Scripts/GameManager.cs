@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(4);
         speechIO.Speak("by drawing.");
         speechIO.Speak("Confirm by rotating lower handle");
-        this.GetComponent<Wiggle>().wiggle_wiggle_wiggle(true);
+        yield return new WaitForSeconds(2);
+        this.GetComponent<Wiggle>().wiggle_wiggle_wiggle(false);
         yield return new WaitForSeconds(4);
     }
 }

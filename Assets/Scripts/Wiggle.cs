@@ -5,7 +5,8 @@ using DualPantoToolkit;
 
 public class Wiggle : MonoBehaviour
 {
-    public float speed=0.5; 
+    public float speed; 
+    public float time;
     DualPantoSync dps;
     void Awake()
     {
@@ -16,11 +17,12 @@ public class Wiggle : MonoBehaviour
     }
     IEnumerator wiggle(bool isUpper){
         Vector3 direction=new Vector3(1,0,0);
-        for(int i=0;i<5;i++){
+        for(int i=0;i<10;i++){
             dps.ApplyForce(isUpper,direction,speed);
-            Debug.Log("Applying Force "+i);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(time);
+            dps.FreeHandle(isUpper);
             direction*=-1;
+            yield return new WaitForSeconds(time);
         }
     }
 
