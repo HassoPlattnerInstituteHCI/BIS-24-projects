@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ItTrail
+  - ItHandle
+  - MeHandle
+  - MeTrail
+  - PerceptionCone
+  - Walls
   layers:
   - Default
   - TransparentFX
