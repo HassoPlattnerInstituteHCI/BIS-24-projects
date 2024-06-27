@@ -1,4 +1,3 @@
-projects repo for 
 # Building Interactive Systems 2024
 
 ## Information for students
@@ -12,3 +11,4 @@ git submodule update --init --recursive
 
 Each group has a dedicated branch for their DualPanto application.
 
+## Branch for Team 06
