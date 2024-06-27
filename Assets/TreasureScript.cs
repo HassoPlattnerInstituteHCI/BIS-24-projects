@@ -54,7 +54,7 @@ public class TreasureScript : MonoBehaviour
             audioSource.pitch = Mathf.Lerp(minPitch, maxPitch, 1 - (distance / maxDistance));
         } else {
             audioSource.volume = 0;
-            audioSource.pitch = minPitch; // Optional: Set to min pitch instead of 0
+            audioSource.pitch = 0; // Optional: Set to min pitch instead of 0
         }
     }
 }
