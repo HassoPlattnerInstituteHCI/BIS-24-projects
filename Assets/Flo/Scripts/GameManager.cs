@@ -22,13 +22,11 @@ public class GameManager : MonoBehaviour
     
     PantoCollider[] pantoColliders;
     
-    // Start is called before the first frame update
     void Start()
     {
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
-        
-        // TODO 1: remove this comment-out
+
         Introduction();
     }
     
@@ -38,7 +36,6 @@ public class GameManager : MonoBehaviour
         await level.PlayIntroduction(0.2f, 3000);
         await Task.Delay(1000);
         
-        // TODO 2:
         await StartGame();
     }
 
@@ -46,17 +43,15 @@ public class GameManager : MonoBehaviour
     {
         await Task.Delay(1000);
 
-        // TODO 4: activate PlayerWall game object at Unity editor, and remove this comment-out
         await RenderObstacle();
         
         await Task.Delay(1000);
         
         Instantiate(player, playerSpawn);
-        Instantiate(enemy, new Vector3(0.35f, 0.0f, -5.64f), Quaternion.identity);
-        GameObject sb = Instantiate(projectile, projectileSpawn);
+        Instantiate(projectile, projectileSpawn);
+        GameObject it = Instantiate(enemy, enemySpawn);
         
-        // TODO 3:
-        await _lowerHandle.SwitchTo(sb, 50.0f);
+        await _lowerHandle.SwitchTo(it, 50.0f);
         _upperHandle.Free();
     }
 

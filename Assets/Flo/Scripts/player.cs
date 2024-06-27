@@ -6,7 +6,7 @@ using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 using DualPantoToolkit;
 
-public class Player : MonoBehaviour
+public class player : MonoBehaviour
 {
     private float speed = 2.0f;
     //private PlayerSoundEffect soundEffects;
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
         handle = isUpper
             ? (PantoHandle)GameObject.Find("Panto").GetComponent<UpperHandle>()
             : (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>();
-        handle.freeze();
+        handle.Freeze();
     }
     
 

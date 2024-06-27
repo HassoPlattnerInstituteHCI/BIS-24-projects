@@ -359,6 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 339501266}
   - component: {fileID: 339501267}
+  - component: {fileID: 339501268}
   m_Layer: 0
   m_Name: projectileSpawn
   m_TagString: Untagged
@@ -397,6 +398,19 @@ MonoBehaviour:
   isOnUpper: 0
   description: 
   priority: 5
+--- !u!114 &339501268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339501265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1426aec0eee7e9544b7c26772440a391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 6348585686070299109, guid: f57c40f7dae0c2c489119dc9cdd08eb8, type: 3}
 --- !u!1 &831183651
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +768,7 @@ GameObject:
   - component: {fileID: 1464636524}
   m_Layer: 0
   m_Name: OuterWall
-  m_TagString: PlayerWall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
