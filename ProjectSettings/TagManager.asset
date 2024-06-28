@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - PlayerWall
   - Enemy
+  - Text
   layers:
   - Default
   - TransparentFX
