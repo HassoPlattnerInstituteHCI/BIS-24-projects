@@ -1,15 +1,14 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using SpeechIO;
 using UnityEngine;
 
 namespace DualPantoToolkit{
 public class GameManager : MonoBehaviour
 {
-    public int mode=0; //0.. Explanation, 1.. Exploration, 2.. Aiming, 3.. Shooting (Watch)
-    public SpeechOut speechIO= new SpeechOut();
+    public static int mode=0; //0.. Explanation, 1.. Exploration, 2.. Aiming, 3.. Shooting (Watch)
+    public static SpeechOut speechIO= new SpeechOut();
     public GameObject PL;
     public GameObject PU;
     public GameObject forcefield;
@@ -22,10 +21,10 @@ public class GameManager : MonoBehaviour
     private GameObject TopBound;
     private GameObject BottomBound;
     //Privates
-    private bool shooting = false;
     private float rotation_handle;
     private int rotation_lower_threshold=20;
     private int rotation_upper_threshold=200;
+    private float k_factor=20f;
     void Start()
     {
         wiggle=this.GetComponent<Wiggle>();
@@ -38,16 +37,17 @@ public class GameManager : MonoBehaviour
         PL=GameObject.Find("ItHandle");
         PU=GameObject.Find("MeHandle");
         rotation_handle = 0f;
+        Physics.IgnoreCollision(GameObject.Find("MeHandleGodObject").GetComponent<Collider>(),GameObject.Find("Ball").GetComponent<Collider>());
+        Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(),GameObject.Find("Ball").GetComponent<Collider>());
         StartCoroutine(DelayedStart());
     }
     void Update()
     {
-        if(mode==2&&Math.Abs(rotation_handle - l.GetRotation()) > rotation_lower_threshold && Math.Abs(rotation_handle - l.GetRotation()) < rotation_upper_threshold)
+        if(mode==2&&Math.Abs(rotation_handle - u.GetRotation()) > rotation_lower_threshold && Math.Abs(rotation_handle - u.GetRotation()) < rotation_upper_threshold)
         {
-            shooting = true;
-            Debug.Log("Shshshshoooting");
+            StartCoroutine(apply_shooting());
         }
-        rotation_handle = l.GetRotation();
+        rotation_handle = u.GetRotation();
     }
 
     IEnumerator DelayedStart(){
@@ -62,29 +62,40 @@ public class GameManager : MonoBehaviour
         u.MoveToPosition(new Vector3(0,0,-5), 0.5f, true);
         yield return new WaitForSeconds(3);
         //tutorial explanation
-        l.MoveToPosition(GameObject.Find("Goal").transform.position - PL.transform.position, 0.5f, true);
-        yield return new WaitForSeconds(2);
-        u.MoveToPosition(GameObject.Find("Ball").transform.position - PU.transform.position, 0.5f, true);
-        yield return new WaitForSeconds(2);
+        l.MoveToPosition(GameObject.Find("Goal").transform.position, 0.8f, true);
+        yield return new WaitForSeconds(3);
+        u.MoveToPosition(GameObject.Find("Ball").transform.position, 0.8f, true);
+        yield return new WaitForSeconds(3);
         speechIO.Speak("Shoot the ball");
         wiggle.wiggle_wiggle_wiggle(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         speechIO.Speak("in the hole");
         wiggle.wiggle_wiggle_wiggle(false);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         speechIO.Speak("by drawing. Confirm by rotating lower handle");
-        yield return new WaitForSeconds(5);
-        wiggle.wiggle_wiggle_wiggle(false);
+        yield return new WaitForSeconds(2);
+        wiggle.wiggle_wiggle_wiggle(false); 
         //Ready for aiming
-        l.MoveToPosition(GameObject.Find("Goal").transform.position - PL.transform.position, 0.5f, false);
+        l.MoveToPosition(GameObject.Find("Goal").transform.position, 0.5f, false);
+        u.MoveToPosition(GameObject.Find("Ball").transform.position, 0.5f, true);
         yield return new WaitForSeconds(3);
+        //Issue: ForceField does not work on the UpperHandle
         Instantiate(forcefield,GameObject.Find("Ball").transform.position,Quaternion.identity);
+        GameObject.Find("LinearForceField(Clone)").GetComponent<CenterForceField>().active=true;
         mode=2;
-        yield return new WaitForSeconds(3);
+    }
+    IEnumerator apply_shooting(){
+        mode=3;
+        //GameObject.Find("LinearForceField(Clone)").GetComponent<CenterForceField>().active=false;
+        GameObject.Find("LinearForceField(Clone)").SetActive(false);
+        //Shootingirngirng
         LeftBound.SetActive(true);
         RightBound.SetActive(true);
         TopBound.SetActive(true);
         BottomBound.SetActive(true);
+        u.SwitchTo(GameObject.Find("Ball"),2f);
+        Shooting.shoot((GameObject.Find("Ball").transform.position-PU.transform.position)*k_factor);
+        yield return new WaitForSeconds(3);
     }
 }
 }
