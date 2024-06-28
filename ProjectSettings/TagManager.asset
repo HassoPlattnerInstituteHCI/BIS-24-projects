@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MeHandle
+  - PerceptionCone
+  - Maps
+  - MapsTarget
+  - MapsStart
+  - PacmanStart
+  - PacmanTarget
+  - Pacman
+  - PacmanDot
+  - LowerHandle
   layers:
   - Default
   - TransparentFX
