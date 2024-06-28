@@ -68,7 +68,6 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\PantoPolygonCollider.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\MySpeechOutScript.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\MyCustomSpeechScript.cs" />
-    <Compile Include="Assets\Scripts\Recoil.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\Vis.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\VoiceCommandBase.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\MacOSSpeechIn.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Overcooked\Tutorial.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\UpperHandle.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\SpeechIn.cs" />
-    <Compile Include="Assets\Scripts\DumbAI.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\MoveToPosition.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\WindowsSpeechIn.cs" />
@@ -116,11 +114,9 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\Rail.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\RotatingHandle.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\LowerHandle.cs" />
-    <Compile Include="Assets\Scripts\Ball.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\Advanced\LanguageSwitchScript.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\MySpeechInScript.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\RailPolyline.cs" />
-    <Compile Include="Assets\Scripts\PlayerSoundEffect.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Output Core Scripts\SpeechBase.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\ObjectOfInterest.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Overcooked\RegisterCollider.cs" />
@@ -134,9 +130,7 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Overcooked\Area.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\PantoCircularCollider.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\LevelIntroducer\PantoIntroBase.cs" />
-    <Compile Include="Assets\Scripts\GreedyAI.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\ItHandle.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\Level.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\MovingObstacleManager.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />

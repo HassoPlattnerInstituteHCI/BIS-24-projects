@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
         Instantiate(potion, potion_spawn);
         
         // TODO 3:
-        await _lowerHandle.SwitchTo(potion, 50.0f);
-        _upperHandle.Free();
+        await _upperHandle.SwitchTo(potion, 50.0f);
+        _lowerHandle.Free();
     }
 
     /*async Task RenderObstacle()
