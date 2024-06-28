@@ -133,7 +133,6 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\ItHandle.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\Level.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\MovingObstacleManager.cs" />
-    <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\WindowsVoiceProject\WindowsVoice.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\CenterForceField.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Output Core Scripts\LinuxSpeechOut.cs" />
