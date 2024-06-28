@@ -17,6 +17,7 @@ TagManager:
   - ScoreLine
   - Speedboost
   - PlayerWall
+  - pixel
   layers:
   - Default
   - TransparentFX
