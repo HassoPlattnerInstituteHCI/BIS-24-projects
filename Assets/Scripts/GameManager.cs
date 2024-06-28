@@ -13,9 +13,6 @@ public class GameManager : MonoBehaviour
     public GameObject caldron;
     public GameObject potion;
 
-    public Transform caldron_spawn;
-    public Transform potion_spawn;
-
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     
@@ -50,8 +47,8 @@ public class GameManager : MonoBehaviour
         
         await Task.Delay(1000);
         
-        Instantiate(caldron, caldron_spawn);
-        Instantiate(potion, potion_spawn);
+       // Instantiate(caldron, caldron_spawn);
+        
         
         // TODO 3:
         await _upperHandle.SwitchTo(potion, 50.0f);

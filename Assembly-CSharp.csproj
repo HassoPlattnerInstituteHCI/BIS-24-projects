@@ -136,6 +136,9 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\WindowsVoiceProject\WindowsVoice.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\CenterForceField.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Output Core Scripts\LinuxSpeechOut.cs" />
+    <Compile Include="Assets\Scripts\BezierCurveBuilder.cs" />
+    <Compile Include="Assets\Scripts\PathFlollower.cs" />
+    <Compile Include="Assets\Scripts\MovementDetector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\unity-dualpanto-toolkit\Assets\Resources\Visualization\Path.compute" />
