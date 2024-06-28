@@ -8,20 +8,24 @@ using UnityEngine;
 namespace DualPantoToolkit{
 public class GameManager : MonoBehaviour
 {
-    public int mode=0; 
+    public int mode=0; //0.. Explanation, 1.. Exploration, 2.. Aiming, 3.. Shooting (Watch)
     public SpeechOut speechIO= new SpeechOut();
     public GameObject PL;
     public GameObject PU;
     public GameObject forcefield;
-    float rotation_handle;
-    Wiggle wiggle;
-    LowerHandle l;
-    UpperHandle u;
-    GameObject LeftBound;
-    GameObject RightBound;
-    GameObject TopBound;
-    GameObject BottomBound;
-    bool shooting = false;
+    //Referenzen
+    private Wiggle wiggle;
+    private LowerHandle l;
+    private UpperHandle u;
+    private GameObject LeftBound;
+    private GameObject RightBound;
+    private GameObject TopBound;
+    private GameObject BottomBound;
+    //Privates
+    private bool shooting = false;
+    private float rotation_handle;
+    private int rotation_lower_threshold=20;
+    private int rotation_upper_threshold=200;
     void Start()
     {
         wiggle=this.GetComponent<Wiggle>();
@@ -29,8 +33,8 @@ public class GameManager : MonoBehaviour
         u = GameObject.Find("Panto").GetComponent<UpperHandle>();
         LeftBound=GameObject.Find("LeftBound");
         RightBound=GameObject.Find("RightBound");
-        TopBound=GameObject.Find("TopBound");
-        BottomBound=GameObject.Find("BottomBound");
+        TopBound=GameObject.Find("UpperBound");
+        BottomBound=GameObject.Find("LowerBound");
         PL=GameObject.Find("ItHandle");
         PU=GameObject.Find("MeHandle");
         rotation_handle = 0f;
@@ -38,12 +42,10 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if(Math.Abs(rotation_handle - l.GetRotation()) > 50)
+        if(mode==2&&Math.Abs(rotation_handle - l.GetRotation()) > rotation_lower_threshold && Math.Abs(rotation_handle - l.GetRotation()) < rotation_upper_threshold)
         {
-            if(Math.Abs(rotation_handle - l.GetRotation()) < 300)
-            {
-                shooting = true;
-            }
+            shooting = true;
+            Debug.Log("Shshshshoooting");
         }
         rotation_handle = l.GetRotation();
     }
@@ -53,21 +55,36 @@ public class GameManager : MonoBehaviour
         RightBound.SetActive(false);
         TopBound.SetActive(false);
         BottomBound.SetActive(false);
+        //Initial Position
+        speechIO.Speak("Grab both handles to start the game");
+        l.MoveToPosition(new Vector3(0,0,-5), 0.5f, true);
+        yield return new WaitForSeconds(2);
+        u.MoveToPosition(new Vector3(0,0,-5), 0.5f, true);
         yield return new WaitForSeconds(3);
-        l.MoveToPosition(GameObject.Find("Goal").transform.position - PL.transform.position, 2, false);
-        u.MoveToPosition(GameObject.Find("Ball").transform.position - PL.transform.position, 2, false);
+        //tutorial explanation
+        l.MoveToPosition(GameObject.Find("Goal").transform.position - PL.transform.position, 0.5f, true);
+        yield return new WaitForSeconds(2);
+        u.MoveToPosition(GameObject.Find("Ball").transform.position - PU.transform.position, 0.5f, true);
+        yield return new WaitForSeconds(2);
         speechIO.Speak("Shoot the ball");
         wiggle.wiggle_wiggle_wiggle(true);
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(5);
         speechIO.Speak("in the hole");
         wiggle.wiggle_wiggle_wiggle(false);
-        yield return new WaitForSeconds(4);
-        speechIO.Speak("by drawing.");
-        speechIO.Speak("Confirm by rotating lower handle");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
+        speechIO.Speak("by drawing. Confirm by rotating lower handle");
+        yield return new WaitForSeconds(5);
         wiggle.wiggle_wiggle_wiggle(false);
+        //Ready for aiming
+        l.MoveToPosition(GameObject.Find("Goal").transform.position - PL.transform.position, 0.5f, false);
         yield return new WaitForSeconds(3);
-        Instantiate(forcefield,new Vector3(0,0,-7.3f),Quaternion.identity);
+        Instantiate(forcefield,GameObject.Find("Ball").transform.position,Quaternion.identity);
+        mode=2;
+        yield return new WaitForSeconds(3);
+        LeftBound.SetActive(true);
+        RightBound.SetActive(true);
+        TopBound.SetActive(true);
+        BottomBound.SetActive(true);
     }
 }
 }
