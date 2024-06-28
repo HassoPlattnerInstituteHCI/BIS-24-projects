@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
         await Task.Delay(1000);
         
         Instantiate(player, playerSpawn);
-        Instantiate(projectile, projectileSpawn);
         GameObject it = Instantiate(enemy, enemySpawn);
         
         await _lowerHandle.SwitchTo(it, 50.0f);

@@ -11,7 +11,7 @@ MonoImporter:
   - playerSpawn: {instanceID: 0}
   - enemySpawn: {instanceID: 0}
   executionOrder: 0
-  icon: {instanceID: 0}
+  icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

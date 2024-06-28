@@ -23,7 +23,7 @@ public class projectileSpawn : MonoBehaviour {
     }
     
     void MoveToPlayer(GameObject player) {
-        Vector3 newPosition = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        Vector3 newPosition = player.transform.position;
         this.transform.position = newPosition;
     }
 

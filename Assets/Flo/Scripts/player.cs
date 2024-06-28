@@ -11,7 +11,7 @@ public class player : MonoBehaviour
     private float speed = 2.0f;
     //private PlayerSoundEffect soundEffects;
     private int score = 0;
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
     PantoHandle handle;
 
     public bool isUpper = true;
@@ -19,6 +19,7 @@ public class player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         handle = isUpper
             ? (PantoHandle)GameObject.Find("Panto").GetComponent<UpperHandle>()
             : (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>();
