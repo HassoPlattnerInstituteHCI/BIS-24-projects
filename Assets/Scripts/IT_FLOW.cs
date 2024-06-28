@@ -9,69 +9,81 @@ using System.Threading.Tasks;
 public class IT_FLOW : MonoBehaviour {
 
     SpeechOut so;
-    SpeechIn si;
+    string currentSelect = "NO";
+    Collider otherObject;
+    PantoHandle lowerHandle;
+    PantoHandle upperHandle;
+    private float lastRotation;
+    private float timer = 0f;
+    private float interval = 0.2f;
 
     void Start() {
         so = new SpeechOut();
-        si = new SpeechIn(null);
+        lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
+        upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
+        lastRotation = lowerHandle.GetRotation();
     }
     private void Update()
     {
+        Debug.Log(lowerHandle.GetRotation());
+        timer += Time.deltaTime;
+
+        if (timer >= interval)
+        {
+            if (rotatedHandle())
+            {
+                SelectObject(currentSelect);
+            }
+            timer -= interval;
+        }
     }
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Square"))
         {
             Debug.Log("Seen: Square!");
             so.Speak("Square");
-            SelectObject().ContinueWith(result => PlaceObject(result.Result, "Square"));
+            currentSelect = "Square";
+            otherObject = other;
         }
         else if (other.CompareTag("Circle"))
         {
             Debug.Log("Seen: Circle!");
             so.Speak("Circle");
-            SelectObject().ContinueWith(result => PlaceObject(result.Result, "Circle"));
+            currentSelect = "Circle";
+            otherObject = other;
         }
         else if (other.CompareTag("Rhombus"))
         {
             Debug.Log("Seen: Rhombus!");
             so.Speak("Rhombus");
-            SelectObject().ContinueWith(result => PlaceObject(result.Result, "Rhombus"));
+            currentSelect = "Rhombus";
+            otherObject = other;
         }
         else if (other.CompareTag("Rectangle"))
         {
             Debug.Log("Seen: Rectangle!");
             so.Speak("Rectangle");
-            SelectObject().ContinueWith(result => PlaceObject(result.Result, "Rectangle"));
+            currentSelect = "Rectangle";
+            otherObject = other;
         }
     }
-    async Task<bool> SelectObject()
+    
+    bool rotatedHandle()
     {
-        so.Speak("SelectObject called");
-        //si.Listen(new Dictionary<string, KeyCode>() { { "yes", KeyCode.Y }, { "no", KeyCode.N } });
-        string decision = await si.Listen(new string[] { "yes", "no" });
-        so.Speak("There is a Decision");
-        if (decision == "no") { so.Speak("Return Value False"); return false; }
-        so.Speak("Return Value True");
-        return true;
+        float currentRotation = lowerHandle.GetRotation();
+        if (Math.Abs(currentRotation - lastRotation) > 60)
+        {
+            lastRotation = currentRotation;
+            return true;
+        }
+        lastRotation = currentRotation;
+        return false;
     }
-    void PlaceObject(bool decision, string Tag)
+    void SelectObject(string Tag)
     {
-        if (!decision) return;
-        if (Tag == "Sqaure")
-        {
-            so.Speak("Place Sqaure");
-        }
-        if (Tag == "Circle")
-        {
-            so.Speak("Place Circle");
-        }
-        if (Tag == "Rhombus")
-        {
-            so.Speak("Place Rhombus");
-        }
-        if (Tag == "Rectangle")
-        {
-            so.Speak("Place Rectangle");
-        }
+        if (Tag == "NO") return;
+        Vector3 currentPosition = upperHandle.HandlePosition(transform.position);
+        Instantiate(otherObject.gameObject, currentPosition, Quaternion.identity);
+        so.Speak("Selected " + Tag);
     }
 }
