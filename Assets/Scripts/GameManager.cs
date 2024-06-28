@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     private SpeechOut _speechOut;
 
+    private bool started = false;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -34,16 +36,15 @@ public class GameManager : MonoBehaviour
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
         
-        Introduction();
+        // Introduction();
     }
     
     async void Introduction()
     {
         Level level = GetComponent<Level>();
-        await level.PlayIntroduction(1.0f, 3000);
-        await Task.Delay(500);
+        await level.PlayIntroduction(0.5f, 3000);
 
-        // await StartGame();
+        await StartGame();
     }
 
     async Task StartGame()
@@ -53,12 +54,24 @@ public class GameManager : MonoBehaviour
         await _speechOut.Speak("Introduction finished, game starts.");
         
         Instantiate(player, playerSpawn);
-        GameObject c = Instantiate(coin, coinSpawn);      
-        // GameObject c = Instantiate(coin, new Vector3(-1.48f, 0f, -8.02f), Quaternion.identity);       
+        // GameObject c = Instantiate(coin, coinSpawn);      
+        GameObject c = Instantiate(coin, new Vector3(-0.52f, 0f, -7.02f), Quaternion.identity);       
         
         await _lowerHandle.SwitchTo(c, 50.0f);
         _upperHandle.Free();
     }
+
+    void Update() {
+
+        if(Input.GetKey("s") && !started) {
+            started = true;
+            Introduction();
+        }
+
+    }
+
+
+    
 
 
 }
