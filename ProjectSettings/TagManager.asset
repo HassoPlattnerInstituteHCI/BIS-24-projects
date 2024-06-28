@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ItHandle
+  - MeHandle
+  - Wall
+  - Enemy
+  - Ball
+  - ItTrail
+  - MeTrail
+  - PerceptionCone
+  - PlayerScoreLine
+  - EnemyScoreLine
+  - ScoreLine
+  - Speedboost
+  - PlayerWall
+  - pixel
   layers:
   - Default
   - TransparentFX
@@ -11,7 +25,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Walls2
   - 
   - 
   - 
