@@ -7,6 +7,12 @@ TagManager:
   - Collectible
   - Coin
   - FinishWall
+  - ItTrail
+  - ItHandle
+  - MeHandle
+  - MeTrail
+  - PerceptionCone
+  - Exit
   layers:
   - Default
   - TransparentFX
