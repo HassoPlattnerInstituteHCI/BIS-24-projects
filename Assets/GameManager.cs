@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         
         await Task.Delay(1000);
         
-        await _speechOut.Speak("Introduction finished, game starts. move straight backwards with me handle, and than forward, to hit the ball straight");
+        await _speechOut.Speak("Introduction finished, game starts. move upper handle to it handle, to pa the ball");
         
         Instantiate(player, playerSpawn);
         //Instantiate(enemy, new Vector3(0.35f, 0.0f, -5.64f), Quaternion.identity);

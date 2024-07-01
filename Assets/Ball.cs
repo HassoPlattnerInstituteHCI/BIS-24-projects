@@ -1,70 +1,54 @@
-using System;
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using DualPantoToolkit;
-using SpeechIO;
-public class Ball : MonoBehaviour {
-    
 
-    public float startingSpeed = 3f; // public attributes which can be set in the editor
-    public float maxSpeed = 5f;
-    //private PlayerSoundEffect soundEffects;
-    private float speed;
-    private Vector3 initPosition = new Vector3(-1.15f, 0, -9.93f);
-    private Vector3 direction; // modify this to change ball's movement
-    private bool isOutOfBounds = false;
-    private GameObject go;
-    PantoHandle handle;
-    SpeechIn speechIn;
 
-    
 
-    private Rigidbody rb;
-    // Start is called before the first frame update
-    void Start() {
-        // OPTIONAL TODO: 
-        // speechIn = new SpeechIn(onRecognized); 	
-        // speechIn.StartListening();
-        // SpeedUpListener();
 
-        handle = (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>();
-        //soundEffects = GetComponent<PlayerSoundEffect>();
+public class Ball : MonoBehaviour
+{
+    public float maxSpeed = 10f; // Maximale Geschwindigkeit des Balls
+
+    private Rigidbody rb; // Rigidbody des Balls
+    private Vector3 direction; // Bewegungsrichtung des Balls
+    private float speed; // Aktuelle Geschwindigkeit des Balls
+    private bool isMoving = false; // Variable zur Steuerung der Bewegung des Balls
+    private PantoHandle handle; // Referenz zum LowerHandle
+
+    // Startposition des Balls (kann im Editor angepasst werden)
+    private Vector3 initPosition = new Vector3(-0.55f, 0, -2.38f);
+
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
-        go = GetComponent<GameObject>();
-        Reset();
-    }
-    
-    public void OnApplicationQuit()
-    {
-        // OPTIONAL TODO: 
-        // speechIn.StopListening(); 
-    }
-    
-    void onRecognized(string message)
-    {
-        Debug.Log("[" + this.GetType() + "]: " + message);
+        handle = (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>(); // Referenz zum LowerHandle
+        ResetBall();
     }
 
+    void FixedUpdate()
+    {
+        if (isMoving)
+        {
+            MoveBall();
+        }
+    }
 
-    // FixedUpdate is called once per physics update
-    void FixedUpdate() {
-        Vector3 movement = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
+    void MoveBall()
+    {
+        //speed = 50f; 
+        Vector3 movement = direction.normalized * speed * Time.fixedDeltaTime;
         rb.velocity = movement;
     }
 
-    void Update() {
-       if (isOutOfBounds) {
-            isOutOfBounds = false;
-            Reset();
-       }
-    }
-
-    void Reset() {
+    void ResetBall()
+    {
         transform.position = initPosition;
-        int initAngle = UnityEngine.Random.Range(-20, 20);
-        direction = Quaternion.Euler(0, initAngle, 0) * new Vector3(0, 0, -1);
-        speed = startingSpeed;
+        direction = Vector3.zero;
+        speed = 0f;
+        rb.velocity = Vector3.zero; // Ball stoppen
+        isMoving = false;
     }
 
     Vector3 ComputeReflection(Collision other) {
@@ -79,43 +63,32 @@ public class Ball : MonoBehaviour {
         return reflection;
     }
 
-    async void OnCollisionEnter(Collision other) {
-        Vector3 reflection = Vector3.Reflect(direction, other.GetContact(0).normal);
+    void OnCollisionEnter(Collision collision)
+    {
+        Vector3 reflection = Vector3.Reflect(direction, collision.GetContact(0).normal);
 
-        if (other.collider.CompareTag("club")) {
-            //soundEffects.PlayPaddleClip();
-            reflection = ComputeReflection(other);
-            speed = Mathf.Min(maxSpeed, speed + 0.1f);
-        }
-        else if (other.collider.CompareTag("ItHandle"))
+        if (collision.collider.CompareTag("club"))
         {
-            Physics.IgnoreCollision(other.collider, GetComponent<Collider>());
+            Vector3 normal = collision.GetContact(0).normal;
+            //direction = Vector3.Reflect(direction, normal);
+            reflection = ComputeReflection(collision);
+            //speed = Mathf.Min(maxSpeed, collision.relativeVelocity.magnitude);
+            speed = Mathf.Min(maxSpeed, speed + 50f);
+            //MoveBall();
+            //speed= maxSpeed;
+            isMoving = true; // Ball beginnt sich zu bewegen
         }
-        else if (other.collider.CompareTag("MeHandle"))
+        else if (collision.collider.CompareTag("wall"))
         {
-            Physics.IgnoreCollision(other.collider, GetComponent<Collider>());
+            Vector3 normal = collision.GetContact(0).normal;
+            direction = Vector3.Reflect(direction, normal);
+            speed = Mathf.Min(maxSpeed, collision.relativeVelocity.magnitude);
+            isMoving = true; // Ball beginnt sich zu bewegen
         }
-        else if (other.collider.CompareTag("PlayerWall"))
+        else if (collision.collider.CompareTag("ItHandle"))
         {
-            Physics.IgnoreCollision(other.collider, GetComponent<Collider>()); 
+            Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
         }
-
         this.direction = reflection;
-
     }
-
-    void OnTriggerEnter(Collider other) {
-        
-        if (other.CompareTag("Speedboost")) {
-            speed = Mathf.Min(maxSpeed, speed + 1f);
-            Destroy(other.gameObject); // a single speedboost can only be used once
-        }
-    }
-
-    public Vector3 GetDirection() {
-        return this.direction;
-    }
-    
-
-
 }
