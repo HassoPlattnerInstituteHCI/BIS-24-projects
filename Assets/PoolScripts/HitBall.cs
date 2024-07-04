@@ -18,8 +18,12 @@ public class HitBall : MonoBehaviour
     {
         handle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         rb = GetComponent<Rigidbody>();
-        go = GetComponent<GameObject>();
-        await handle.MoveToPosition(transform.position);
+        Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
+        Physics.IgnoreCollision(GameObject.Find("MeHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
+        Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GameObject.Find("MeHandleGodObject").GetComponent<Collider>());
+        //go = GetComponent<GameObject>();
+        //await handle.MoveToPosition(transform.position);
+        await handle.SwitchTo(gameObject, 10f);
         //await Task.Delay(1000);
         //await handle.MoveToPosition(GameObject.FindGameObjectWithTag("Finish").transform.position);
     }
