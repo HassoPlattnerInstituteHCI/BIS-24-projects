@@ -21,7 +21,7 @@ public class HitBall : MonoBehaviour
         Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         Physics.IgnoreCollision(GameObject.Find("MeHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GameObject.Find("MeHandleGodObject").GetComponent<Collider>());
-        //go = GetComponent<GameObject>();
+//go = GetComponent<GameObject>();
         //await handle.MoveToPosition(transform.position);
         await handle.SwitchTo(gameObject, 10f);
         //await Task.Delay(1000);
@@ -48,7 +48,6 @@ public class HitBall : MonoBehaviour
         }
         else if (other.collider.CompareTag("Finish")) {
             Debug.Log("Goal");
-            Destroy(go);
         }
         //this.direction = reflection;
         
