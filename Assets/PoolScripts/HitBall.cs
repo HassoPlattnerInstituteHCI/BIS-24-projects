@@ -12,16 +12,18 @@ public class HitBall : MonoBehaviour
     PantoHandle handle;
     private Rigidbody rb;
     private GameObject goal;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     async void Start()
     {
         handle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         rb = GetComponent<Rigidbody>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         Physics.IgnoreCollision(GameObject.Find("MeHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GameObject.Find("MeHandleGodObject").GetComponent<Collider>());
-
+    
         goal = GameObject.FindWithTag("Finish");
         await handle.MoveToPosition(goal.transform.position);
         await handle.SwitchTo(gameObject, 10f);
@@ -37,19 +39,10 @@ public class HitBall : MonoBehaviour
         
     }
     void OnCollisionEnter(Collision other) {
-        // Vector3 reflection = Vector3.Reflect(direction, other.GetContact(0).normal);
-    	
-        if (other.collider.CompareTag("Player")) {
-            //speed = Mathf.Min(maxSpeed, speed + 0.1f);
-            // rb.velocity = reflection;
-            
-
-        }
-        else if (other.collider.CompareTag("Finish")) {
+        if (other.collider.CompareTag("Finish")) {
             Debug.Log("Goal");
+            audioSource.Play();
         }
-        //this.direction = reflection;
-        
     }
 
 }
