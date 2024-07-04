@@ -10,8 +10,8 @@ public class HitBall : MonoBehaviour
     private float speed;
     // private Vector3 direction = Vector3.zero;
     PantoHandle handle;
-    private GameObject go;
     private Rigidbody rb;
+    private GameObject goal;
 
     // Start is called before the first frame update
     async void Start()
@@ -21,11 +21,10 @@ public class HitBall : MonoBehaviour
         Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         Physics.IgnoreCollision(GameObject.Find("MeHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GameObject.Find("MeHandleGodObject").GetComponent<Collider>());
-//go = GetComponent<GameObject>();
-        //await handle.MoveToPosition(transform.position);
+
+        goal = GameObject.FindWithTag("Finish");
+        await handle.MoveToPosition(goal.transform.position);
         await handle.SwitchTo(gameObject, 10f);
-        //await Task.Delay(1000);
-        //await handle.MoveToPosition(GameObject.FindGameObjectWithTag("Finish").transform.position);
     }
 
     void FixedUpdate() {
