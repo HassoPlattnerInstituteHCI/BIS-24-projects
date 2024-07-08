@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DualPantoToolkit;
 
-public class HitBall : MonoBehaviour
+public class EnemyBall : MonoBehaviour
 {
     public float startingSpeed = 3f; // public attributes which can be set in the editor
     public float maxSpeed = 5f;
@@ -13,6 +13,8 @@ public class HitBall : MonoBehaviour
     private Rigidbody rb;
     private GameObject goal;
     private AudioSource audioSource;
+    //public AudioClip finishSound;
+    //public AudioClip playerSound;
 
     // Start is called before the first frame update
     async void Start()
@@ -24,7 +26,6 @@ public class HitBall : MonoBehaviour
         Physics.IgnoreCollision(GameObject.Find("MeHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         //Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GameObject.Find("MeHandleGodObject").GetComponent<Collider>());
         
-        await handle.SwitchTo(gameObject, 10f);
     }
     // Update is called once per frame
     void Update()
@@ -32,9 +33,11 @@ public class HitBall : MonoBehaviour
         
     }
     void OnCollisionEnter(Collision other) {
-        if (other.collider.CompareTag("Player")) {
+        if (other.collider.CompareTag("Finish")) {
             audioSource.Play();
-
+        }
+        if (other.collider.CompareTag("Player")) {
+            audioSource.Play(); //TODO
         }
     }
 

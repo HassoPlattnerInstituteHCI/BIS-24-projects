@@ -254,11 +254,100 @@ MonoBehaviour:
   m_GameObject: {fileID: 612752733}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06c72eb91feece43afd70a64b515d48, type: 3}
+  m_Script: {fileID: 11500000, guid: e6c84521c31dfa54d9eb7c34b75cbeeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingSpeed: 3
   maxSpeed: 5
+--- !u!1001 &1044199110
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1322233959709788688, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b064b6cb7174c4443844bd895e74fc89, type: 3}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844587140525029998, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_Name
+      value: EnemyBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844587140525029998, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      propertyPath: m_TagString
+      value: EnemyBall
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3037428160116081816, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8844587140525029998, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1044199112}
+  m_SourcePrefab: {fileID: 100100000, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+--- !u!1 &1044199111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8844587140525029998, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
+  m_PrefabInstance: {fileID: 1044199110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1044199112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044199111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2c439cf770b7c418240d1b52e60cb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingSpeed: 3
+  maxSpeed: 5
+  audioClip: {fileID: 8300000, guid: 57b1127d3bebc774c9bf8bc54e201fc3, type: 3}
 --- !u!1001 &1241588032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,3 +532,4 @@ SceneRoots:
   - {fileID: 425638371}
   - {fileID: 196388928}
   - {fileID: 1511359753}
+  - {fileID: 1044199110}
