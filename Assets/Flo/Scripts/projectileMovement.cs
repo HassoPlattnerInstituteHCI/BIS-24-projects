@@ -10,7 +10,7 @@ public class projectileMovement : MonoBehaviour
     private Rigidbody rb;
 
     void FixedUpdate() {
-        Vector3 movement = direction.normalized * 100 * (speed * Time.fixedDeltaTime);
+        Vector3 movement = direction.normalized * 1 * (speed * Time.fixedDeltaTime);
         rb.velocity = movement;
     }
 
