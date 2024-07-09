@@ -9,6 +9,10 @@ TagManager:
   - Hitball
   - LevelManager
   - EnemyBall
+  - Goal1
+  - Goal2
+  - Goal3
+  - Goal4
   layers:
   - Default
   - TransparentFX

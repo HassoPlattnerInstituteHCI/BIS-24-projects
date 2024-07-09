@@ -8,29 +8,27 @@ using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 using SpeechIO;
 
-public class GameManager : MonoBehaviour
+public class Level2Manager : MonoBehaviour
 {
-    public GameObject hitBallPosition;
-    public GameObject enemyBallPosition;
-    public GameObject goalPosition;
-
+    public GameObject hitBallIntro;
+    public GameObject goal1Intro;
+    private GameObject hitBall;
     private LowerHandle _lowerHandle;
     private SpeechOut _speechOut;
 
     private void Awake(){
         _speechOut = new SpeechOut();
+        hitBall = GameObject.FindWithTag("Hitball");
     }
 
 async void Start(){
-    await _speechOut.Speak("Welcome");
+    await _speechOut.Speak("Welcome to Level 2");
     _lowerHandle = GetComponent<LowerHandle>();
     _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
     await _speechOut.Speak("Here is the goal");
-    await _lowerHandle.MoveToPosition(goalPosition.transform.position);
-    await _speechOut.Speak("Here is the hitball");
-    await _lowerHandle.MoveToPosition(hitBallPosition.transform.position);
-    await _speechOut.Speak("Here is the enemy, you should not touch");
-    await _lowerHandle.MoveToPosition(enemyBallPosition.transform.position);  
-    _lowerHandle.Free();  
+    await _lowerHandle.MoveToPosition(goal1Intro.transform.position);
+    await _speechOut.Speak("Put this ball into the goal");
+    await _lowerHandle.MoveToPosition(hitBallIntro.transform.position);
+    _lowerHandle.SwitchTo(hitBall, 10f);    
 }
 }

@@ -16,7 +16,7 @@ public class HitBall3 : MonoBehaviour
     private AudioSource audioSource;
 
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
         handle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         rb = GetComponent<Rigidbody>();
@@ -25,11 +25,6 @@ public class HitBall3 : MonoBehaviour
         Physics.IgnoreCollision(GameObject.Find("MeHandleGodObject").GetComponent<Collider>(), GetComponent<Collider>());
         //Physics.IgnoreCollision(GameObject.Find("ItHandleGodObject").GetComponent<Collider>(), GameObject.Find("MeHandleGodObject").GetComponent<Collider>());
         
-        /*goal = GameObject.FindWithTag("Finish");
-        await handle.MoveToPosition(goal.transform.position);
-        enemy = GameObject.FindWithTag("EnemyBall");
-        await handle.MoveToPosition(enemy.transform.position);*/
-        await handle.SwitchTo(gameObject, 10f);
     }
     // Update is called once per frame
     void Update()

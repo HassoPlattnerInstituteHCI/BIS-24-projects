@@ -17,7 +17,7 @@ public class EnemyBall : MonoBehaviour
     //public AudioClip playerSound;
 
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
         handle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         rb = GetComponent<Rigidbody>();
