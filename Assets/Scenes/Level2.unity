@@ -165,7 +165,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.53
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
       propertyPath: m_LocalPosition.y
@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.83
+      value: -9.21
       objectReference: {fileID: 0}
     - target: {fileID: 7525330689890547207, guid: 780a2b18829589341abe68144d7a2c23, type: 3}
       propertyPath: m_LocalRotation.w
@@ -230,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5796301919870633447, guid: 7463e956e8bb5a14e80a69085f7d179a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9
+      value: -2.73
       objectReference: {fileID: 0}
     - target: {fileID: 5796301919870633447, guid: 7463e956e8bb5a14e80a69085f7d179a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -238,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5796301919870633447, guid: 7463e956e8bb5a14e80a69085f7d179a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.89
+      value: -10.37
       objectReference: {fileID: 0}
     - target: {fileID: 5796301919870633447, guid: 7463e956e8bb5a14e80a69085f7d179a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -299,7 +299,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 624961315}
-  - component: {fileID: 624961316}
   m_Layer: 0
   m_Name: HitBallIntro
   m_TagString: Untagged
@@ -316,28 +315,12 @@ Transform:
   m_GameObject: {fileID: 624961314}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.53, y: 0, z: -8.83}
+  m_LocalPosition: {x: 0.84, y: 0, z: -9.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 39490278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &624961316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624961314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7948ea43f9f03c647aa1ec214c4fbde9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traceShape: 0
-  isOnUpper: 0
-  description: Put this ball in the hole.
-  priority: 0
 --- !u!1 &1086605981
 GameObject:
   m_ObjectHideFlags: 0

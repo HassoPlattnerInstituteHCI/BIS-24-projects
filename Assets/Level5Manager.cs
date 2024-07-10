@@ -15,6 +15,9 @@ public class Level5Manager : MonoBehaviour
     public GameObject goal2Intro;
     public GameObject goal3Intro;
     public GameObject goal4Intro;
+    public GameObject enemyBallIntro1;
+    public GameObject enemyBallIntro2;
+    public GameObject enemyBallIntro3;
 
     private GameObject hitBall;
     private LowerHandle _lowerHandle;
@@ -29,15 +32,16 @@ async void Start(){
     await _speechOut.Speak("Welcome to Level 5");
     _lowerHandle = GetComponent<LowerHandle>();
     _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-    await _speechOut.Speak("Here is the first goal");
+    await _speechOut.Speak("These are the four goals");
     await _lowerHandle.MoveToPosition(goal1Intro.transform.position);
-    await _speechOut.Speak("Here is the second goal");
     await _lowerHandle.MoveToPosition(goal2Intro.transform.position);
-    await _speechOut.Speak("Here is the third goal");
     await _lowerHandle.MoveToPosition(goal3Intro.transform.position);
-    await _speechOut.Speak("Here is the fourth goal");
-    await _lowerHandle.MoveToPosition(goal4Intro.transform.position);  
-    await _speechOut.Speak("Now hit all goals with this ball");
+    await _lowerHandle.MoveToPosition(goal4Intro.transform.position); 
+    _speechOut.Speak("Avoid these three balls");
+    await _lowerHandle.MoveToPosition(enemyBallIntro1.transform.position);
+    await _lowerHandle.MoveToPosition(enemyBallIntro2.transform.position);
+    await _lowerHandle.MoveToPosition(enemyBallIntro3.transform.position);
+    _speechOut.Speak("Now put this ball into a hole");
     _lowerHandle.SwitchTo(hitBall, 10f);  
 }
 }

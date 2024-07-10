@@ -25,7 +25,7 @@ public class Level1Manager : MonoBehaviour
     await _speechOut.Speak("Welcome to Level 1");
     _lowerHandle = GetComponent<LowerHandle>();
     _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-    await _speechOut.Speak("Hit this Ball.");
+    _speechOut.Speak("Hit this Ball with the upper handle");
     await _lowerHandle.MoveToPosition(hitBallIntro.transform.position);
     _lowerHandle.SwitchTo(hitBall, 10f);  
 }

@@ -26,7 +26,7 @@ public class HitBall5 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
     void OnCollisionEnter(Collision other) {
         if (other.collider.CompareTag("Goal1")) {

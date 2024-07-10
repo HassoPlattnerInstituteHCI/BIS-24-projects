@@ -28,14 +28,16 @@ async void Start(){
     await _speechOut.Speak("Welcome to Level 4");
     _lowerHandle = GetComponent<LowerHandle>();
     _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-    await _speechOut.Speak("Here is one goal");
+    _speechOut.Speak("Here is one goal");
     await _lowerHandle.MoveToPosition(goal1Intro.transform.position);
-    await _speechOut.Speak("Here is another goal");
+    _speechOut.Speak("Here is another goal");
     await _lowerHandle.MoveToPosition(goal2Intro.transform.position);
-    await _speechOut.Speak("Here is the hitball");
-    await _lowerHandle.MoveToPosition(hitBallIntro.transform.position);
-    await _speechOut.Speak("Here is the enemy, you should not touch");
+    _speechOut.Speak("Here is the enemy, you should not touch");
     await _lowerHandle.MoveToPosition(enemyBallIntro.transform.position);  
-    _lowerHandle.SwitchTo(hitBall, 10f);  
+    await Task.Delay(1500);
+    _speechOut.Speak("Put this ball into the lower goal");
+    await _lowerHandle.MoveToPosition(hitBallIntro.transform.position);
+    _lowerHandle.SwitchTo(hitBall, 10f);
+
 }
 }
