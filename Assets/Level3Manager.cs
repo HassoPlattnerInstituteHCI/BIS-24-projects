@@ -29,6 +29,7 @@ async void Start(){
     _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
     _speechOut.Speak("Here is the goal");
     await _lowerHandle.MoveToPosition(goalIntro.transform.position);
+    await Task.Delay(1000);
     _speechOut.Speak("Here is the enemy, you should not touch");
     await _lowerHandle.MoveToPosition(enemyBallIntro.transform.position);
     await Task.Delay(1000);
