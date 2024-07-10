@@ -4,42 +4,89 @@ using UnityEngine;
 
 public class BezierCurveBuilder : MonoBehaviour
 {
-    public Transform[] controlPoints; // Array to hold control points
+    public GameObject rootObject;
+    public Vector3[] controlPoints; // Array to hold control points
     public int segmentCount = 50; // Number of segments for smoothness
     private LineRenderer lineRenderer;
+    public Vector3[] curve;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (rootObject == null)
+        {
+            Debug.LogError("Root Object is not assigned.");
+            return;
+        }
+
+        InitializeControlPoints();
+
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.positionCount = segmentCount + 1;
         lineRenderer.widthMultiplier = 0.1f;
         DrawBezierCurve();
     }
 
+    void InitializeControlPoints()
+    {
+        // Create a new array with an extra slot
+        Vector3[] newControlPoints = new Vector3[(controlPoints != null ? controlPoints.Length : 0) + 1];
+
+        // Set the first element to the root object's position
+        newControlPoints[0] = rootObject.transform.position;
+
+        // Copy existing control points to the new array starting from index 1
+        if (controlPoints != null)
+        {
+            for (int i = 0; i < controlPoints.Length; i++)
+            {
+                newControlPoints[i + 1] = controlPoints[i];
+            }
+        }
+
+        // Assign the new array to controlPoints
+        controlPoints = newControlPoints;
+    }
+
     void DrawBezierCurve()
     {
+        List<Vector3> points = new List<Vector3>();
         for (int i = 0; i <= segmentCount; i++)
         {
             float t = i / (float)segmentCount;
-            Vector3 position = CalculateBezierPoint(t, controlPoints[0].position, controlPoints[1].position, controlPoints[2].position, controlPoints[3].position);
+            Vector3 position = CalculateBezierPoint(t, controlPoints);
+            points.Add(position);
             lineRenderer.SetPosition(i, position);
         }
+        curve = points.ToArray();
     }
 
-    Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
+    public void AddPoint(Vector3 position)
     {
-        float u = 1 - t;
-        float tt = t * t;
-        float uu = u * u;
-        float uuu = uu * u;
-        float ttt = tt * t;
+        var tempPoints = new List<Vector3>(controlPoints);
+        tempPoints.Add(position);
+        controlPoints = tempPoints.ToArray();
+        DrawBezierCurve();
+    }
 
-        Vector3 p = uuu * p0; // (1-t)^3 * p0
-        p += 3 * uu * t * p1; // 3(1-t)^2 * t * p1
-        p += 3 * u * tt * p2; // 3(1-t) * t^2 * p2
-        p += ttt * p3; // t^3 * p3
+    Vector3 CalculateBezierPoint(float t, Vector3[] points)
+    {
+        int n = points.Length;
+        Vector3[] tempPoints = new Vector3[n];
 
-        return p;
+        for (int i = 0; i < n; i++)
+        {
+            tempPoints[i] = points[i];
+        }
+
+        for (int r = 1; r < n; r++)
+        {
+            for (int i = 0; i < n - r; i++)
+            {
+                tempPoints[i] = (1 - t) * tempPoints[i] + t * tempPoints[i + 1];
+            }
+        }
+
+        return tempPoints[0];
     }
 }
