@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpeechIO;
 using System.Threading.Tasks;
-
+using DualPantoToolkit;
 
 
 
 public class Dot : MonoBehaviour
 {
     SpeechOut speechOut = new SpeechOut();
-    bool collided = false;
-    int sinceCollision = 0;
-    
+    public bool collided = false;
+    public DotManager manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +26,14 @@ public class Dot : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (collided) sinceCollision += 1;
-        if (sinceCollision > 50) {
-            Destroy(this);
-        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "LowerHandle") {
-            speechOut.Speak("b");
             collided = true;
+            manager.DotEaten();
+            Destroy(this.gameObject);
         }
     }
 
