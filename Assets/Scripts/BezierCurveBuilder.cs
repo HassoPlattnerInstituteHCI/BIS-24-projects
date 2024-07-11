@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class BezierCurveBuilder : MonoBehaviour
 {
-    public GameObject rootObject;
     public Vector3[] controlPoints; // Array to hold control points
     public int segmentCount = 50; // Number of segments for smoothness
     private LineRenderer lineRenderer;
-    public Vector3[] curve;
+    public Vector3[] curve { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (rootObject == null)
-        {
-            Debug.LogError("Root Object is not assigned.");
-            return;
-        }
-
         InitializeControlPoints();
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -33,7 +26,7 @@ public class BezierCurveBuilder : MonoBehaviour
         Vector3[] newControlPoints = new Vector3[(controlPoints != null ? controlPoints.Length : 0) + 1];
 
         // Set the first element to the root object's position
-        newControlPoints[0] = rootObject.transform.position;
+        newControlPoints[0] = transform.position;
 
         // Copy existing control points to the new array starting from index 1
         if (controlPoints != null)
