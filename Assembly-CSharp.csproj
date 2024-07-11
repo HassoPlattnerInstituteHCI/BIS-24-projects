@@ -70,6 +70,7 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\MyCustomSpeechScript.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\Vis.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\VoiceCommandBase.cs" />
+    <Compile Include="Assets\PathBuilder.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\MacOSSpeechIn.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\ColliderPolyline.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\ObstacleManager.cs" />
