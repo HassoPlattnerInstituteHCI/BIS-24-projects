@@ -123,96 +123,100 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &127931265
+--- !u!1001 &481455469
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.617762
+      value: 3.09
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6087893
+      value: 0.81
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.547973
+      value: -16.31
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99909484
+      value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.042538133
+      value: -0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -4.876
+      value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1442653708312973055, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 1442653708312973055, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5279534676263679986, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+    - target: {fileID: 5279534676263679986, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
       propertyPath: m_Name
-      value: Apple
+      value: Fruit
       objectReference: {fileID: 0}
-    - target: {fileID: 5460970761040565557, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
+    - target: {fileID: 5279534676263679986, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
---- !u!1 &374006052 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
+--- !u!1 &506521592 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5279534676263679986, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
-  m_PrefabInstance: {fileID: 127931265}
+  m_CorrespondingSourceObject: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
+  m_PrefabInstance: {fileID: 1328340656}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &374006053
+--- !u!114 &506521593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374006052}
+  m_GameObject: {fileID: 506521592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a71b4ef562e9fd4f9547e90f3c6335b, type: 3}
+  m_Script: {fileID: 11500000, guid: aee032b1b2ee8c04c8882795889d3d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &374006059
+--- !u!114 &506521601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374006052}
+  m_GameObject: {fileID: 506521592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0082a1bca59c044935f385b212c6ce, type: 3}
+  m_Script: {fileID: 11500000, guid: aff00c6013776b94f87e2c56320f3e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fruit: {fileID: 5279534676263679986, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
+  knife: {fileID: 1950028821992125566, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}
+  fruitSpawn: {fileID: 752940227}
+  knifeSpawn: {fileID: 1388027809}
 --- !u!1 &752940226
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752940226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: -6.665085}
+  m_LocalPosition: {x: 3.09, y: 0.81, z: -16.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -259,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traceShape: 0
   isOnUpper: 0
-  description: Here comes a fruit. Try to slice it!
+  description: This handle represents a fruit.
   priority: 1
 --- !u!1 &770141038
 GameObject:
@@ -294,27 +298,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &961681373 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
-  m_PrefabInstance: {fileID: 1328340656}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &961681374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961681373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 865c0b9c8a8878949bf11bfa4a7a452c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fruit: {fileID: 374006052}
-  knife: {fileID: 2139818268}
-  fruitSpawn: {fileID: 752940227}
-  knifeSpawn: {fileID: 1388027809}
 --- !u!1001 &1328340656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -523,7 +506,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422952599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -15}
+  m_LocalPosition: {x: 0, y: 0, z: -17.86}
   m_LocalScale: {x: 15.012856, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -545,11 +528,23 @@ MonoBehaviour:
   onUpper: 1
   onLower: 1
   isPassable: 0
---- !u!1 &2139818268 stripped
+--- !u!1 &1910475784 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1950028821992125566, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}
-  m_PrefabInstance: {fileID: 1950028821832285538}
+  m_CorrespondingSourceObject: {fileID: 5279534676263679986, guid: 491e94b70b6e9e84ba2cd96af411894d, type: 3}
+  m_PrefabInstance: {fileID: 481455469}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1910475792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910475784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0082a1bca59c044935f385b212c6ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1950028821832285538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -604,6 +599,10 @@ PrefabInstance:
     - target: {fileID: 1950028821992125566, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}
       propertyPath: m_Name
       value: Knife
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950028821992125566, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}

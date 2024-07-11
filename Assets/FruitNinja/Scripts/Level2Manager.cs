@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using DualPantoToolkit;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using SpeechIO;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-public class GameManager : MonoBehaviour
+public class Level2Manager : MonoBehaviour
 {
-
+    SpeechOut speechOut = new SpeechOut();
     public GameObject fruit;
     public GameObject knife;
-    //public GameObject enemy;
 
     public Transform fruitSpawn;
     public Transform knifeSpawn;
-    //public Transform enemySpawn;
 
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
@@ -28,10 +27,6 @@ public class GameManager : MonoBehaviour
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
 
-        //fruit deaktivieren
-        fruit.SetActive(false);
-
-        // TODO 1: remove this comment-out
         Introduction();
     }
 
@@ -39,25 +34,19 @@ public class GameManager : MonoBehaviour
     {
         Level level = GetComponent<Level>();
         await level.PlayIntroduction(0.2f, 3000);
-        await Task.Delay(1000);
+        await speechOut.Speak("Try to slice the fruit before it falls down");
 
-        // TODO 2:
         await StartGame();
     }
 
     async Task StartGame()
     {
-        await Task.Delay(1000);
-
-        // TODO 4: activate playerWall game object at Unity editor, and remove this comment-out
         await RenderObstacle();
-
-        await Task.Delay(1000);
 
         Instantiate(knife, knifeSpawn);
         GameObject sb = Instantiate(fruit, fruitSpawn);
         //fruit wieder aktivieren
-        sb.SetActive(true);
+        //sb.SetActive(true);
 
         // TODO 3:
         await _lowerHandle.SwitchTo(sb, 50.0f);

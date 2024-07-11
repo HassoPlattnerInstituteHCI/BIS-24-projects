@@ -27,11 +27,34 @@ public class Fruit : MonoBehaviour
 
     async void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Knife"))
+        if (other.CompareTag("MeHandle"))
         {
-            // UnityEngine.Debug.Log("Fruit collided with Knife and will be destroyed");
             Destroy(gameObject);
+            GameObject itHandleGodObject = GameObject.FindWithTag("ItHandle");
+            if (itHandleGodObject != null)
+            {
+                Destroy(itHandleGodObject);
+            }
             await speechOut.Speak("you sliced the Fruit!");
+            
+        }
+        else if (other.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+            GameObject itHandleGodObject = GameObject.FindWithTag("ItHandle");
+            if (itHandleGodObject != null)
+            {
+                Destroy(itHandleGodObject);
+            }
+            await speechOut.Speak("you missed the Fruit!");
+        }
+        else if (other.CompareTag("ItHandle"))
+        {
+            Physics.IgnoreCollision(other, GetComponent<Collider>());
+        }
+        else if (other.CompareTag("MeHandle"))
+        {
+            Physics.IgnoreCollision(other, GetComponent<Collider>());
         }
     }
 }

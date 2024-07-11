@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1782944967090318366}
   - component: {fileID: 5460970761040565557}
   - component: {fileID: 2832781119067526906}
+  - component: {fileID: -7728252331686402087}
+  - component: {fileID: -4866840048973552048}
   m_Layer: 0
   m_Name: Fruit
   m_TagString: Fruit
@@ -30,6 +32,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50.29631, y: 50.296303, z: 50.296303}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,6 +56,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -113,3 +117,28 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.013375026
   m_Center: {x: -0.00082057086, y: -0.00012993463, z: -0.004510552}
+--- !u!114 &-7728252331686402087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279534676263679986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a71b4ef562e9fd4f9547e90f3c6335b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4866840048973552048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279534676263679986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803f733d91886884ab5bdaa10ef10f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 500
