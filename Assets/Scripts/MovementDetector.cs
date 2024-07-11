@@ -5,48 +5,50 @@ using UnityEngine;
 
 public class MovementDetector : MonoBehaviour
 {
+
+    public GameObject propertyHandlerObject;
+    public GameObject trigger;
+
+    private Collider collider;
     private Vector3 lastPosition;
-    public bool IsMoving { get; private set; }
-    public GameObject boundsArea;
-    private Collider boundsCollider;
+    private PropertyHandler propertyHandler;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        lastPosition = transform.position;
-        IsMoving = false;
-
-        if (boundsArea != null)
+        collider = GetComponent<Collider>();
+        if (collider == null)
         {
-            boundsCollider = boundsArea.GetComponent<Collider>();
-            if (boundsCollider == null)
-            {
-                Debug.LogError("No Collider component found on boundsArea GameObject.");
-            }
+            Debug.LogError("No collider found!");
         }
+
+        propertyHandler = propertyHandlerObject.GetComponent<PropertyHandler>();
+        if (collider == null)
+        {
+            Debug.LogError("No propertyHandler found!");
+        }
+
+        if (!trigger)
+        {
+            Debug.LogError("No trigger object set");
+        }
+
+
+        lastPosition = trigger.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position != lastPosition && IsWithinBounds(transform.position))
-        {
-            IsMoving = true;
-            lastPosition = transform.position;
-        }
-        else
-        {
-            IsMoving = false;
-        }
+        propertyHandler.caldronActionActive = trigger.transform.position != lastPosition && IsWithinBounds(trigger.transform.position);
+        lastPosition = trigger.transform.position;
+
+        if (propertyHandler.pathCompleted && propertyHandler.directionSelected != -1 && propertyHandler.selectionWasActive) { propertyHandlerObject.GetComponent<BezierCurveBuilder>().TranslateRotation(); }
     }
 
     bool IsWithinBounds(Vector3 position)
     {
-        if (boundsCollider != null)
-        {
-            return boundsCollider.bounds.Contains(position);
-        }
-        return false;
+        return collider.bounds.Contains(position);
     }
 }

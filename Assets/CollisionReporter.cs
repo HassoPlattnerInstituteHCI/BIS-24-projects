@@ -41,11 +41,14 @@ public class CollisionReporter : MonoBehaviour
 
     bool IsWithinBounds(Vector3 position)
     {
-        if (collider != null)
+        Boolean isValid = collider.bounds.Contains(position);
+        if (propertyHandler.pathCompleted && isValid)
         {
-            return collider.bounds.Contains(position);
+            propertyHandler.selectionWasActive = true;
         }
 
-        return false;
+        if (!propertyHandler.pathCompleted ) { propertyHandler.selectionWasActive = false; }
+
+        return isValid;
     }
 }
