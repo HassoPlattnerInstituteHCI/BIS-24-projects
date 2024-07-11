@@ -758,15 +758,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlPointsUp:
-  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: 0}
   controlPointsRight:
-  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   controlPointsLeft:
-  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   controlPointsDown:
-  - {x: 1, y: 0, z: 0}
-  controlPointsBase: []
-  segmentCount: 50
+  - {x: 0, y: 0, z: 5}
+  controlPointsBase:
+  - {x: 0, y: 0, z: 0}
+  initialSegmentCount: 50
 --- !u!114 &933049845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,6 +785,7 @@ MonoBehaviour:
   directionSelected: -1
   directionSelectorActive: 0
   selectionWasActive: 1
+  path: []
 --- !u!114 &933049846
 MonoBehaviour:
   m_ObjectHideFlags: 0

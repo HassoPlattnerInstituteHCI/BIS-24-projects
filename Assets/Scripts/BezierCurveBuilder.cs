@@ -13,15 +13,15 @@ public class BezierCurveBuilder : MonoBehaviour
     public Vector3[] controlPointsDown; // Array to hold control points for "Down" direction
     public Vector3[] controlPointsBase = new Vector3[0]; // Default empty array to avoid null reference
 
-    public int segmentCount = 50; // Number of segments for smoothness
+    public int initialSegmentCount = 50; // Initial number of segments for smoothness
     private LineRenderer lineRenderer;
 
-    private Vector3[] controlPoints;
+    private List<Vector3> controlPoints;
+    private int segmentCount;
 
     // Start is called before the first frame update
     void Start()
     {
-
         propertyHandler = GetComponent<PropertyHandler>();
 
         if (propertyHandler == null)
@@ -30,10 +30,11 @@ public class BezierCurveBuilder : MonoBehaviour
         }
 
         // Initialize control points based on rotation
-        controlPoints = InitializeControlPoints();
+        controlPoints = new List<Vector3> { transform.position };
 
         // Setup LineRenderer
         lineRenderer = gameObject.AddComponent<LineRenderer>();
+        segmentCount = initialSegmentCount;
         lineRenderer.positionCount = segmentCount + 1;
         lineRenderer.widthMultiplier = 0.1f;
 
@@ -41,21 +42,16 @@ public class BezierCurveBuilder : MonoBehaviour
         DrawBezierCurve();
     }
 
-    Vector3[] InitializeControlPoints()
-    {
-        // Create a new array with an extra slot
-        Vector3[] newControlPoints = new Vector3[1];
-        newControlPoints[0] = transform.position; // Set the first element to the root object's position
-        return newControlPoints;
-    }
-
     void DrawBezierCurve()
     {
+        segmentCount = (controlPoints.Count - 1) * initialSegmentCount;
+        lineRenderer.positionCount = segmentCount + 1;
+
         List<Vector3> points = new List<Vector3>();
         for (int i = 0; i <= segmentCount; i++)
         {
             float t = i / (float)segmentCount;
-            Vector3 position = CalculateBezierPoint(t, controlPoints);
+            Vector3 position = CalculateBezierPoint(t, controlPoints.ToArray());
             points.Add(position);
 
             if (lineRenderer == null)
@@ -71,11 +67,17 @@ public class BezierCurveBuilder : MonoBehaviour
 
     public void AddPoints(Vector3[] newPoints)
     {
-        if (!propertyHandler.pathCompleted &&  !propertyHandler.directionSelectorActive){ return; }
-        Vector3[] combinedArray = new Vector3[controlPoints.Length + newPoints.Length];
-        Array.Copy(controlPoints, combinedArray, controlPoints.Length);
-        Array.Copy(newPoints, 0, combinedArray, controlPoints.Length, newPoints.Length);
-        controlPoints = combinedArray;
+        if (!propertyHandler.pathCompleted && !propertyHandler.directionSelectorActive)
+        {
+            return;
+        }
+
+        foreach (Vector3 point in newPoints)
+        {
+            // Add the relative point to the current position
+            controlPoints.Add(transform.position + point);
+        }
+
         DrawBezierCurve();
         propertyHandler.directionSelected = -1f;
         propertyHandler.pathCompleted = false;
@@ -127,6 +129,5 @@ public class BezierCurveBuilder : MonoBehaviour
         {
             Debug.LogError("Unknown Rotation value!");
         }
-       
     }
 }
