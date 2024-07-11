@@ -14,44 +14,22 @@ public class ControlPointGenerator : MonoBehaviour
 
     private Vector3[] basePoints;
 
+    public GameObject triggerObject;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        if (triggerObject == null )
+        {
+            Debug.LogError("No trigger area for compass found");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-    Vector3[] GetDirectionFromRotation(Quaternion rotation)
-    {
-        // Convert the quaternion to Euler angles
-        Vector3 euler = rotation.eulerAngles;
-        float yRotation = euler.y;
-
-        // Define the direction based on the Y rotation
-        if (yRotation >= 315 || yRotation < 45)
-        {
-            return controlPointsUp; // Facing up (0 degrees)
-        }
-        else if (yRotation >= 45 && yRotation < 135)
-        {
-            return controlPointsRight; // Facing right (90 degrees)
-        }
-        else if (yRotation >= 135 && yRotation < 225)
-        {
-            return controlPointsDown; // Facing down (180 degrees)
-        }
-        else if (yRotation >= 225 && yRotation < 315)
-        {
-            return controlPointsLeft; // Facing left (270 degrees)
-        }
-        else
-        {
-            return basePoints; // Fallback for unexpected cases
-        }
-    }
+    
 }

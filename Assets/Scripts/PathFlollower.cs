@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class PathFlollower : MonoBehaviour
     private int currentSegment = 0;
     private MovementDetector movementDetector;
     private BezierCurveBuilder bezierCurveBuilder;
+    private Boolean AbleToSelectNewDirection {  get; set; }
+    public GameObject directionSelector;
+    public GameObject collisionReporter;
+    private Quaternion selectedDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -30,12 +35,34 @@ public class PathFlollower : MonoBehaviour
         {
             Debug.LogError("BezierCurveBuilder component not found on the same GameObject.");
         }
+
+        AbleToSelectNewDirection = false;
+        selectedDirection = Quaternion.identity;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (movementDetector != null && movementDetector.IsMoving)
+        // catch stuff 
+        if (bezierCurveBuilder == null)
+        {
+            Debug.LogError("BezierCurveBuilder component is null.");
+            return;
+        }
+
+        if (bezierCurveBuilder.Curve == null)
+        {
+            Debug.LogError("BezierCurveBuilder.Curve is null.");
+            return;
+        }
+
+        if (movementDetector == null)
+        {
+            Debug.LogError("movementDetector is null.");
+            return;
+        }
+
+        if (movementDetector.IsMoving && currentSegment <= bezierCurveBuilder.Curve.Length - 1)
         {
             MoveAlongPath();
         }
@@ -43,15 +70,12 @@ public class PathFlollower : MonoBehaviour
 
     void MoveAlongPath()
     {
-        if (currentSegment <= bezierCurveBuilder.curve.Length -1)
-        {
-            Vector3 targetPosition = bezierCurveBuilder.curve[currentSegment];
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        Vector3 targetPosition = bezierCurveBuilder.Curve[currentSegment];
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-            if (transform.position == targetPosition)
-            {
-                currentSegment++;
-            }
+        if (transform.position == targetPosition)
+        {
+            currentSegment++;
         }
     }
 }
