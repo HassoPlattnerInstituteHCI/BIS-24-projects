@@ -5,8 +5,6 @@
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
@@ -59,7 +57,6 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
-*.app
 
 # Crashlytics generated file
 crashlytics-build.properties

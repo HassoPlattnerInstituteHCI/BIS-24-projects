@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Roomplanner.unity
+    guid: 95fad5e133a841f45ac36c2917884080
   m_configObjects: {}
