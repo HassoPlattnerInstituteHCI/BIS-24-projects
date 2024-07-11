@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
 {
     public GameObject wall;
     
-    public Transform upperSpawn;
-    public Transform lowerSpawn;
-    
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     
@@ -37,9 +34,10 @@ public class GameManager : MonoBehaviour
     {
         Level level = GetComponent<Level>();
 
-
         // _upperHandle.Freeze();
         // _lowerHandle.Freeze();
+
+        Debug.Log("play Intro");
 
         await level.PlayIntroduction(1.0f, 500);
         //await level.PlayPAIntro();
@@ -56,7 +54,7 @@ public class GameManager : MonoBehaviour
         
         // await Task.Delay(1000);
         
-        await _speechOut.Speak("Try it yourself.");
+        // await _speechOut.Speak("Try it yourself.");
         
         /*Instantiate(player, playerSpawn);
         Instantiate(enemy, new Vector3(0.35f, 0.0f, -5.64f), Quaternion.identity);

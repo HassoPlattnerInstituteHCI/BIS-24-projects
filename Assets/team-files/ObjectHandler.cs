@@ -18,6 +18,8 @@ public class ObjectHandler : MonoBehaviour
     private bool wallPlacementStarted;
     private Vector3 wallPos1;
     private Vector3 wallPos2;
+    private GameObject selectedObject = null;
+    private SpeechOut _speechOut;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,8 @@ public class ObjectHandler : MonoBehaviour
 
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
+
+        _speechOut = new SpeechOut();
     }
 
     // Update is called once per frame
@@ -33,6 +37,21 @@ public class ObjectHandler : MonoBehaviour
     {
         if (Input.GetKeyDown("space")) {
             place();
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Object") {
+            selectedObject = collision.gameObject;
+            _speechOut.Speak(collision.gameObject.GetComponent<Object>().name);
+        }
+    }
+
+    void OnCollisionLeave(Collision collision)
+    {
+        if (collision.gameObject.tag == "Object") {
+            selectedObject = null;
         }
     }
 
