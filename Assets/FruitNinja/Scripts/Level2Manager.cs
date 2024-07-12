@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using DualPantoToolkit;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using SpeechIO;
-using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
 public class Level2Manager : MonoBehaviour

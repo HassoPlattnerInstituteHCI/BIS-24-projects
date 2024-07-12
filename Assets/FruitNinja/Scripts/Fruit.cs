@@ -8,10 +8,17 @@ using System.Diagnostics;
 public class Fruit : MonoBehaviour
 {
     SpeechOut speechOut = new SpeechOut();
+
+    PantoHandle handle;
+    public float angle = 0;
+    private float angleStep = 10f;
+    private float waitTime = 0.01f;
+    private bool sliced = false;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        handle = GameObject.Find("Panto").GetComponent<LowerHandle>();
     }
 
     // Update is called once per frame
@@ -19,6 +26,7 @@ public class Fruit : MonoBehaviour
     {
         
     }
+
     //private async void OnMouseDown()
     //{
     //    Destroy(gameObject);
@@ -29,15 +37,23 @@ public class Fruit : MonoBehaviour
     {
         if (other.CompareTag("MeHandle"))
         {
-            Destroy(gameObject);
+            StartCoroutine(RotateBackAndForth());
+
+            //Destroy(gameObject);
             GameObject itHandleGodObject = GameObject.FindWithTag("ItHandle");
             if (itHandleGodObject != null)
             {
-                Destroy(itHandleGodObject);
+                //Destroy(itHandleGodObject);
             }
-            await speechOut.Speak("you sliced the Fruit!");
-            
-        }
+
+            if (!sliced)
+            {
+                sliced = true;
+                await speechOut.Speak("you sliced the Fruit!");
+            }
+                 
+
+    }
         else if (other.CompareTag("Wall"))
         {
             Destroy(gameObject);
@@ -46,7 +62,10 @@ public class Fruit : MonoBehaviour
             {
                 Destroy(itHandleGodObject);
             }
-            await speechOut.Speak("you missed the Fruit!");
+            if (!sliced)
+            {
+                await speechOut.Speak("you missed the Fruit!");
+            }
         }
         else if (other.CompareTag("ItHandle"))
         {
@@ -55,6 +74,30 @@ public class Fruit : MonoBehaviour
         else if (other.CompareTag("MeHandle"))
         {
             Physics.IgnoreCollision(other, GetComponent<Collider>());
+        }
+    }
+
+    IEnumerator RotateBackAndForth()
+    {
+        float angle = 0f;
+
+        for (int j = 0; j < 3; j++)
+        {
+            // Drehungen in eine Richtung
+            for (int i = 0; i < 10; i++)
+            {
+                handle.Rotate(angle);
+                angle += angleStep;
+                yield return new WaitForSeconds(waitTime);
+            }
+
+            // Drehungen in die andere Richtung
+            for (int i = 0; i < 10; i++)
+            {
+                handle.Rotate(angle);
+                angle -= angleStep;
+                yield return new WaitForSeconds(waitTime);
+            }
         }
     }
 }

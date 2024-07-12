@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple
       objectReference: {fileID: 0}
+    - target: {fileID: 5279534676263679986, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5460970761040565557, guid: ef7370ab03ee3694dace69de71f7a247, type: 3}
       propertyPath: m_IsKinematic
       value: 1
@@ -604,6 +608,10 @@ PrefabInstance:
     - target: {fileID: 1950028821992125566, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}
       propertyPath: m_Name
       value: Knife
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950028821992125566, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e341d5e6beb96d447b58ad955e194a0f, type: 3}

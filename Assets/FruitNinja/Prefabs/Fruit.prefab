@@ -129,6 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71b4ef562e9fd4f9547e90f3c6335b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angle: 0
+  angleStep: 0.01
+  waitTime: 0.1
 --- !u!114 &-4866840048973552048
 MonoBehaviour:
   m_ObjectHideFlags: 0
