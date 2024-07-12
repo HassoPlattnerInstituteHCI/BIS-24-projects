@@ -38,7 +38,7 @@ public class Ball : MonoBehaviour {
        }
     }
 
-    void Reset() {
+    public void Reset() {
         transform.position = initPosition;
         direction = Quaternion.Euler(0, 0, 0) * new Vector3(0, 0, -1);
         speed = startingSpeed;
@@ -73,15 +73,16 @@ public class Ball : MonoBehaviour {
             await handle.MoveToPosition(transform.position + 1.0f * RecoilDirection, 10.0f, true);
             await handle.SwitchTo(gameObject, 50.0f);
         }
+        else if (other.collider.CompareTag("Block")) {
+            soundEffects.PlayScoreClip();
+        }
         else if (other.collider.CompareTag("Wall")) {
             soundEffects.PlayWallClip();
         }
         else if (other.collider.CompareTag("PlayerScoreLine")) {
-            soundEffects.PlayScoreClip();
             isOutOfBounds = true;
         }
         else if (other.collider.CompareTag("EnemyScoreLine")) {
-            soundEffects.PlayPositiveScoreClip();
             isOutOfBounds = true;
         }
         else if (other.collider.CompareTag("ItHandle"))
@@ -95,6 +96,15 @@ public class Ball : MonoBehaviour {
         else if (other.collider.CompareTag("PlayerWall"))
         {
             Physics.IgnoreCollision(other.collider, GetComponent<Collider>()); 
+        }
+        else if (other.collider.CompareTag("Block"))
+        {
+            soundEffects.PlayWallClip();
+        }
+        else if (other.collider.CompareTag("Powerup"))
+        {
+            speed = Math.Max(speed * 2, maxSpeed);
+            soundEffects.PlayWallClip();
         }
 
         this.direction = reflection;
