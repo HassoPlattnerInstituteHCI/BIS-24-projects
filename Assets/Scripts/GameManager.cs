@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject ball_blue_prefab;
     public GameObject target_prefab;
     public GameObject shooting_red_prefab;
+    public GameObject cube_prefab;
 
     PantoCollider[] pantoColliders;
     
@@ -32,45 +33,48 @@ public class GameManager : MonoBehaviour
         _speechOut = new SpeechOut();
     }
 
-    void Start()
+   async void Start()
     {
         _upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         // TODO 1: remove this comment-out
-        Introduction();
+        await StartGame();
     }
 
-    void update()
+    void Update()
     {
         //Debug.Log(target.transform.position);
     }
     
-    async void Introduction()
-    {
-        //Level level = GetComponent<Level>();
-        //await level.PlayIntroduction(0.2f, 3000);
-        //await Task.Delay(1000);
+    // async void Introduction()
+    // {
+    //     //Level level = GetComponent<Level>();
+    //     //await level.PlayIntroduction(0.2f, 3000);
+    //     //await Task.Delay(1000);
         
-        // TODO 2:
-        await StartGame();
-    }
+    //     // TODO 2:
+        
+    // }
 
     async Task StartGame()
     {
         await Task.Delay(1000);
-        await  _upperHandle.SwitchTo(GameObject.Find("Target"), 200f);
-        await  _lowerHandle.SwitchTo(GameObject.Find("Target"), 200f);
+        await  _upperHandle.SwitchTo(GameObject.Find("Target"), 50f);
+        await Task.Delay(1000);
+        await  _lowerHandle.SwitchTo(GameObject.Find("Target"), 50f);
+        await Task.Delay(1000);
         _upperHandle.Free();
-        //_lowerHandle.Free();
-        GameObject ball1 = Instantiate(ball_blue_prefab, new Vector3((float)-2.75, 0f, -6f), Quaternion.identity);
-        Instantiate(ball_blue_prefab, new Vector3((float)-1.15, 0f, -6f), Quaternion.identity);
-        Instantiate(ball_red_prefab, new Vector3((float)-0.35, 0f, -6f), Quaternion.identity);
-        Instantiate(ball_red_prefab, new Vector3((float)1.25, 0f, -6f), Quaternion.identity);
-        Instantiate(ball_red_prefab, new Vector3((float)2.05, 0f, -6f), Quaternion.identity);
+        _lowerHandle.Free();
+        GameObject ball1 = Instantiate(cube_prefab, new Vector3((float)-2.75, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab, new Vector3((float)-1.15, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab, new Vector3((float)-0.25, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab, new Vector3((float)1.25, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab, new Vector3((float)2.25, 0f, -6f), Quaternion.identity);
         await RenderObstacle();
         await Task.Delay(3000);
-        _speechOut.Speak("Here are the balls. Destroy them!");
-        await  _upperHandle.SwitchTo(ball1, 100f);
+        await _speechOut.Speak("Here are the balls. Destroy them!");
+        await  _upperHandle.SwitchTo(ball1, 50f);
+        await Task.Delay(3000);
         _upperHandle.Free();
        // _speechOut.Speak("You've got a red ball. Pull this handle to aim.");
 
@@ -84,13 +88,14 @@ public class GameManager : MonoBehaviour
             await _speechOut.Speak("we moved to target");
             while(Math.Abs(last_rotation-_lowerHandle.GetRotation()) < 0.5){//versch. Werte testen
                 last_rotation = _lowerHandle.GetRotation();//Nutzer hat noch nicht geschossen
-                Task.Delay(1500);
+                await Task.Delay(1500);
             }
             //Ball wird abgeschossen
             await _speechOut.Speak("shooting");
             Vector3 pos = _lowerHandle.GetPosition();
             GameObject target = Instantiate(target_prefab, new Vector3(-pos.x, 0f, -6f), Quaternion.identity);
-            _lowerHandle.SwitchTo(target, 200f);
+            //await _lowerHandle.SwitchTo(target, 200f);
+            obstacle_count = 0;
             
             
         }

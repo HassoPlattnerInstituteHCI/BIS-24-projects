@@ -21,12 +21,12 @@ public class collider_me : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other){
+    async void OnTriggerEnter(Collider other){
         if (other.GetComponent<Collider>().CompareTag("blue")) {
-            _speechOut.Speak("blue");
+            await _speechOut.Speak("blue");
             
         }else if (other.GetComponent<Collider>().CompareTag("red")) {
-            _speechOut.Speak("red");
+            await _speechOut.Speak("red");
             
         }
     }

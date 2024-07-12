@@ -50,7 +50,7 @@ MonoBehaviour:
   onUpper: 1
   onLower: 1
   isPassable: 0
-  numberOfCorners: 8
+  numberOfCorners: 3
 --- !u!23 &-279406610198107013
 MeshRenderer:
   m_ObjectHideFlags: 0
