@@ -79,7 +79,6 @@ public class BezierCurveBuilder : MonoBehaviour
         }
 
         DrawBezierCurve();
-        propertyHandler.directionSelected = -1f;
         propertyHandler.pathCompleted = false;
         Debug.Log("Adding Points");
     }
@@ -108,26 +107,28 @@ public class BezierCurveBuilder : MonoBehaviour
 
     public void TranslateRotation()
     {
-        float yRotation = propertyHandler.directionSelected;
-        if (yRotation >= 315 || yRotation < 45)
+        switch (propertyHandler.directionSelected)
         {
-            AddPoints(controlPointsUp); // Facing up (0 degrees)
-        }
-        else if (yRotation >= 45 && yRotation < 135)
-        {
-            AddPoints(controlPointsRight); // Facing right (90 degrees)
-        }
-        else if (yRotation >= 135 && yRotation < 225)
-        {
-            AddPoints(controlPointsDown); // Facing down (180 degrees)
-        }
-        else if (yRotation >= 225 && yRotation < 315)
-        {
-            AddPoints(controlPointsLeft); // Facing left (270 degrees)
-        }
-        else
-        {
-            Debug.LogError("Unknown Rotation value!");
+            case "AIR":
+                AddPoints(controlPointsUp);
+                Debug.Log("UP");
+                break;
+            case "EARTH":
+                AddPoints(controlPointsDown);
+                Debug.Log("DOWN");
+                break;
+            case "FIRE":
+                AddPoints(controlPointsLeft);
+                Debug.Log("LEFT");
+                break;
+            case "WATER":
+                AddPoints(controlPointsRight);
+                Debug.Log("RIGHT");
+                break;
+            default:
+                Debug.Log("NOPE");
+                // Add default behavior
+                break;
         }
     }
 }

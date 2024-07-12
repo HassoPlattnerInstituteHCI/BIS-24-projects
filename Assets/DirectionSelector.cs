@@ -1,56 +1,45 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using SpeechIO;
 
 public class DirectionSelector : MonoBehaviour
 {
     private PropertyHandler propertyHandler;
     private BezierCurveBuilder curveBuilder;
-    public GameObject rotationSelector;
+    private RotatingHandle handle;
+    private List<string> directions = new List<string>();
+    private SpeechOut speaker;
 
     // Start is called before the first frame update
     void Start()
     {
-        curveBuilder = GetComponent<BezierCurveBuilder>();
-
-        if (curveBuilder == null )
-        {
-            Debug.LogError("curveBuilder not found.");
-        }
-
         propertyHandler = GetComponent<PropertyHandler>();
-
-        if ( propertyHandler == null )
-        {
-            Debug.LogError("No PropertyHandler found.");
-        }
-
-        if (rotationSelector == null)
-        {
-            Debug.LogError("No rotationselector set");
-        }
-
-
+        speaker = new SpeechOut();
+        directions.Add("AIR");
+        directions.Add("EARTH");
+        directions.Add("FIRE");
+        directions.Add("WATER");
+        InvokeRepeating("SetNewDirection", 5f, 5f);
     }
 
-    // Update is called once per frame
-    void Update()
+    async private void SetNewDirection()
     {
-        if (!propertyHandler.pathCompleted && propertyHandler.directionSelectorActive) { return; }
-        GetDirectionFromRotation(rotationSelector.transform.rotation);
-
+        propertyHandler.directionSelected = GetRandomElement(directions);
+        await speaker.Speak(propertyHandler.directionSelected);
     }
 
-    void GetDirectionFromRotation(Quaternion rotation)
+    string GetRandomElement(List<string> list)
     {
-        
-        // Convert the quaternion to Euler angles
-        Vector3 euler = rotation.eulerAngles;
-        float yRotation = euler.y;
+        if (list == null || list.Count == 0)
+        {
+            Debug.LogWarning("The list is empty or null.");
+            return null;
+        }
 
-        // Define the direction based on the Y rotation
-
-        propertyHandler.directionSelected = yRotation;
+        int randomIndex = UnityEngine.Random.Range(0, list.Count);
+        return list[randomIndex];
     }
 }

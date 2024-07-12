@@ -44,7 +44,7 @@ public class MovementDetector : MonoBehaviour
         propertyHandler.caldronActionActive = trigger.transform.position != lastPosition && IsWithinBounds(trigger.transform.position);
         lastPosition = trigger.transform.position;
 
-        if (propertyHandler.pathCompleted && propertyHandler.directionSelected != -1 && propertyHandler.selectionWasActive) { propertyHandlerObject.GetComponent<BezierCurveBuilder>().TranslateRotation(); }
+        if (propertyHandler.pathCompleted && propertyHandler.directionSelected != "NONE" && propertyHandler.selectionWasActive) { propertyHandlerObject.GetComponent<BezierCurveBuilder>().TranslateRotation(); }
     }
 
     bool IsWithinBounds(Vector3 position)

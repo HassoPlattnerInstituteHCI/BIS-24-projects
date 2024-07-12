@@ -8,8 +8,9 @@ public class PropertyHandler : MonoBehaviour
 {
     public Boolean caldronActionActive = false;
     public Boolean pathCompleted = false;
-    public float directionSelected = -1f;
+    public string directionSelected = "NONE";
     public Boolean directionSelectorActive = false;
     public Boolean selectionWasActive = true;
     public Vector3[] path;
+    public string madePotion = "NONE";
 }

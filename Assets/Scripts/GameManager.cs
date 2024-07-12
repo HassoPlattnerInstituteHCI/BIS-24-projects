@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         
         
         // TODO 3:
-        await _upperHandle.SwitchTo(potion, 50.0f);
+        await _upperHandle.SwitchTo(potion, 500.0f);
         _lowerHandle.Free();
     }
 

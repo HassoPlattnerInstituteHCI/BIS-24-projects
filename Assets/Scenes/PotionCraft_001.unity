@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: overwriteDefaultPort
-      value: 12
+      value: //.//COM12
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: m_Name
@@ -758,13 +758,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlPointsUp:
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
   controlPointsRight:
-  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
   controlPointsLeft:
-  - {x: 0, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
   controlPointsDown:
-  - {x: 0, y: 0, z: 5}
+  - {x: 0, y: 0, z: -1}
   controlPointsBase:
   - {x: 0, y: 0, z: 0}
   initialSegmentCount: 50
@@ -782,7 +782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   caldronActionActive: 0
   pathCompleted: 0
-  directionSelected: -1
+  directionSelected: 
   directionSelectorActive: 0
   selectionWasActive: 1
   path: []
@@ -798,7 +798,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb16b223526079b4c99d26fa22114d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSelector: {fileID: 1853262585}
+--- !u!114 &933049848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933049841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0cd99c2b2a343ab975bb8748134731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUpper: 1
+  angle: 0
+  angleStep: 0.01
 --- !u!1001 &1002635047
 PrefabInstance:
   m_ObjectHideFlags: 0

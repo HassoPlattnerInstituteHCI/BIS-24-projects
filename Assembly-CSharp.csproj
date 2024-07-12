@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\LinuxSpeechIn.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\PantoBoxCollider.cs" />
+    <Compile Include="Assets\CollisionReporter.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\ForceField.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\ForcefieldLabyrinth\LabyrinthFinishLine.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\MeHandle.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Overcooked\Tutorial.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\UpperHandle.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\SpeechIn.cs" />
+    <Compile Include="Assets\DirectionSelector.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\MoveToPosition.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\WindowsSpeechIn.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\PantoHandle.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\HapticTexture.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\TactileNavMesh.cs" />
+    <Compile Include="Assets\PropertyHandler.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Output Core Scripts\SpeechOut.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\GenerateObstacles.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Resources\clipper_library\Properties\AssemblyInfo.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\RailPolyline.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Output Core Scripts\SpeechBase.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\ObjectOfInterest.cs" />
+    <Compile Include="Assets\ControlPointGenerator.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Overcooked\RegisterCollider.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\LevelIntroducer\PantoParallelIntros.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Overcooked\Game.cs" />
@@ -140,10 +144,7 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\WindowsVoiceProject\WindowsVoice.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\CenterForceField.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Output Core Scripts\LinuxSpeechOut.cs" />
-    <Compile Include="Assets\ControlPointGenerator.cs" />
-    <Compile Include="Assets\CollisionReporter.cs" />
-    <Compile Include="Assets\DirectionSelector.cs" />
-    <Compile Include="Assets\PropertyHandler.cs" />
+    <Compile Include="Assets\PotionDoneDetector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\unity-dualpanto-toolkit\Assets\Resources\Visualization\Path.compute" />
