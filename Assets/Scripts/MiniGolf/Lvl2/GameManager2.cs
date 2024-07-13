@@ -8,6 +8,7 @@ using DualPantoToolkit;
 public class GameManager2 : MonoBehaviour
 {
     public static int mode=0; //0.. Explanation, 1.. Exploration, 2.. Aiming, 3.. Shooting (Watch)
+    public static int amount_hits = 0;
     public static SpeechOut speechIO= new SpeechOut();
     public GameObject forcefield;
     //Referenzen
@@ -62,6 +63,10 @@ public class GameManager2 : MonoBehaviour
             else Debug.Log("Me-handle rotation detected without purpose");
         }
         rotation_handle = u.GetRotation();
+        if(mode == 3 && Ball.GetComponent<Rigidbody>().velocity == new Vector3(0, 0,0))
+        {
+            StartCoroutine(aiming());
+        }
     }
 
 
@@ -105,6 +110,7 @@ public class GameManager2 : MonoBehaviour
     IEnumerator shooting(){
         mode=3;
         GameObject.Find("LinearForceField").SetActive(false);
+        amount_hits += 1;
         //Shooting
         EnableWalls();
         u.SwitchTo(Ball,2f);
