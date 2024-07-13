@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ItHandle
+  - MeHandle
+  - Wall
+  - Golfball
   layers:
   - Default
   - TransparentFX
