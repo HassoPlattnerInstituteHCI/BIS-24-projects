@@ -8,6 +8,7 @@ using SpeechIO;
 public class IT : MonoBehaviour {
 
     SpeechOut sp;
+    bool player;
     
     void Start() {
         // OPTIONAL TODO: 
@@ -15,14 +16,17 @@ public class IT : MonoBehaviour {
         // speechIn.StartListening();
         // SpeedUpListener();
         sp = new SpeechOut();
+        player = true;
         //handle = (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>();
         
         //Reset();
     }
 
     void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Black")) {
+        if(other.CompareTag("Black") && player) {
             sp.Speak("Black");
+        } else if(other.CompareTag("White") && !player) {
+            sp.Speak("White");
         }
     }
     
