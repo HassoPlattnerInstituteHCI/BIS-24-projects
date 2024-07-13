@@ -18,10 +18,12 @@ public class GameManager : MonoBehaviour
     private LowerHandle _lowerHandle;
     
     private SpeechOut _speechOut;
+    private System.Random rnd;
     public GameObject ball_red_prefab;
     public GameObject ball_blue_prefab;
     public GameObject target_prefab;
     public GameObject shooting_red_prefab;
+    public GameObject shooting_blue_prefab;
     public GameObject cube_prefab;
 
     PantoCollider[] pantoColliders;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _speechOut = new SpeechOut();
+        rnd = new System.Random();
     }
 
    async void Start()
@@ -81,7 +84,9 @@ public class GameManager : MonoBehaviour
         int obstacle_count = 5, red = 3, blue = 2;
         while(obstacle_count>0){
             //await _speechOut.Speak(obstacle_count.ToString() + " balls left.");
-            Instantiate(shooting_red_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
+            int tmp = rnd.Next(2);
+            if(red>0 && tmp == 0) Instantiate(shooting_red_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
+            else Instantiate(shooting_blue_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
             float last_rotation = _lowerHandle.GetRotation();
             /*GameObject target = Instantiate(target_prefab, new Vector3(2f, 0f, -6f), Quaternion.identity);
             _lowerHandle.SwitchTo(target, 200f);*/
