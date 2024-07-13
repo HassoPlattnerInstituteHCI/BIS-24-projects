@@ -10,6 +10,7 @@ TagManager:
   - Rhombus
   - Rectangle
   - Square
+  - Green
   layers:
   - Default
   - TransparentFX

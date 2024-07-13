@@ -23,9 +23,9 @@ public class IT : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Black") && player) {
+        if(other.CompareTag("Black") && ME.player) {
             sp.Speak("Black");
-        } else if(other.CompareTag("White") && !player) {
+        } else if(other.CompareTag("White") && !ME.player) {
             sp.Speak("White");
         }
     }
