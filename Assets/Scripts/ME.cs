@@ -27,7 +27,7 @@ public class ME : MonoBehaviour {
         // SpeedUpListener();
         sp = new SpeechOut();
         player = true;
-        sp.Speak("Find the pieces on the board with both handles!");
+        sp.Speak("Find the pieces on the board with both handles and pick them up and place them by twisting the Me handle, after each move it's the other players turn.");
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         lastRotationU = upperHandle.GetRotation();
