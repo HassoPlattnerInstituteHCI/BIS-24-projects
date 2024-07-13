@@ -3,23 +3,28 @@ using UnityEngine;
 using DualPantoToolkit;
 using SpeechIO;
 
-public class Fruit : MonoBehaviour
+public class Bomb : MonoBehaviour
 {
     SpeechOut speechOut = new SpeechOut();
 
-    PantoHandle handle;
-    public float angle = 0;
+    PantoHandle upperHandle;
+    PantoHandle lowerHandle;
+    public float lowerAngle = 0f;
+    public float upperAngle = 0f;
     private float angleStep = 10f;
-    private float waitTime = 0.01f;
-    private bool sliced = false;
-    public AudioClip fruit_slice;
+    private float waitTime = 0.005f;
+    private bool hit_bomb = false;
+    public AudioClip bomb_sound;
     private AudioSource audioSource;
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        handle = GameObject.Find("Panto").GetComponent<LowerHandle>();
+        lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
+        upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         audioSource = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -38,20 +43,18 @@ public class Fruit : MonoBehaviour
     {
         if (other.CompareTag("MeHandle"))
         {
+            upperHandle.Freeze();
+            lowerHandle.Freeze();
+            rb.constraints = RigidbodyConstraints.FreezePosition;
             StartCoroutine(RotateBackAndForth());
+            
 
-            //Destroy(gameObject);
-            GameObject itHandleGodObject = GameObject.FindWithTag("ItHandle");
-            if (itHandleGodObject != null)
+            if (!hit_bomb)
             {
-                //Destroy(itHandleGodObject);
-            }
+                hit_bomb = true;
 
-            if (!sliced)
-            {
-                sliced = true;
-                audioSource.PlayOneShot(fruit_slice);
-                await speechOut.Speak("you sliced the Fruit!");
+                audioSource.PlayOneShot(bomb_sound);
+                await speechOut.Speak("you hit the bomb. game over!");
             }
                  
 
@@ -64,9 +67,9 @@ public class Fruit : MonoBehaviour
             {
                 Destroy(itHandleGodObject);
             }
-            if (!sliced)
+            if (!hit_bomb)
             {
-                await speechOut.Speak("you missed the Fruit!");
+                await speechOut.Speak("you avoided the bomb!");
             }
         }
         else if (other.CompareTag("ItHandle"))
@@ -81,23 +84,25 @@ public class Fruit : MonoBehaviour
 
     IEnumerator RotateBackAndForth()
     {
-        float angle = 0f;
+        //float angle = 0f;
 
         for (int j = 0; j < 3; j++)
         {
-            // Drehungen in eine Richtung
             for (int i = 0; i < 10; i++)
             {
-                handle.Rotate(angle);
-                angle += angleStep;
+                lowerHandle.Rotate(lowerAngle);
+                upperHandle.Rotate(upperAngle);
+                lowerAngle += angleStep;
+                upperAngle -= angleStep;
                 yield return new WaitForSeconds(waitTime);
             }
 
-            // Drehungen in die andere Richtung
             for (int i = 0; i < 10; i++)
             {
-                handle.Rotate(angle);
-                angle -= angleStep;
+                lowerHandle.Rotate(lowerAngle);
+                upperHandle.Rotate(upperAngle);
+                lowerAngle -= angleStep;
+                upperAngle += angleStep;
                 yield return new WaitForSeconds(waitTime);
             }
         }

@@ -1,0 +1,59 @@
+using DualPantoToolkit;
+using UnityEngine;
+using SpeechIO;
+using Task = System.Threading.Tasks.Task;
+
+public class Level3Manager : MonoBehaviour
+{
+    SpeechOut speechOut = new SpeechOut();
+    public GameObject bomb;
+    public GameObject knife;
+
+    public Transform bombSpawn;
+    public Transform knifeSpawn;
+
+    private UpperHandle _upperHandle;
+    private LowerHandle _lowerHandle;
+
+    PantoCollider[] pantoColliders;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _upperHandle = GetComponent<UpperHandle>();
+        _lowerHandle = GetComponent<LowerHandle>();
+
+        Introduction();
+    }
+
+    async void Introduction()
+    {
+        Level level = GetComponent<Level>();
+        await level.PlayIntroduction(0.2f, 3000);
+        await speechOut.Speak("Try to avoid the bomb");
+
+        await StartGame();
+    }
+
+    async Task StartGame()
+    {
+        await RenderObstacle();
+
+        Instantiate(knife, knifeSpawn);
+        GameObject sb = Instantiate(bomb, bombSpawn);
+
+        // TODO 3:
+        await _lowerHandle.SwitchTo(sb, 50.0f);
+        _upperHandle.Free();
+    }
+
+    async Task RenderObstacle()
+    {
+        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
+        foreach (PantoCollider collider in pantoColliders)
+        {
+            collider.CreateObstacle();
+            collider.Enable();
+        }
+    }
+}
