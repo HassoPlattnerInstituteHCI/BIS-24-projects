@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using SpeechIO;
 using UnityEngine;
 
-namespace DualPantoToolkit{
+using DualPantoToolkit;
+
 public class GameManager : MonoBehaviour
 {
     public static int mode=0; //0.. Explanation, 1.. Exploration, 2.. Aiming, 3.. Shooting (Watch)
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     private int rotation_lower_threshold=20;
     private int rotation_upper_threshold=200;
     private float k_factor=20f;
+    PantoCollider[] pantoColliders;
     void Start()
     {
         wiggle=this.GetComponent<Wiggle>();
@@ -50,16 +52,37 @@ public class GameManager : MonoBehaviour
         rotation_handle = u.GetRotation();
     }
 
+    void DisableWalls() 
+    {
+        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
+        foreach (PantoCollider collider in pantoColliders) {
+            collider.Disable();
+        }
+    }
+    
+    void EnableWalls() {
+        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
+        foreach (PantoCollider collider in pantoColliders) {
+            collider.Enable();
+        }
+    }
+
+    void CreateObstacles() {
+        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
+        foreach (PantoCollider collider in pantoColliders) {
+            collider.CreateObstacle();
+            // collider.Enable();
+        }
+    }
+
     IEnumerator DelayedStart(){
-        LeftBound.SetActive(false);
-        RightBound.SetActive(false);
-        TopBound.SetActive(false);
-        BottomBound.SetActive(false);
+        this.CreateObstacles();
+        this.DisableWalls();
         //Initial Position
         speechIO.Speak("Grab both handles to start the game");
-        l.MoveToPosition(new Vector3(0,0,-5), 0.5f, true);
+        l.MoveToPosition(new Vector3(2,0,-5), 0.5f, true);
         yield return new WaitForSeconds(2);
-        u.MoveToPosition(new Vector3(0,0,-5), 0.5f, true);
+        u.MoveToPosition(new Vector3(-2,0,-5), 0.5f, true);
         yield return new WaitForSeconds(3);
         //tutorial explanation
         l.MoveToPosition(GameObject.Find("Goal").transform.position, 0.8f, true);
@@ -72,7 +95,7 @@ public class GameManager : MonoBehaviour
         speechIO.Speak("in the hole");
         wiggle.wiggle_wiggle_wiggle(false);
         yield return new WaitForSeconds(2);
-        speechIO.Speak("by drawing. Confirm by rotating lower handle");
+        speechIO.Speak("by drawing. Confirm by rotating upper handle");
         yield return new WaitForSeconds(2);
         wiggle.wiggle_wiggle_wiggle(false); 
         //Ready for aiming
@@ -86,16 +109,11 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator apply_shooting(){
         mode=3;
-        //GameObject.Find("LinearForceField(Clone)").GetComponent<CenterForceField>().active=false;
         GameObject.Find("LinearForceField(Clone)").SetActive(false);
-        //Shootingirngirng
-        LeftBound.SetActive(true);
-        RightBound.SetActive(true);
-        TopBound.SetActive(true);
-        BottomBound.SetActive(true);
+        //Shooting
+        this.EnableWalls();
         u.SwitchTo(GameObject.Find("Ball"),2f);
         Shooting.shoot((GameObject.Find("Ball").transform.position-PU.transform.position)*k_factor);
         yield return new WaitForSeconds(3);
     }
-}
 }
