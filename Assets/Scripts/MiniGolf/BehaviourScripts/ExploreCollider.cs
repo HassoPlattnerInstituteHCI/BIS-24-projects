@@ -22,7 +22,7 @@ namespace DualPantoToolkit{
         {
             if(collider.gameObject.name.Equals("Water"))
             {
-                GameObject.Find("GameMaster").GetComponent<GameManagerClass>().wiggle.wiggle_wiggle_wiggle(true);
+                //GameObject.Find("GameMaster").GetComponent<GameManagerClass>().wiggle.wiggle_wiggle_wiggle(true);
                 /* Vector3 direction=new Vector3(1,0,0);
                 dps.ApplyForce(true,direction,1);
                 dps.FreeHandle(true);

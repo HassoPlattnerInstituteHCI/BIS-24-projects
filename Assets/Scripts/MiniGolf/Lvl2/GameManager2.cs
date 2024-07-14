@@ -23,7 +23,11 @@ public class GameManager2 : GameManagerClass
             //else Debug.Log("Me-handle rotation detected without purpose");
         }
         rotation_handle = u.GetRotation();
-        if(mode == 4 && Ball.GetComponent<Rigidbody>().velocity.magnitude <0.01)
+        Debug.Log(mode);
+    }
+    void FixedUpdate()
+    {
+        if(mode == 4 && Ball.GetComponent<Rigidbody>().velocity.magnitude <0.1)
         {
             Ball.GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
             Ball.GetComponent<Rigidbody>().angularVelocity=new Vector3(0,0,0);

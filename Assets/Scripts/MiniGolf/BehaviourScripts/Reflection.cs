@@ -20,6 +20,7 @@ public class Reflection : MonoBehaviour
   private void ReflectProjectile(Rigidbody rb, Vector3 reflectVector)
   {    
     velocity = Vector3.Reflect(rb.velocity, reflectVector);
+    Debug.Log("Start: " + rb.velocity + "End: " + velocity);
     rb.velocity = velocity;
   }
 }

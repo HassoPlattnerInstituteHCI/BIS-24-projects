@@ -7,12 +7,12 @@ namespace DualPantoToolkit{
     {
         GameManagerClass g;
         void Awake(){
-            g=GameObject.Find("GameMaster").GetComponent<GameManagerClass>();
+            g= GameObject.Find("GameMaster").GetComponent<GameManagerClass>();
         }
         public void OnTriggerEnter(Collider other){
             if(other.gameObject.name.Equals("Goal")){
                 g.mode=5;
-                GameManager.speechIO.Speak("Congratulations! You hit a hole in" + g.amount_hits +  " and completed level "+g.currentlvl);
+                GameManager.speechIO.Speak("Congratulations! You hit a hole in " + g.amount_hits +  " and completed level "+g.currentlvl);
                 GameObject.Find("Ball").GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
                 StartCoroutine(g.NextLevel());
             }

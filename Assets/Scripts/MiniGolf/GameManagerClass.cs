@@ -29,7 +29,7 @@ public abstract class GameManagerClass : MonoBehaviour
     protected float rotation_handle;
     protected int rotation_lower_threshold=20;
     protected int rotation_upper_threshold=200;
-    protected float k_factor=20f;
+    protected float k_factor=15f;
     public void Awake()
     {
         wiggle=this.GetComponent<Wiggle>();
@@ -61,9 +61,11 @@ public abstract class GameManagerClass : MonoBehaviour
         yield return new WaitForSeconds(2);
         //Initial Position
         l.MoveToPosition(new Vector3(0,0,-5), 0.5f, true);
+        yield return new WaitForSeconds(3);
         u.MoveToPosition(new Vector3(0,0,-5), 0.5f, true);
         yield return new WaitForSeconds(3);
         l.MoveToPosition(new Vector3(2,0,-5), 0.5f, true);
+        yield return new WaitForSeconds(3);
         u.MoveToPosition(new Vector3(-2,0,-5), 0.5f, true);
         yield return new WaitForSeconds(2);
         speechIO.Speak("Grab both handles to start level "+currentlvl);
@@ -86,19 +88,22 @@ public abstract class GameManagerClass : MonoBehaviour
     }
     public IEnumerator aiming(){
         //Aiming
+        DisableWalls();
         isbusy=true;
         mode=2;
         //l.MoveToPosition(Goal.transform.position, 0.5f, false);
         foreach(GameObject w in GameObject.FindGameObjectsWithTag("Wall")){
             w.GetComponent<Collider>().isTrigger=false;
         }
+        u.Free();
         u.MoveToPosition(Ball.transform.position, 0.5f, true);
         yield return new WaitForSeconds(3);
-        u.Free();
+        //u.Free();
         //Issue: ForceField does not work on the UpperHandle
         GameObject t= Instantiate(forcefield,Ball.transform.position,Quaternion.identity);
         t.name="LinearForceField";
         GameObject.Find("LinearForceField").GetComponent<CenterForceField>().active=true;
+        speechIO.Speak("You can now shoot");
         yield return new WaitForSeconds(1);
         isbusy=false;
     }
@@ -108,20 +113,22 @@ public abstract class GameManagerClass : MonoBehaviour
         GameObject.Find("LinearForceField").SetActive(false);
         amount_hits += 1;
         //Shooting
-        EnableWalls();
-        u.SwitchTo(Ball,4f);
+        u.SwitchTo(Ball,3f);
         Shooting.shoot((Ball.transform.position-PU.transform.position).magnitude*(Ball.transform.position-PU.transform.position)*k_factor);
+        EnableWalls();
+        yield return new WaitForSeconds(0.5f);
         mode = 4;
-        yield return new WaitForSeconds(1);
-
     }
     public IEnumerator NextLevel(){
+        GameObject.Find("LinearForceField").SetActive(false);
         u.Free();
         l.Free();
         u.MoveToPosition(new Vector3(0,0,-5),0.5f,true);
+        yield return new WaitForSeconds(3);
         l.MoveToPosition(new Vector3(0,0,-5),0.5f,true);
         yield return new WaitForSeconds(3);
         u.MoveToPosition(new Vector3(0,0,0),0.5f,true);
+        yield return new WaitForSeconds(3);
         l.MoveToPosition(new Vector3(0,0,0),0.5f,true);
         yield return new WaitForSeconds(4);
         DualPantoSync.Reset();
