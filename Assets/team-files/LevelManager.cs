@@ -60,7 +60,8 @@ public class LevelManager : MonoBehaviour
 
         GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0,0,-10);
         
-        speechOut.Speak("Move both handles in the middle to start the intro.");
+        // speechOut.Speak("Move both handles in the middle to start the intro.");
+        speechOut.Speak("Bewege beide Griffe in die Mitte um das Intro zu starten.");
 
         panto.GetComponent<GameManager>().DestroyObstacle();
         Destroy(currentLevel);

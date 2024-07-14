@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DualPantoToolkit;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
@@ -10,6 +9,7 @@ using SpeechIO;
 
 public class Object : MonoBehaviour
 {
+    private SoundManager sM;
     private SpeechOut speechOut;
 
     public GameObject level;
@@ -17,17 +17,25 @@ public class Object : MonoBehaviour
     public string name;
     public string description;
     public int id;
+    private bool soundLocked = false;
     
     void Start()
     {
         speechOut = new SpeechOut();
+        sM = GameObject.FindObjectsOfType<SoundManager>()[0];
     }
 
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "ItHandle") 
         {
-            speechOut.Speak(name);
+            sM.startLoop();
+            if (!soundLocked) {
+                speechOut.Speak(name);
+                soundLocked = true;
+                Invoke("unlockSound", 2);
+            }
+            
 
             if (level.name == "Level 1(Clone)")
             {
@@ -43,9 +51,24 @@ public class Object : MonoBehaviour
 
     void OnTriggerExit(Collider col)
     {
+        if (col.gameObject.tag == "ItHandle")
+        {
+            sM.stopLoop();
+        }
+
         if (col.gameObject.tag == "MeHandle")
         {
            GameObject.FindObjectsOfType<ObjectHandler>()[0].resetHoveredObject(gameObject);
         }
+    }
+
+    void unlockSound()
+    {
+        soundLocked = false;
+    }
+
+    void OnDestroy()
+    {
+        sM.stopLoop();
     }
 }

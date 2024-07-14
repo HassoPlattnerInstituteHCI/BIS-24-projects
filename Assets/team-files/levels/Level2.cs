@@ -30,7 +30,11 @@ public class Level2 : MonoBehaviour
         oS.removeToolActivated = false;
         oS.doorToolActivated = false;
 
-        speechOut.Speak("Level 2... Turn the lower handle to select objects... Place three different objects by turning the upper handle.");
+        // speechOut.Speak("Level 2... Turn the lower handle to select objects... Place three different objects by turning the upper handle.");
+        oS.soundLocked = true;
+        speechOut.Speak("Level 2 . Drehe den unteren Griff leicht nach rechts um das nächste Objekt, und nach links um das vorherige Objekt auszuwählen.");
+        Invoke("unlockSound", 10);
+        Invoke("saySecondPart", 20);
     }
 
     public void objectPlaced(string name)
@@ -51,12 +55,23 @@ public class Level2 : MonoBehaviour
 
     private void levelFinished()
     {
-        speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
+        // speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
+        speechOut.Speak("Sehr gut! Bewege beide Griffe in die Mitte um in das nächste Level zu kommen.");
         Invoke("finish", 5);
     }
 
     private void finish()
     {
         GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0,0,-10);
+    }
+
+    private void unlockSound()
+    {
+        oS.soundLocked = false;
+    }
+
+    private void saySecondPart()
+    {
+        speechOut.Speak("Platziere jetzt 3 unterschiedliche Objekte indem du den oberen Griff leicht drehst.");
     }
 }

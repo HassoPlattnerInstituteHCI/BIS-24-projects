@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DualPantoToolkit;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
@@ -28,8 +27,9 @@ public class GameManager : MonoBehaviour
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
 
-        //_speechOut.SetLanguage("german");
-        _speechOut.Speak("Move both handles in the middle to start the intro.");
+        //_speechOut.Speak("Move both handles in the middle to start the intro.");
+        
+        _speechOut.Speak("Bewege beide Griffe in die Mitte um das Intro zu starten.");
     }
 
     async void Introduction()
@@ -43,29 +43,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("play Intro");
 
         await level.PlayIntroduction(1.0f, 500);
-        //await level.PlayPAIntro();
-        // await Task.Delay(1000);
         
         await StartGame();
     }
 
     public async Task StartGame()
     {
-        // await Task.Delay(1000);
 
         await RenderObstacle();
         
-        // await Task.Delay(1000);
-        
-        // await _speechOut.Speak("Try it yourself.");
-        
-        /*Instantiate(player, playerSpawn);
-        Instantiate(enemy, new Vector3(0.35f, 0.0f, -5.64f), Quaternion.identity);
-        GameObject sb = Instantiate(ball, ballSpawn);*/
-        
-        //await _lowerHandle.SwitchTo(sb, 50.0f);
-        // _upperHandle.Free();
-        // _lowerHandle.Free();
     }
 
     async Task RenderObstacle()

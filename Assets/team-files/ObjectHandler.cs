@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DualPantoToolkit;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
@@ -36,34 +35,34 @@ public class ObjectHandler : MonoBehaviour
         _speechOut = new SpeechOut();
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "PlacedObject") 
-        {
-            hoveredObject = collision.gameObject;
-            _speechOut.Speak(collision.gameObject.GetComponent<Object>().name);
-        }
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //     if (collision.gameObject.tag == "PlacedObject") 
+    //     {
+    //         hoveredObject = collision.gameObject;
+    //         _speechOut.Speak(collision.gameObject.GetComponent<Object>().name);
+    //     }
 
-        if (collision.gameObject.tag == "Wall") 
-        {
-            hoveredObject = collision.gameObject;
-        }
-    }
+    //     if (collision.gameObject.tag == "Wall") 
+    //     {
+    //         hoveredObject = collision.gameObject;
+    //     }
+    // }
 
-    void OnCollisionLeave(Collision collision)
-    {
-        if (collision.gameObject.tag == "PlacedObject" || collision.gameObject.tag == "Wall") 
-        {
-            hoveredObject = null;
-        }
-    }
+    // void OnCollisionLeave(Collision collision)
+    // {
+    //     if (collision.gameObject.tag == "PlacedObject" || collision.gameObject.tag == "Wall") 
+    //     {
+    //         hoveredObject = null;
+    //     }
+    // }
 
     public void placeWall()
     {
         soundManager.playPlaceSound();
         if (wallPlacementStarted) 
         {
-            _speechOut.Speak("Wall placed.");
+            _speechOut.Speak("Wand platziert.");
 
             wallPos2 = _upperHandle.GetPosition();
 
@@ -100,7 +99,7 @@ public class ObjectHandler : MonoBehaviour
         GameObject level = GameObject.FindGameObjectsWithTag("Level")[0];
 
         // place sound
-        _speechOut.Speak(name + " placed");
+        _speechOut.Speak(name + " platziert.");
 
         if (level.name == "Level 2(Clone)")
         {
@@ -128,11 +127,11 @@ public class ObjectHandler : MonoBehaviour
             if (hoveredObject.tag == "Wall") 
             {
                 hoveredObject.GetComponent<PantoCollider>().Remove();
-                _speechOut.Speak("Wall removed.");
+                _speechOut.Speak("Wand entfernt.");
             } 
             else
             {
-                _speechOut.Speak(hoveredObject.GetComponent<Object>().name + " removed.");
+                _speechOut.Speak(hoveredObject.GetComponent<Object>().name + " entfernt.");
             }
             Destroy(hoveredObject);
             // delete sound
@@ -148,7 +147,6 @@ public class ObjectHandler : MonoBehaviour
         float wallLength;
         Quaternion wallRotation;
 
-        
         wallLength = hoveredObject.transform.localScale.z;
         wallRotation = Quaternion.Euler(0, hoveredObject.transform.rotation.y+90, 0);
 
@@ -178,7 +176,7 @@ public class ObjectHandler : MonoBehaviour
         wall1.GetComponent<PantoCollider>().Enable();
         wall2.GetComponent<PantoCollider>().Enable();
 
-
+        _speechOut.Speak("Tür platziert.");
     }
 
     public void setHoveredObject(GameObject obj)

@@ -20,17 +20,26 @@ public class Level5 : MonoBehaviour
         oS.removeToolActivated = true;
         oS.doorToolActivated = true;
 
-        speechOut.Speak("Level 5... Place a door in the left wall to get to the next room.");
+        // speechOut.Speak("Level 5... Place a door in the left wall to get to the next room.");
+        oS.soundLocked = true;
+        speechOut.Speak("Level 5 . Wähle das Türobjekt aus. Platziere eine Tür in der linken Wand und gehe in den Raum.");
+        Invoke("unlockSound", 5);
     }
 
     public void levelFinished()
     {
-        speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
+        // speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
+        speechOut.Speak("Sehr gut! Bewege beide Griffe in die Mitte um in das nächste Level zu kommen.");
         Invoke("finish", 5);
     }
 
     private void finish()
     {
         GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0,0,-10);
+    }
+
+    private void unlockSound()
+    {
+        oS.soundLocked = false;
     }
 }

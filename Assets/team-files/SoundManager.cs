@@ -6,6 +6,8 @@ public class SoundManager : MonoBehaviour
 {
     public AudioClip[] audioClipArray;
     public AudioSource audioSource;
+
+    public AudioSource loopAudio;
   
     void Update()
     {
@@ -28,5 +30,15 @@ public class SoundManager : MonoBehaviour
     public void playDestroySound()
     {
         audioSource.PlayOneShot(audioClipArray[2]);
+    }
+
+    public void startLoop()
+    {
+        loopAudio.Play();
+    }
+
+    public void stopLoop()
+    {
+        loopAudio.Stop();
     }
 }

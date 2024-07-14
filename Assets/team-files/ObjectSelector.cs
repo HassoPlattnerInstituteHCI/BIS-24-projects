@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DualPantoToolkit;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
@@ -15,7 +14,7 @@ public class ObjectSelector : MonoBehaviour
     public string selectedObjectName;
     private ObjectHandler objectHandler;
     private int selectedObjectId = 0;
-    private string[] objectNames = {"chair", "table", "lamp", "wall", "remove tool", "door"}; // todo
+    private string[] objectNames = {"Stuhl", "Tisch", "Lampe", "Wand", "Löschen", "Tür"}; // todo
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     public float upperZeroRotation;
@@ -30,6 +29,7 @@ public class ObjectSelector : MonoBehaviour
     public bool doorToolActivated = false;
 
     private SpeechOut speechOut;
+    public bool soundLocked = false;
     public SoundManager soundManager;
 
     void Start()
@@ -63,7 +63,7 @@ public class ObjectSelector : MonoBehaviour
             if (lowerZeroRotation-rotL > 0) PrevObject();
         }
 
-        if (!upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30)
+        if (!soundLocked && !upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30)
         {
             upperTurned = true;
             
@@ -101,23 +101,23 @@ public class ObjectSelector : MonoBehaviour
 
     private void NextObject()
     {
+        if (soundLocked) return;
         if (++selectedObjectId >= objectNames.Length-3 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0)) selectedObjectId = 0;
 
-        Debug.Log("PLAY SOUND");
         soundManager.playSelectSound();
 
         selectedObjectName = objectNames[selectedObjectId];
-        speechOut.Speak(selectedObjectName + " selected.");
+        speechOut.Speak(selectedObjectName + " ausgewählt.");
     }
 
     private void PrevObject()
     {
+        if (soundLocked) return;
         if (--selectedObjectId < 0) selectedObjectId = objectNames.Length-4 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0);
 
-        Debug.Log("PLAY SOUND");
         soundManager.playSelectSound();
 
         selectedObjectName = objectNames[selectedObjectId];
-        speechOut.Speak(selectedObjectName + " selected.");
+        speechOut.Speak(selectedObjectName + " ausgewählt.");
     }
 }

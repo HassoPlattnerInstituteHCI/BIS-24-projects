@@ -29,7 +29,8 @@ public class Level1 : MonoBehaviour
         oS.removeToolActivated = false;
         oS.doorToolActivated = false;
 
-        speechOut.Speak("Level 1. Explore the room with the lower handle.");
+        // speechOut.Speak("Level 1. Explore the room with the lower handle.");
+        speechOut.Speak("Level 1 . Erkunde den Raum mit dem unteren Griff.");
     }
 
     public void foundObject(int objectId) 
@@ -52,7 +53,8 @@ public class Level1 : MonoBehaviour
 
     private void levelFinished()
     {
-        speechOut.Speak("Well done! You have found all Objects. Move the handles in the middle to continue to the next level");
+        // speechOut.Speak("Well done! You have found all Objects. Move the handles in the middle to continue to the next level");
+        speechOut.Speak("Du hast alle Objekte gefunden. Bewege beide Griffe in die Mitte um das nächste Level zu starten.");
         Invoke("finish", 6);
     }
 
