@@ -2,33 +2,66 @@ using UnityEngine;
 using DualPantoToolkit;
 using System.Threading.Tasks;
 
-
 public class movingStuff : MonoBehaviour
 {
     public GameObject p1;
-    
+    public AudioClip failedSound;
+    public AudioClip song;
+    public AudioClip levelIntroducer;
+    //public AudioSource audioSource;
+    public AudioSource twinkle;
+    const float BLINDTIME = 2.45f;
 
     PantoHandle lowerHandle;
     PantoHandle upperHandle;
-    Vector3 pos1 = new Vector3(-2.61999989f,2.95726109f,-10.96f);
-    Vector3 pos2 = new Vector3(1.65999997f,2.95726109f,-10.96f);
-    Vector3 pos3 = new Vector3(-2.48000002f,1f,-6.07999992f);
-    Vector3 pos4 = new Vector3(0.870000005f,2.95726109f,-10.1300001f);
-    Vector3 pos5 = new Vector3(0.870000005f,2.95726109f,-8.01000023f);
+    
+    
+    
+    
+    Vector3[] positionArray = new [] {  new Vector3(-2.5f,0f,-11f), 
+                                        new Vector3(1.5f,0f,-11f),
+                                        new Vector3(-2.5f,0f,-6.0f),
+                                        new Vector3(1f,0f,-11f),
+                                        new Vector3(0.5f,0f,-9f),
+                                        new Vector3(-0.5f,0f,-9.5f),
+                                        new Vector3(-2.5f,0f,-7f),
+                                        new Vector3(-1.5f,0f,-9f),
+                                        new Vector3(0.5f,0f,-11f),
+                                        new Vector3(-1.5f,0f,-9f),
+                                        new Vector3(1.5f,0f,-7f),
+                                        new Vector3(-1.7f,0f,-7f),
+                                        new Vector3(0f,0f,-8f)};
+
+
     Vector3 positionUpper = new Vector3(0.0f, 0.0f, 0.0f);
-    Vector3 offset;
-    Vector3 initialTarget = new Vector3(-2.48000002f,1f,-3.07999992f);
+
+    float targetTime = 2.8f;
+
     float difference = 1.0f;
-    int currPos = 1;
-    float speed = 50f;
+    int currPos = 0;
+    float speed = 100f;
     float diffx;
     float diffz;
+    bool madeit = false;
+    bool canStart = false;
+
     // Start is called before the first frame update
     void Start()
     {
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
+        p1.transform.position = positionArray[currPos];
         lowerHandle.SwitchTo(p1, speed);
+        //audioSource = GetComponent<AudioSource>();
+        twinkle = GetComponent<AudioSource>();
+        //audioSource.Play();
+        twinkle.PlayOneShot(levelIntroducer, 1.0f);
+    }
+
+    void GameStart(){
+        canStart = true;
+        twinkle.PlayOneShot(song, 1.0f);
+        targetTime = 2.8f;
     }
 
     void FixedUpdate() {
@@ -36,53 +69,44 @@ public class movingStuff : MonoBehaviour
     }
 
     // Update is called once per frame
-    async void Update()
+    async void Update() //async needed???
     {
-
-        // float diffx = (positionUpper.x - p1.transform.position.x);
-        // float diffz = (positionUpper.z - p1.transform.position.z);
-
-         Debug.Log(diffx);
-         Debug.Log(diffz);
-        // if (diffx < difference && diffz < difference) Debug.Log("it handle reached");
-
-        switch (currPos) {
-            case 1:
-                    
-                diffx = (positionUpper.x - pos1.x);
-                diffz = (positionUpper.z - pos1.z);
-                p1.transform.position = pos1;
-                if (Mathf.Abs(diffx) < difference && Mathf.Abs(diffz) < difference) {lowerHandle.SwitchTo(p1, speed); currPos++;}
-                break;
-            case 2:
-            diffx = (positionUpper.x - pos2.x);
-                diffz = (positionUpper.z - pos2.z);
-                p1.transform.position = pos2;
-                if (Mathf.Abs(diffx) < difference && Mathf.Abs(diffz) < difference) {lowerHandle.SwitchTo(p1, speed); currPos++;}
-                break;
-            case 3:
-            diffx = (positionUpper.x - pos3.x);
-                diffz = (positionUpper.z - pos3.z);
-                p1.transform.position = pos3;
-                if (Mathf.Abs(diffx) < difference && Mathf.Abs(diffz) < difference) {lowerHandle.SwitchTo(p1, speed); currPos++;}
-                break;
-            case 4:
-            diffx = (positionUpper.x - pos4.x);
-                diffz = (positionUpper.z - pos4.z);
-                p1.transform.position = pos4;
-                if (Mathf.Abs(diffx) < difference && Mathf.Abs(diffz) < difference) {lowerHandle.SwitchTo(p1, speed); currPos++;}
-                break;
-            case 5:
-            diffx = (positionUpper.x - pos5.x);
-                diffz = (positionUpper.z - pos5.z);
-                p1.transform.position = pos5;
-                if (Mathf.Abs(diffx) < difference && Mathf.Abs(diffz) < difference) {lowerHandle.SwitchTo(p1, speed); currPos++;}
-                break;
-            default:
-                break;
+        //audioSource.Play();
+        if(!canStart && Input.GetKeyDown(KeyCode.P)){
+            GameStart();
         }
+        if(canStart){
+        targetTime -= Time.deltaTime;
+        if (targetTime <= 0.0f){
+            TimerEnded();
+        }
+        if(currPos > 12) return;
+        diffx = (positionUpper.x - positionArray[currPos].x);
+        diffz = (positionUpper.z - positionArray[currPos].z);
+        if (Mathf.Abs(diffx) < difference && Mathf.Abs(diffz) < difference && Input.GetKeyDown(KeyCode.Space)) {
+            madeit = true;
+        }
+        Debug.Log(diffx);
+        Debug.Log(diffz);}
+    }
 
+    void TimerEnded(){
+        Debug.Log("TIMERTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDEDTIMER ENDED ENDED");
+        if (!madeit) {
+            //do some fail shit
+            //audioSource.Play();
+            twinkle.PlayOneShot(failedSound, 1.0f);
+            //AudioClip.PlayOneShot(failedSound, 1F);
+            Debug.Log("FAILED FAILED FAILED");
+        }
+        madeit = false;
+        NextPos();
+        targetTime = BLINDTIME;
+    }
 
-        
+    void NextPos(){
+        currPos++;
+        p1.transform.position = positionArray[currPos];
+                // lowerHandle.SwitchTo(p1, speed); //re SwitchTo otherwise tracking is whack
     }
 }
