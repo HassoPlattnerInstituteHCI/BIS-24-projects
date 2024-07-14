@@ -9,13 +9,9 @@ public class projectileMovement : MonoBehaviour
     private Vector3 direction;
     private Rigidbody rb;
 
-    void FixedUpdate() {
-        Vector3 movement = direction.normalized * 1 * (speed * Time.fixedDeltaTime);
-        rb.velocity = movement;
-    }
-
     void Start(){
         rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * speed;
     }
 
     // Update is called once per frame

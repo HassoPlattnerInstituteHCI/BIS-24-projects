@@ -8,6 +8,9 @@ using DualPantoToolkit;
 
 public class player : MonoBehaviour
 {
+    public GameObject projectile;
+
+    private int spawnTimer = 50;
     private float speed = 2.0f;
     //private PlayerSoundEffect soundEffects;
     private int score = 0;
@@ -24,6 +27,14 @@ public class player : MonoBehaviour
             ? (PantoHandle)GameObject.Find("Panto").GetComponent<UpperHandle>()
             : (PantoHandle)GameObject.Find("Panto").GetComponent<LowerHandle>();
         handle.Freeze();
+    }
+
+    void FixedUpdate(){
+        spawnTimer--;
+        if(spawnTimer <= 0){
+            Instantiate(projectile, transform.position, transform.rotation);
+            spawnTimer = 50;
+        }
     }
     
 

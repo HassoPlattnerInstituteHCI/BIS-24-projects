@@ -47,11 +47,12 @@ public class GameManager : MonoBehaviour
         
         await Task.Delay(1000);
         
-        Instantiate(player, playerSpawn);
+        GameObject me = Instantiate(player, playerSpawn);
         GameObject it = Instantiate(enemy, enemySpawn);
-        
-        await _lowerHandle.SwitchTo(it, 50.0f);
-        _upperHandle.Free();
+
+        await _upperHandle.SwitchTo(me, 5.0f);
+        await _lowerHandle.SwitchTo(it, 5.0f);
+        //_upperHandle.Free();
     }
 
     async Task RenderObstacle()
