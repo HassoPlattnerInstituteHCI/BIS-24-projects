@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         _upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         itHandle = GameObject.Find("ItHandle");
-        // TODO 1: remove this comment-out
+
         await StartGame();
     }
 
@@ -85,15 +85,9 @@ public class GameManager : MonoBehaviour
 
         // _speechOut.Speak("You've got a red bubble. Turn this handle to aim.");
 
-        int obstacle_count = 5, red = 3, blue = 2;
-
         float last_rotation = itHandle.transform.rotation.eulerAngles.y;
-        // await _speechOut.Speak("turn now");
         await Task.Delay(2000);
         float rotation = itHandle.transform.rotation.eulerAngles.y;
-
-        Debug.Log(last_rotation);
-        Debug.Log(rotation);
 
         //     if(Math.Abs(last_rotation - rotation)> 45){
         //         Debug.Log(last_rotation);
