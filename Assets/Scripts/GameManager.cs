@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     private SpeechOut _speechOut;
 
     private GameObject itHandle;
+
+    private System.Random rnd;
+
     public GameObject target_prefab;
     public GameObject cube_prefab_blue;
     public GameObject cube_prefab_red;
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public int bubbles;
 
+
     PantoCollider[] pantoColliders;
 
     // Start is called before the first frame update
@@ -36,6 +40,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _speechOut = new SpeechOut();
+        rnd = new System.Random();
     }
 
     async void Start()
@@ -100,20 +105,23 @@ public class GameManager : MonoBehaviour
         int red_bubbles = GameObject.FindGameObjectsWithTag("red").Length;
         int blue_bubbles = GameObject.FindGameObjectsWithTag("blue").Length;
         bubbles = red_bubbles + blue_bubbles;
-        // UnityEngine.Random rnd = new Random();
+
         int color = 0;
         string color_speech = " ";
         while (bubbles > 0)
         {
-            // color = rnd.Next(0, 1);
+            float last_rotation = _lowerHandle.GetRotation();
 
+            color = rnd.Next(2);
+            // color = rnd.Next(0, 1);
+            //await _speechOut.Speak(obstacle_count.ToString() + " balls left.");
             //spawn new ball
-            if (color == 0)
+            if (blue_bubbles > 0 color == 0)
             {
                 GameObject shooting_bubble = Instantiate(shooting_blue_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
                 color_speech = "blue";
             }
-            else if (color == 1)
+            else if (red_bubbles > 0)
             {
                 GameObject shooting_bubble = Instantiate(shooting_red_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
                 color_speech = "red";
@@ -125,7 +133,10 @@ public class GameManager : MonoBehaviour
 
             //schießzeug und so 
 
-
+            //     while(Math.Abs(last_rotation-_lowerHandle.GetRotation()) < 0.5){//versch. Werte testen
+            //         last_rotation = _lowerHandle.GetRotation();//Nutzer hat noch nicht geschossen
+            //         await Task.Delay(1500);
+            //     }
 
             //reset to startposition
             // await Task.Delay(1000);
