@@ -462,6 +462,63 @@ MonoBehaviour:
   onUpper: 1
   onLower: 1
   isPassable: 0
+--- !u!1001 &531875600
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2649076384035448141, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_Name
+      value: bubbles_target
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649076384035448142, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
 --- !u!1 &586753863
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,11 +762,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5539f4feaf76244bf6d0d1272fe059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball_red_prefab: {fileID: 1631873795862436992, guid: bbad4ca1574473048aee5b1c57068a7b, type: 3}
-  ball_blue_prefab: {fileID: 1631873795862436992, guid: e11e0283bbab0d94b9a4cc30966a3f80, type: 3}
   target_prefab: {fileID: 2649076384035448141, guid: da18fe890a577ae4884d2f3da4cfb926, type: 3}
-  shooting_red_prefab: {fileID: 1631873795862436992, guid: 34359dca15088404ab315450aa586c70, type: 3}
-  cube_prefab: {fileID: 6419269777418588200, guid: 9b890d7327ba8484f80e5777996dc7b5, type: 3}
+  cube_prefab_blue: {fileID: 6419269777418588200, guid: 7df15c6e8f6184eeebf31297ab9e87ee, type: 3}
+  cube_prefab_red: {fileID: 6419269777418588200, guid: 9b890d7327ba8484f80e5777996dc7b5, type: 3}
+  shooting_blue_prefab: {fileID: 1631873795862436992, guid: 34359dca15088404ab315450aa586c70, type: 3}
+  shooting_red_prefab: {fileID: 1631873795862436992, guid: 3de0f7a68824244a891bd74e7393b4e2, type: 3}
+  bubbles: 0
 --- !u!1001 &1197599000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -719,7 +777,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: overwriteDefaultPort
@@ -913,7 +971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1875014073
 MonoBehaviour:
   m_ObjectHideFlags: 0

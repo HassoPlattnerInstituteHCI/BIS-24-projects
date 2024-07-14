@@ -12,6 +12,8 @@ TagManager:
   - block1
   - blue
   - red
+  - Undefined
+  - shooting_bubble
   layers:
   - Default
   - TransparentFX

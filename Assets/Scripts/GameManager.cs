@@ -13,19 +13,24 @@ public class GameManager : MonoBehaviour
 
     //public Transform target;
     //public Transform target2;
-    
+
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
-    
+
     private SpeechOut _speechOut;
-    public GameObject ball_red_prefab;
-    public GameObject ball_blue_prefab;
+
+    private GameObject itHandle;
     public GameObject target_prefab;
+    public GameObject cube_prefab_blue;
+    public GameObject cube_prefab_red;
+
+    public GameObject shooting_blue_prefab;
     public GameObject shooting_red_prefab;
-    public GameObject cube_prefab;
+
+    public int bubbles;
 
     PantoCollider[] pantoColliders;
-    
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -33,84 +38,141 @@ public class GameManager : MonoBehaviour
         _speechOut = new SpeechOut();
     }
 
-   async void Start()
+    async void Start()
     {
         _upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         _lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
+        itHandle = GameObject.Find("ItHandle");
         // TODO 1: remove this comment-out
         await StartGame();
     }
 
     void Update()
-    {
-        //Debug.Log(target.transform.position);
+    {//float rotation = itHandle.transform.rotation.eulerAngles.y;
+     //         Debug.Log(rotation);
     }
-    
-    // async void Introduction()
-    // {
-    //     //Level level = GetComponent<Level>();
-    //     //await level.PlayIntroduction(0.2f, 3000);
-    //     //await Task.Delay(1000);
-        
-    //     // TODO 2:
-        
-    // }
+
 
     async Task StartGame()
     {
+        // handle bewegen sich in die Mitte
         await Task.Delay(1000);
-        await  _upperHandle.SwitchTo(GameObject.Find("Target"), 50f);
+        await _upperHandle.SwitchTo(GameObject.Find("Target"), 50f);
         await Task.Delay(1000);
-        await  _lowerHandle.SwitchTo(GameObject.Find("Target"), 50f);
+        await _lowerHandle.SwitchTo(GameObject.Find("Target"), 50f);
         await Task.Delay(1000);
         _upperHandle.Free();
         _lowerHandle.Free();
-        GameObject ball1 = Instantiate(cube_prefab, new Vector3((float)-2.75, 0f, -6f), Quaternion.identity);
-        Instantiate(cube_prefab, new Vector3((float)-1.15, 0f, -6f), Quaternion.identity);
-        Instantiate(cube_prefab, new Vector3((float)-0.25, 0f, -6f), Quaternion.identity);
-        Instantiate(cube_prefab, new Vector3((float)1.25, 0f, -6f), Quaternion.identity);
-        Instantiate(cube_prefab, new Vector3((float)2.25, 0f, -6f), Quaternion.identity);
+
+        // Bubbles erstellen
+        Instantiate(cube_prefab_blue, new Vector3((float)-2.75, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab_blue, new Vector3((float)-1.15, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab_red, new Vector3((float)-0.25, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab_red, new Vector3((float)1.25, 0f, -6f), Quaternion.identity);
+        Instantiate(cube_prefab_blue, new Vector3((float)2.25, 0f, -6f), Quaternion.identity);
         await RenderObstacle();
-        await Task.Delay(3000);
-        await _speechOut.Speak("Here are the balls. Destroy them!");
-        await  _upperHandle.SwitchTo(ball1, 50f);
-        await Task.Delay(3000);
+
+        //handle bewegt sich zu bubbles
+
+        _speechOut.Speak("Here are the bubbles. Destroy them!");
+        await _upperHandle.SwitchTo(GameObject.Find("bubbles_target"), 50f);
+        await Task.Delay(1000);
         _upperHandle.Free();
-       // _speechOut.Speak("You've got a red ball. Pull this handle to aim.");
+
+        // Zeit zum Abtasten der bubbles geben
+        //vlt wenn man bei letzter bubble angekommen ist gehts weiter??
+
+
+        // _speechOut.Speak("You've got a red bubble. Turn this handle to aim.");
 
         int obstacle_count = 5, red = 3, blue = 2;
-        while(obstacle_count>0){
-            //await _speechOut.Speak(obstacle_count.ToString() + " balls left.");
-            Instantiate(shooting_red_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
-            float last_rotation = _lowerHandle.GetRotation();
-            /*GameObject target = Instantiate(target_prefab, new Vector3(2f, 0f, -6f), Quaternion.identity);
-            _lowerHandle.SwitchTo(target, 200f);*/
-            await _speechOut.Speak("we moved to target");
-            while(Math.Abs(last_rotation-_lowerHandle.GetRotation()) < 0.5){//versch. Werte testen
-                last_rotation = _lowerHandle.GetRotation();//Nutzer hat noch nicht geschossen
-                await Task.Delay(1500);
+
+        float last_rotation = itHandle.transform.rotation.eulerAngles.y;
+        // await _speechOut.Speak("turn now");
+        await Task.Delay(2000);
+        float rotation = itHandle.transform.rotation.eulerAngles.y;
+
+        Debug.Log(last_rotation);
+        Debug.Log(rotation);
+
+        //     if(Math.Abs(last_rotation - rotation)> 45){
+        //         Debug.Log(last_rotation);
+        //         Debug.Log(rotation);
+        //         _speechOut.Speak("juchuuuuuu");
+        //    }
+
+
+        // destroy bubbles
+        int red_bubbles = GameObject.FindGameObjectsWithTag("red").Length;
+        int blue_bubbles = GameObject.FindGameObjectsWithTag("blue").Length;
+        bubbles = red_bubbles + blue_bubbles;
+        // UnityEngine.Random rnd = new Random();
+        int color = 0;
+        string color_speech = " ";
+        while (bubbles > 0)
+        {
+            // color = rnd.Next(0, 1);
+
+            //spawn new ball
+            if (color == 0)
+            {
+                GameObject shooting_bubble = Instantiate(shooting_blue_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
+                color_speech = "blue";
             }
-            //Ball wird abgeschossen
-            await _speechOut.Speak("shooting");
-            Vector3 pos = _lowerHandle.GetPosition();
-            GameObject target = Instantiate(target_prefab, new Vector3(-pos.x, 0f, -6f), Quaternion.identity);
-            //await _lowerHandle.SwitchTo(target, 200f);
-            obstacle_count = 0;
-            
-            
+            else if (color == 1)
+            {
+                GameObject shooting_bubble = Instantiate(shooting_red_prefab, GameObject.Find("Target").transform.position, Quaternion.identity);
+                color_speech = "red";
+            }
+            await _speechOut.Speak("Your bubble is " + color_speech);
+            color = color % 2 + 1;
+
+            await Task.Delay(1000);
+
+            //schießzeug und so 
+
+
+
+            //reset to startposition
+            // await Task.Delay(1000);
+            // await _upperHandle.SwitchTo(GameObject.Find("Target"), 50f);
+            // await Task.Delay(1000);
+            // await _lowerHandle.SwitchTo(GameObject.Find("Target"), 50f);
+            // await Task.Delay(1000);
+            // _upperHandle.Free();
+            // _lowerHandle.Free();
+
+            bubbles--;
+            GameObject.Destroy(GameObject.FindGameObjectsWithTag("shooting_bubble")[0]);
+
         }
-        
+        await _speechOut.Speak("You destroyed all bubbles!");
+
+
+
+        // while(obstacle_count>0){
+        //     //await _speechOut.Speak(obstacle_count.ToString() + " balls left.");
+        //     float last_rotation = _lowerHandle.GetRotation();
+        //     /*GameObject target = Instantiate(target_prefab, new Vector3(2f, 0f, -6f), Quaternion.identity);
+        //     _lowerHandle.SwitchTo(target, 200f);*/
+        //     Debug.Log(last_rotation);
+        //     while(Math.Abs(last_rotation-_lowerHandle.GetRotation()) < 0.5){//versch. Werte testen
+        //         last_rotation = _lowerHandle.GetRotation();//Nutzer hat noch nicht geschossen
+        //         await Task.Delay(1500);
+        //     }
+        //     //Ball wird abgeschossen
+        //     await _speechOut.Speak("shooting");
+        //     Vector3 pos = _lowerHandle.GetPosition();
+        //     GameObject target = Instantiate(target_prefab, new Vector3(-pos.x, 0f, -6f), Quaternion.identity);
+        //     //await _lowerHandle.SwitchTo(target, 200f);
+        //     obstacle_count = 0;
+
+
+        // }
+
 
 
     }
-
-    /*async void OnCollisionEnter(Collision other) {
-        if (other.collider.CompareTag("block2")) {
-            //soundEffects.PlayPaddleClip();
-            _speechOut.Speak("Yay, you completed the first level!");
-            
-        }
-    }*/
 
     async Task RenderObstacle()
     {
