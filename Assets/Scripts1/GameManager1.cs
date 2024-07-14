@@ -40,8 +40,7 @@ public class GameManager1 : MonoBehaviour
     private SpeechIn _speechIn;
     private bool level4Intro = true;
 
-    private float rotationUp = 0;
-    private float rotationLow = 0;
+    private float rotation = 0;
     
     PantoCollider[] pantoColliders;
     
@@ -86,7 +85,7 @@ public class GameManager1 : MonoBehaviour
 
             if(notSpeaking) {
 
-                if(rotationUp-5>_upperHandle.GetRotation()) { //Upper Handle Right
+                if(rotation-5>_upperHandle.GetRotation()) { //Upper Handle Right
                     notSpeaking=false;
 
                     if(massSelecting&&level>4) {
@@ -113,7 +112,7 @@ public class GameManager1 : MonoBehaviour
                     notSpeaking=true;
                 }
 
-                if(rotationUp+5<_upperHandle.GetRotation()&&level>2) { //Upper Handle Left
+                if(rotation+5<_upperHandle.GetRotation()&&level>2) { //Upper Handle Left
                     notSpeaking=false;
 
                     Field fieldScript = (Field) fields[x,z].GetComponent<Field>();
@@ -122,8 +121,8 @@ public class GameManager1 : MonoBehaviour
 
                     notSpeaking=true;
                 }
-
-                if(rotationLow-5>_lowerHandle.GetRotation()&&level>4&&!massSelecting) { //Lower Handle Right
+                /*
+                if(rotation-5>_lowerHandle.GetRotation()&&level>4) { //Lower Handle Right
                     notSpeaking=false;
 
                     massSelecting = true;
@@ -133,43 +132,32 @@ public class GameManager1 : MonoBehaviour
                             fieldScript.setSelected(false);
                         }
                     }
-                    // _lowerHandle.Free();
                     _lowerHandle.Rotate(0);
-                    // _lowerHandle.Freeze();
-                    // _lowerHandle.FreeRotation();
-                    await _speechOut.Speak("Mass selecting activated");
+                    _speechOut.Speak("Mass selecting activated");
 
                     notSpeaking=true;
                 }
 
-                if(rotationLow+5<_lowerHandle.GetRotation()&&level>4&&massSelecting) { //Lower Handle Left
+                if(rotation+5<_upperHandle.GetRotation()&&level>4) { //Lower Handle Left
                     notSpeaking=false;
 
                     massSelecting = false;
-                    // _lowerHandle.Free();
                     _lowerHandle.Rotate(0);
-                    // _lowerHandle.Freeze();
-                    // _lowerHandle.FreeRotation();
-                    await _speechOut.Speak("Mass selecting deactivated");
+                    _speechOut.Speak("Mass selecting deactivated");
 
                     notSpeaking=true;
-                }
+                }*/
 
             }
-            // _lowerHandle.Rotate(0);
-            // _upperHandle.Rotate(0);
-            rotationUp = _upperHandle.GetRotation();
-            rotationLow = _lowerHandle.GetRotation();
-            Debug.Log(rotationUp);
-            Debug.Log(rotationLow);
+            rotation = _upperHandle.GetRotation();
+            Debug.Log(rotation);
             
         }
     }
     async void levelSelection() {
         await _speechOut.Speak("Choose level.");
         _speechIn.Listen(levels);
-        // level = 5;
-        // ntroduction();
+        // Introduction();
     }
     async void Introduction()
     {
@@ -180,7 +168,6 @@ public class GameManager1 : MonoBehaviour
            await _speechOut.Speak("How big should the Canvas be?");
             _speechIn.Listen(sizes);
             return;
-            // size = 4;
         }
 
         await StartGame();
@@ -207,9 +194,6 @@ public class GameManager1 : MonoBehaviour
         await _upperHandle.MoveToPosition(new Vector3(startX+fieldSize/2,0,startZ+fieldSize/2), 1.0f, false);
         await moveLowerHandle();
 
-        _lowerHandle.Rotate(0);
-        _upperHandle.Rotate(0);
-
         await RenderObstacle();
         if(level>1) {
             _speechIn.Listen(colors);
@@ -224,17 +208,14 @@ public class GameManager1 : MonoBehaviour
         
         // TODO 3:
         // await _lowerHandle.SwitchTo(sb, 50.0f);
-
         _upperHandle.Free();
-        rotationUp = _upperHandle.GetRotation();
-        rotationLow = _lowerHandle.GetRotation();
+        rotation = _upperHandle.GetRotation();
         started = true;
     }
     async Task moveLowerHandle() {
         
         _lowerHandle.Free();
-        await _lowerHandle.MoveToPosition(new Vector3(startX+me_HandlePos[0]*fieldSize+fieldSize/2,0.0f,startZ+me_HandlePos[1]*fieldSize+fieldSize/2), 2.0f, true);
-        _lowerHandle.Freeze();
+        await _lowerHandle.MoveToPosition(new Vector3(startX+me_HandlePos[0]*fieldSize+fieldSize/2,0.0f,startZ+me_HandlePos[1]*fieldSize+fieldSize/2), 2.0f, false);
         _speechOut.Stop(false);
         await _speechOut.Speak("Moved to Pixel Row:" + me_HandlePos[0] + " Column:" + me_HandlePos[1]);
     }
