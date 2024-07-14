@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Minigolf.unity
+    guid: 7fcd085685ae99c4a98c8c22b7e3d640
   m_configObjects: {}
