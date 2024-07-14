@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 297929279}
   - component: {fileID: 297929278}
   - component: {fileID: 297929277}
+  - component: {fileID: 297929281}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: ObstacleRenderer
@@ -220,6 +221,18 @@ Transform:
   m_Father: {fileID: 1223571118}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &297929281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297929276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21082af36670a6c4991b9f403ef68b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &405035776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,9 +1350,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d827ba0717300884cae3eb05e1d225f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentlvl: 0
+  currentlvl: 3
+  mode: 0
   amount_hits: 0
   forcefield: {fileID: 3444552174554861213, guid: e8a15fa2aa838ae4c80b55f19e2f1827, type: 3}
+  wiggle: {fileID: 0}
 --- !u!1 &1609791564
 GameObject:
   m_ObjectHideFlags: 0
