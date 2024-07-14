@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpeechIO;
 
-public class Coin : MonoBehaviour
+public class Bomb : MonoBehaviour
 {
-
     private float speed = 1f;
-    private bool moving = true;
+    private bool moving = false;
 
     private SpeechOut speachOut;
+    private GameManager gameManager;
 
     // public Coin(bool _moving) {
     //     moving = _moving;
@@ -19,7 +19,8 @@ public class Coin : MonoBehaviour
     void Start()
     {
         speachOut = new SpeechOut();
-        speachOut.Speak("New coin");
+        speachOut.Speak("New bomb");
+        gameManager = GameObject.FindWithTag("Panto").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -29,12 +30,12 @@ public class Coin : MonoBehaviour
 
         if(transform.position.z < -15.16) {
             // play sound
-            speachOut.Speak("dudumm");
+            speachOut.Speak("yeah");
+            gameManager.IncreaseBombCounter();
 
             Destroy(this.gameObject);
 
         }
     }
-
 
 }

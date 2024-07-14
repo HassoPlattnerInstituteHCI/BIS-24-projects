@@ -150,8 +150,8 @@ Transform:
   m_GameObject: {fileID: 501632435}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.43, y: 5.5745754, z: -6.24}
-  m_LocalScale: {x: 0.2, y: 1, z: 5}
+  m_LocalPosition: {x: -5.43, y: 5.5745754, z: -2.65}
+  m_LocalScale: {x: 0.2, y: 1, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 838591595}
@@ -237,10 +237,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: overwriteDefaultPort
-      value: COM7
+      value: /dev/cu.SLAB_USBtoUART
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: m_Name
+      value: Panto
+      objectReference: {fileID: 0}
+    - target: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
+      propertyPath: m_TagString
       value: Panto
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422813, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
@@ -429,7 +433,7 @@ Transform:
   m_GameObject: {fileID: 906540261}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.2662313, y: 5.5745754, z: -4.81355}
+  m_LocalPosition: {x: -2.27, y: 5.5745754, z: -4.67}
   m_LocalScale: {x: 0.20000002, y: 1, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -534,8 +538,8 @@ Transform:
   m_GameObject: {fileID: 993003440}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.88999987, y: 5.5745754, z: -6}
-  m_LocalScale: {x: 0.2, y: 1, z: 5}
+  m_LocalPosition: {x: 0.88999987, y: 5.5745754, z: -2.45}
+  m_LocalScale: {x: 0.2, y: 1, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 838591595}
@@ -630,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5115385094788247522, guid: 9761481e57f8d4d98b34111541c4e137, type: 3}
   coin: {fileID: 5115385094788247522, guid: 319c88e802096401480434ec2ea15a0e, type: 3}
+  bomb: {fileID: 5115385094788247522, guid: 41cadfba033944d6aa2168fff90dd926, type: 3}
   playerSpawn: {fileID: 1928190735}
   coinSpawn: {fileID: 1098102832}
 --- !u!1 &1098102831
@@ -658,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 1098102831}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7, y: 0, z: 1.82}
+  m_LocalPosition: {x: -2.44, y: 0, z: 3.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -690,7 +695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1200430115}
   m_Layer: 0
-  m_Name: Introduction
+  m_Name: IntroductionLvl1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,7 +817,7 @@ Transform:
   m_GameObject: {fileID: 1234546841}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.14, y: 0, z: -15.16}
+  m_LocalPosition: {x: 0.14, y: 0, z: -14.45}
   m_LocalScale: {x: 0.20000006, y: 1, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
