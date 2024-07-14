@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
 
     private GameManager gameManager;
-    public AudioSource cling;
+    private SoundEffects soundeffects;
 
     private SpeechOut _speechOut = new SpeechOut();
 
@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.FindWithTag("Panto").GetComponent<GameManager>();
+        soundeffects = GameObject.FindWithTag("Panto").GetComponent<SoundEffects>();
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
 
         if(other.CompareTag("Coin")) {
             Debug.Log("Collison with coin");
-            cling.Play();
+            soundeffects.PlayPositiveCoinClip();
             gameManager.IncreaseCoinCounter();
 
             Destroy(other.gameObject);
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour
         } 
         else if(other.CompareTag("Bomb")) {
             Debug.Log("Collision with bomb");
-            _speechOut.Speak("puff");
+            soundeffects.PlayNegativeBombClip();
             Destroy(other.gameObject);
         }
 

@@ -25,17 +25,56 @@ public class GameManager : MonoBehaviour
     private SpeechOut _speechOut;
 
     private bool started = false;
+
     private int level = 0;
     private int coinCounter = 0;
     private int bombCounter = 0;
 
     private int lvl_coins = 0;
     private int lvl_bombs = 0;
-    private int lvl_moving = 0;
+    public bool lvl_moving = false;
+    public float speed = 1f;
+    public float maxSpeed = 2.3f;
 
-    // Levels
-    // [Coin count, bomb count, moving bool]
-    private int[,] levels = {{1,0,0}, {1,1,1}};
+    private SoundEffects soundeffects;
+
+    struct TRLevel {
+        public string intro;
+        public int coins;
+        public int bombs;
+        public bool moving;
+        public bool startingSpeed;
+        public bool increasingSpeed;
+
+        public TRLevel(string _intro, int c, int b, bool m, bool sS, bool iS) {
+            intro = _intro;
+            coins = c;
+            bombs = b;
+            moving = m;
+            startingSpeed = sS;
+            increasingSpeed = iS;
+        }
+
+        public TRLevel(int c, int b) {
+            intro = "";
+            coins = c;
+            bombs = b;
+            moving = false;
+            startingSpeed = false;
+            increasingSpeed = false;
+        }
+    
+    }
+
+    private TRLevel[] levels = {
+        new TRLevel(1,0),
+        new TRLevel("", 100,0, true, true, true),
+        new TRLevel("Coins are now moving sideways as well.", 2, 0, true, false, false),
+        new TRLevel("Try to avoid the bombs", 2,2, true, false, false),
+        new TRLevel("Try to keep up!", 3,2, true, true, false),
+        new TRLevel("Set your own personal record!", 100, 20, true, false, true)
+    };
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -47,6 +86,8 @@ public class GameManager : MonoBehaviour
     {
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
+
+        soundeffects = GameObject.FindWithTag("Panto").GetComponent<SoundEffects>();
         
         // Introduction();
     }
@@ -54,35 +95,24 @@ public class GameManager : MonoBehaviour
     async void Introduction()
     {
         Level level1 = GetComponent<Level>();
-        await level1.PlayIntroduction(0.5f, 3000);
+        await level1.PlayIntroduction(0.5f, 2000);
 
-        await _speechOut.Speak("Introduction finished, game starts.");
+        await _speechOut.Speak("Introduction finished.");
 
-        // await StartGame();
         await LevelManager();
     }
 
-    // async Task StartGame()
-    // {
-    //     await Task.Delay(500);
-        
-    //     Instantiate(player, playerSpawn);
-    //     // GameObject c = Instantiate(coin, coinSpawn);      
-    //     // GameObject c = Instantiate(coin, new Vector3(UnityEngine.Random.Range(-5f, 0.5f), 0f, -7.02f), Quaternion.identity); 
-    //     GameObject c = InstantiateCoin();  
-        
-    //     await _lowerHandle.SwitchTo(c, 50.0f);
-    //     _upperHandle.Free();
-    // }
 
     GameObject InstantiateCoin() {
-        // return Instantiate(coin, new Vector3(UnityEngine.Random.Range(-5f, 0.5f), 0f, -7.02f), Quaternion.identity);
-        return Instantiate(coin, new Vector3(-2.44f, 0f, -7.02f), Quaternion.identity);
+        soundeffects.SpawnCoinClip();
+        return Instantiate(coin, new Vector3(UnityEngine.Random.Range(-2f, 1f), 0f, -7.02f), Quaternion.identity);
+        // return Instantiate(coin, new Vector3(-2.44f, 0f, -7.02f), Quaternion.identity);
     }
 
     GameObject InstantiateBomb() {
-        // return Instantiate(bomb, new Vector3(UnityEngine.Random.Range(-5f, 0.5f), 0f, -7.02f), Quaternion.identity);
-        return Instantiate(bomb, new Vector3(-2.44f, 0f, -7.02f), Quaternion.identity);    
+        soundeffects.SpawnBombClip();
+        return Instantiate(bomb, new Vector3(UnityEngine.Random.Range(-2f, 1f), 0f, -7.02f), Quaternion.identity);
+        // return Instantiate(bomb, new Vector3(-2.44f, 0f, -7.02f), Quaternion.identity);    
         }
 
     void Update() {
@@ -127,8 +157,9 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < levels.GetLength(0); i++) {
             await _speechOut.Speak("Level " + (level+1) + " starts now.");
-            await PlayLevel(levels[i,0], levels[i,1], levels[i,2]);
-            await _speechOut.Speak("Level " + (level+1) + " finished.");            
+            await PlayLevel(levels[i]);
+            await _speechOut.Speak("Level " + (level+1) + " finished.");  
+            await soundeffects.PlayFinishedLevelClip();     
             level++;
         }
 
@@ -136,17 +167,27 @@ public class GameManager : MonoBehaviour
     }
 
 
-    async Task PlayLevel(int c, int b, int m) {
+    async Task PlayLevel(TRLevel level) {
 
-        lvl_coins = c;
-        lvl_bombs = b;
-        lvl_moving = m;
+        lvl_coins = level.coins;
+        lvl_bombs = level.bombs;
+        lvl_moving = level.moving;
+
+        if(level.intro != "") {
+            await _speechOut.Speak(level.intro);
+        }
+
+        if(level.startingSpeed) {speed -= 0.2f;}
 
         Debug.Log("Start of Level " + level + ". Coins: " + lvl_coins + "; Bombs: " + lvl_bombs);
 
         while (lvl_coins > 0 || lvl_bombs > 0) {
 
+            Debug.Log("Game not over yet.");
+
             if(GameObject.FindGameObjectsWithTag("Coin").Length + GameObject.FindGameObjectsWithTag("Bomb").Length < 1) {
+
+                Debug.Log("New prefab.");
 
                 int type = UnityEngine.Random.Range(0,2); // 0 for coin, 1 for bomb
 
@@ -154,10 +195,13 @@ public class GameManager : MonoBehaviour
                     Debug.Log("Instantiating coin.");
                     GameObject coinprefab = InstantiateCoin();
                     await _lowerHandle.SwitchTo(coinprefab, 50.0f);
+                    
                 } else if ( type == 1 && lvl_bombs > 0) {
                     GameObject bombprefab = InstantiateBomb();
                     await _lowerHandle.SwitchTo(bombprefab, 50.0f);
                 }
+
+                if(level.increasingSpeed) {if (speed < maxSpeed) speed -= 0.03f;}
 
             }
 
