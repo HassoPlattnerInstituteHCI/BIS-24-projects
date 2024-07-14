@@ -54,7 +54,7 @@ public class InputManager
     private List<PathObject> _pathObjects;
     public GameObject Start ;
     private int _currentDestination = 0;
-    private Dictionary<string, Tuple<PathObject, GameObject>> _selectedPathObjects;
+    private List<GameObject> _selectedPathObjects;
     private Action<Dictionary<string, Tuple<PathObject, GameObject>>> _startAction;
 
     private GameObject _uiMainMenu;
@@ -64,16 +64,33 @@ public class InputManager
     private GameObject _goalPrefab;
     
     // Start is called before the first frame update
-    public InputManager(Action<Dictionary<string, Tuple<PathObject, GameObject>>> startAction, GameObject uiInput, GameObject goalPrefab, List<PathObject> pathObjects, SpeechOut so)
+    public InputManager(Action<GameObject> callback, List<GameObject> destinations, Action<Dictionary<string, Tuple<PathObject, GameObject>>> startAction, GameObject uiInput, GameObject goalPrefab, List<PathObject> pathObjects, SpeechOut so)
     {
         _startAction = startAction;
         _so = so;
         _si = new SpeechIn((string msg) => { });
         _goalPrefab = goalPrefab;
+        _selectedPathObjects = new List<GameObject>(destinations);
         
         _uiMainMenu = uiInput.transform.Find("MainMenu").gameObject;
         _uiLocations = uiInput.transform.Find("Locations").gameObject;
         _uiRunningMenu = uiInput.transform.Find("RunningMenu").gameObject;
+        
+        _uiRunningMenu.transform.Find("Next").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            _currentDestination = (_currentDestination + 1) % _selectedPathObjects.Count;
+            callback(_selectedPathObjects[_currentDestination]);
+        });
+        
+        _uiRunningMenu.transform.Find("Previous").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            _currentDestination = (_currentDestination - 1) % _selectedPathObjects.Count;
+            if (_currentDestination < 0)
+            {
+                _currentDestination += _selectedPathObjects.Count;
+            }
+            callback(_selectedPathObjects[_currentDestination]);
+        });
         
         foreach (var buttonGroup in new [] { _uiMainMenu, _uiLocations, _uiRunningMenu })
         {
@@ -89,23 +106,23 @@ public class InputManager
         _mainMenu = new Dictionary<string, MenuOption>
         {
             { "Set Start", new MenuOption(InputEvent.SetStart, SetStartMenu) },
-            { "Add Destination", new MenuOption(InputEvent.AddDestination, AddLocationMenu) },
-            { "Remove Destination", new MenuOption(InputEvent.RemoveDestination, RemoveLocationMenu) },
+            // { "Add Destination", new MenuOption(InputEvent.AddDestination, AddLocationMenu) },
+            // { "Remove Destination", new MenuOption(InputEvent.RemoveDestination, RemoveLocationMenu) },
             { "Start", new MenuOption(InputEvent.Start, StartMenu) },
             { "Help", new MenuOption(InputEvent.Help, MainMenu) },
         };
         
         // Location Menu Options
-        _addLocationMenu = new Dictionary<string, MenuOption>();
-        foreach (var pathObject in pathObjects)
-        {
-            _addLocationMenu[pathObject.name] = new MenuOption(pathObject.inputEvent, () =>
-            {
-                _selectedPathObjects[pathObject.name] = new Tuple<PathObject, GameObject>(pathObject, GameObject.Instantiate(_goalPrefab, pathObject.position.position, Quaternion.identity));
-            });
-        }
-        _addLocationMenu.Add("Back", new MenuOption(InputEvent.Back, MainMenu));
-        _addLocationMenu.Add("Help", new MenuOption(InputEvent.Help, AddLocationMenu));
+        // _addLocationMenu = new Dictionary<string, MenuOption>();
+        // foreach (var pathObject in pathObjects)
+        // {
+        //     _addLocationMenu[pathObject.name] = new MenuOption(pathObject.inputEvent, () =>
+        //     {
+        //         _selectedPathObjects[pathObject.name] = new Tuple<PathObject, GameObject>(pathObject, GameObject.Instantiate(_goalPrefab, pathObject.position.position, Quaternion.identity));
+        //     });
+        // }
+        // _addLocationMenu.Add("Back", new MenuOption(InputEvent.Back, MainMenu));
+        // _addLocationMenu.Add("Help", new MenuOption(InputEvent.Help, AddLocationMenu));
         
         // Set Start Menu Options
         _setStartMenu = new Dictionary<string, MenuOption>();
@@ -145,48 +162,48 @@ public class InputManager
         MainMenu();
     }
 
-    public async void AddLocationMenu()
-    {
-        _uiMainMenu.SetActive(false);
-        _uiLocations.SetActive(true);
-        _uiRunningMenu.SetActive(false);
+    // public async void AddLocationMenu()
+    // {
+    //     _uiMainMenu.SetActive(false);
+    //     _uiLocations.SetActive(true);
+    //     _uiRunningMenu.SetActive(false);
+    //
+    //     _so.Speak("You are in the menu to add a destination.");
+    //     
+    //     MenuOption input = await GetInput(_addLocationMenu);
+    //     await _so.Speak("You added the destination " + input.EventName);
+    //     input.Action();
+    //     AddLocationMenu();
+    // }
 
-        _so.Speak("You are in the menu to add a destination.");
-        
-        MenuOption input = await GetInput(_addLocationMenu);
-        await _so.Speak("You added the destination " + input.EventName);
-        input.Action();
-        AddLocationMenu();
-    }
-
-    public async void RemoveLocationMenu()
-    {
-        _uiMainMenu.SetActive(false);
-        _uiLocations.SetActive(true);
-        _uiRunningMenu.SetActive(false);
-
-        _so.Speak("You are in the menu to remove a destination.");
-        
-        // Remove Location Menu Options
-        Dictionary<string, MenuOption> commands = new Dictionary<string, MenuOption>();
-        foreach (var pathObject in _selectedPathObjects.Keys)
-        {
-            commands[_selectedPathObjects[pathObject].Item1.name] = new MenuOption(_selectedPathObjects[pathObject].Item1.inputEvent, () =>
-            {
-                GameObject.Destroy(_selectedPathObjects[pathObject].Item2);
-                _selectedPathObjects.Remove(pathObject);
-            });
-        }
-        commands.Add("Back", new MenuOption(InputEvent.Back, MainMenu));
-        commands.Add("Help", new MenuOption(InputEvent.Help, RemoveLocationMenu));
-        MenuOption input = await GetInput(commands);
-        await _so.Speak("Successfully removed destination " + input.EventName);
-        RemoveLocationMenu();
-    }
+    // public async void RemoveLocationMenu()
+    // {
+    //     _uiMainMenu.SetActive(false);
+    //     _uiLocations.SetActive(true);
+    //     _uiRunningMenu.SetActive(false);
+    //
+    //     _so.Speak("You are in the menu to remove a destination.");
+    //     
+    //     // Remove Location Menu Options
+    //     Dictionary<string, MenuOption> commands = new Dictionary<string, MenuOption>();
+    //     foreach (var pathObject in _selectedPathObjects.Keys)
+    //     {
+    //         commands[_selectedPathObjects[pathObject].Item1.name] = new MenuOption(_selectedPathObjects[pathObject].Item1.inputEvent, () =>
+    //         {
+    //             GameObject.Destroy(_selectedPathObjects[pathObject].Item2);
+    //             _selectedPathObjects.Remove(pathObject);
+    //         });
+    //     }
+    //     commands.Add("Back", new MenuOption(InputEvent.Back, MainMenu));
+    //     commands.Add("Help", new MenuOption(InputEvent.Help, RemoveLocationMenu));
+    //     MenuOption input = await GetInput(commands);
+    //     await _so.Speak("Successfully removed destination " + input.EventName);
+    //     RemoveLocationMenu();
+    // }
     
     public async void StartMenu()
     {
-        _startAction(_selectedPathObjects);
+        _startAction(new Dictionary<string, Tuple<PathObject, GameObject>>());
     }
 
     public async void RunningMenu(Action<GameObject>  callback)
@@ -195,8 +212,7 @@ public class InputManager
         _uiLocations.SetActive(false);
         _uiRunningMenu.SetActive(true);
 
-        // Write a function that created voice input to select the next and the previous goal location
-        _so.Speak("You are in the menu to select the next goal location.");
+        // _so.Speak("You are in the menu to select the next goal location.");
         
         Dictionary<string, MenuOption> commands = new Dictionary<string, MenuOption>
         {
@@ -218,7 +234,8 @@ public class InputManager
         
         MenuOption input = await GetInput(commands);
         input.Action();
-        callback(_selectedPathObjects[_selectedPathObjects.Keys.ElementAt(_currentDestination)].Item2);
+        callback(_selectedPathObjects[_currentDestination]);
+        RunningMenu(callback);
     }
 
     private void OnButtonClick(string name)

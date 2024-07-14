@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/PathPlanning/Scenes/PathPlanningLevel2.unity
+    guid: 58906c70e5376944ea87d7a273c8e90c
   m_configObjects: {}

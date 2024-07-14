@@ -1126,7 +1126,7 @@ GameObject:
   - component: {fileID: 561767395}
   - component: {fileID: 561767394}
   m_Layer: 10
-  m_Name: Next Destination
+  m_Name: Next
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3077,7 +3077,7 @@ GameObject:
   - component: {fileID: 1216164886}
   - component: {fileID: 1216164885}
   m_Layer: 10
-  m_Name: Previous Destination
+  m_Name: Previous
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5554,6 +5554,7 @@ MonoBehaviour:
   playerSpawn: {fileID: 1892025073}
   goalPrefab: {fileID: 3053084483476693672, guid: 1bfd5c0441222d14992c8db347277071, type: 3}
   lowerCollider: {fileID: 940633446155830304}
+  destinations: []
   uiInput: {fileID: 1601563464}
   pathObjects:
   - name: Mikadoplatz
