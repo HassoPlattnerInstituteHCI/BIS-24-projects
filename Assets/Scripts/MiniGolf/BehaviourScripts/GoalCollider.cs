@@ -14,7 +14,7 @@ namespace DualPantoToolkit{
                 g.mode=5;
                 GameManager.speechIO.Speak("Congratulations! You hit a hole in" + g.amount_hits +  " and completed level "+g.currentlvl);
                 GameObject.Find("Ball").GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
-                g.NextLevel();
+                StartCoroutine(g.NextLevel());
             }
             else if(other.gameObject.name.Equals("Water")){
                 GameManager.speechIO.Speak("You hit your ball into the water! You have to retry the level.");

@@ -98,6 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onUpper: 1
   onLower: 0
-  strength: 0.08
+  strength: 0.16
   isAttractive: 1
   active: 0
