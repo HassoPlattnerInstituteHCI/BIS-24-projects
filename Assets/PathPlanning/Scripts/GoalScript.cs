@@ -12,7 +12,6 @@ public class GoalScript : MonoBehaviour
     {
         Debug.Log("Start called");
         _speech = new SpeechOut();
-        _speech.Speak("Go find a path through the streets to reach the It-handle");
     }
 
     private void OnTriggerEnter(Collider other)
