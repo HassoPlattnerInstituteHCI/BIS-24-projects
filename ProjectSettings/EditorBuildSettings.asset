@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MiniGolfLvl1.unity
+    guid: 6cba36f8c17632a418807f1d1c3aea20
+  - enabled: 1
+    path: Assets/Scenes/MiniGolfLvl2.unity
+    guid: 086fa04eef8a77b4aaa144ab7d48338e
+  - enabled: 1
+    path: Assets/Scenes/MiniGolfLvl3.unity
+    guid: f7289a3c83f420ce180a05a4ac968170
   m_configObjects: {}

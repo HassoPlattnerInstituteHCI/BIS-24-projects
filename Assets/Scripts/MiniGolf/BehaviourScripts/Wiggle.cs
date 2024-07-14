@@ -5,8 +5,8 @@ using DualPantoToolkit;
 
 public class Wiggle : MonoBehaviour
 {
-    public float strength; 
-    public float time;
+    float strength=0.26f;
+    float time=0.04f;
     DualPantoSync dps;
     void Awake()
     {

@@ -22,15 +22,17 @@ namespace DualPantoToolkit{
         {
             if(collider.gameObject.name.Equals("Water"))
             {
-                Vector3 direction=new Vector3(1,0,0);
+                GameObject.Find("GameMaster").GetComponent<GameManagerClass>().wiggle.wiggle_wiggle_wiggle(true);
+                /* Vector3 direction=new Vector3(1,0,0);
                 dps.ApplyForce(true,direction,1);
                 dps.FreeHandle(true);
-                direction*=-1;
+                direction*=-1; */
             }
         }
         public void OnTriggerExit(Collider other){
             if(other.gameObject.name.Equals("Water")){
                 GameManager.speechIO.Speak("Exit Water");
+                dps.FreeHandle(true);
             }
         }
 

@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 297929279}
   - component: {fileID: 297929278}
   - component: {fileID: 297929277}
+  - component: {fileID: 297929281}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: ObstacleRenderer
@@ -280,7 +281,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297929276}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -350,6 +351,18 @@ Transform:
   m_Father: {fileID: 1223571118}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &297929281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297929276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21082af36670a6c4991b9f403ef68b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &405035776
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +729,7 @@ GameObject:
   - component: {fileID: 753571035}
   m_Layer: 0
   m_Name: Manager
-  m_TagString: Untagged
+  m_TagString: ObstacleRenderer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1018,7 +1031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1010238051}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1284,11 +1297,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1600526142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db376c0abb4775c45bb4f22babef8f63, type: 3}
+  m_Script: {fileID: 11500000, guid: 00411e808414a424193634e59e1d4e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 0.5
-  time: 0.1
 --- !u!114 &1600526146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1298,7 +1309,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1600526142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e35493ec3f0dc147b8cb1a9fdbc50dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a12d17d3896327449d0f30315dcd643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1600526147
@@ -1313,7 +1324,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d827ba0717300884cae3eb05e1d225f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlvl: 2
+  mode: 0
+  amount_hits: 0
   forcefield: {fileID: 3444552174554861213, guid: e8a15fa2aa838ae4c80b55f19e2f1827, type: 3}
+  wiggle: {fileID: 0}
 --- !u!1 &1609791564
 GameObject:
   m_ObjectHideFlags: 0

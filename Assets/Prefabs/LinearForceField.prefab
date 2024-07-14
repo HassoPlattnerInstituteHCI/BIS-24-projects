@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc095ae8ced04b45b113ffc8561ff15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onUpper: 0
-  onLower: 1
-  strength: 0.16
+  onUpper: 1
+  onLower: 0
+  strength: 0.08
   isAttractive: 1
   active: 0
