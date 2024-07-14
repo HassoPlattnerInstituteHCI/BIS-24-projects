@@ -171,8 +171,11 @@ MonoBehaviour:
   fruitPrefab: {fileID: 6760979559240148443, guid: 92eda7929b9b1da41b9db2505788f75d, type: 3}
   spawnSound: {fileID: 87074557}
   spawnFrequency: 5
-  spawnFreuqntly: 0
+  spawnFreuqntly: 1
   spawnPosition: {x: 3, y: 0, z: -8.5}
+  player: {fileID: 741287526}
+  minPos: {x: -3, y: 0, z: -8}
+  maxPos: {x: 3, y: 0, z: -10}
 --- !u!82 &87074557
 AudioSource:
   m_ObjectHideFlags: 0
@@ -398,6 +401,7 @@ MonoBehaviour:
   audioSource: {fileID: 278095810}
   sliceTheFruit: {fileID: 8300000, guid: d5cfa82f34aa17145bd53e53eb00f0ce, type: 3}
   level1Complete: {fileID: 8300000, guid: 04420b688a00b7948b170ea9937075b6, type: 3}
+  grabSword: {fileID: 8300000, guid: 198a49143e5ee6f40b10132881560b25, type: 3}
   player: {fileID: 741287526}
   fruitSpawner: {fileID: 87074556}
 --- !u!4 &278095812
@@ -653,7 +657,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 741287525}
-  sliceSound: {fileID: 8300000, guid: 722da9b93b070d04eb370850a1e2527d, type: 3}
+  sliceSound: {fileID: 8300000, guid: 36d42153ed18b7f41ae3701a1f244c5f, type: 3}
+  player: {fileID: 0}
 --- !u!1001 &2042471580
 PrefabInstance:
   m_ObjectHideFlags: 0

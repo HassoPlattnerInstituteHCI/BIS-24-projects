@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: -0.9, y: 0, z: 0.7}
-  gravity: {x: 0, y: 0, z: -0.3}
+  gravity: {x: 0, y: 0, z: -0.5}
   deathTime: 20
 --- !u!54 &7529803088135728686
 Rigidbody:
