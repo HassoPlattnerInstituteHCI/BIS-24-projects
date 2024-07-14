@@ -43,9 +43,9 @@ public class player : MonoBehaviour
         if (other.collider.CompareTag("Enemy"))
         {
             //so sth to symbolize death
-            /* ContactPoint contact = other.contacts[0];
+            ContactPoint contact = other.contacts[0];
             Vector3 RecoilDirection = Vector3.Normalize(transform.position - contact.point);
-            await handle.MoveToPosition(transform.position + 1 * RecoilDirection, 10.0f, true); */
+            await handle.MoveToPosition(transform.position + 1 * RecoilDirection, 10.0f, true);
         }
         if (other.collider.CompareTag("Wall"))
         {
