@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Object
   - Level
+  - Wall
+  - PlacedObject
+  - PlayArea
   layers:
   - Default
   - TransparentFX

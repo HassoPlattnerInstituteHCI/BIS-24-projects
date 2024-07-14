@@ -22,20 +22,23 @@ public class GameManager : MonoBehaviour
     {
         _speechOut = new SpeechOut();
     }
-        void NewStart()
+        
+    void Start()
     {
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
-        
-        Introduction();
+
+        //_speechOut.SetLanguage("german");
+        _speechOut.Speak("Move both handles in the middle to start the intro.");
     }
 
     async void Introduction()
     {
+        Debug.Log("Intro");
         Level level = GetComponent<Level>();
 
-        // _upperHandle.Freeze();
-        // _lowerHandle.Freeze();
+        _upperHandle.Freeze();
+        _lowerHandle.Freeze();
 
         Debug.Log("play Intro");
 
@@ -46,7 +49,7 @@ public class GameManager : MonoBehaviour
         await StartGame();
     }
 
-    async Task StartGame()
+    public async Task StartGame()
     {
         // await Task.Delay(1000);
 
@@ -61,8 +64,8 @@ public class GameManager : MonoBehaviour
         GameObject sb = Instantiate(ball, ballSpawn);*/
         
         //await _lowerHandle.SwitchTo(sb, 50.0f);
-        _upperHandle.Free();
-        _lowerHandle.Free();
+        // _upperHandle.Free();
+        // _lowerHandle.Free();
     }
 
     async Task RenderObstacle()
@@ -75,10 +78,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update() 
+    public async Task DestroyObstacle()
     {
-        if (Input.GetKey("s")) {
-            NewStart();
+        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
+        foreach (PantoCollider collider in pantoColliders)
+        {
+            collider.Remove();
         }
     }
+
 }

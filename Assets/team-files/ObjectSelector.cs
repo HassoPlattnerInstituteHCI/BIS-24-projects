@@ -10,69 +10,114 @@ using SpeechIO;
 
 public class ObjectSelector : MonoBehaviour
 {
-    public float rot;
-    public string selectedObjectName = "wall";
-    public int selectedObjectId = 0;
-    private string[] objectNames = {"wall", "object1", "object2"};
+    public float rotU;
+    public float rotL;
+    public string selectedObjectName;
+    private ObjectHandler objectHandler;
+    private int selectedObjectId = 0;
+    private string[] objectNames = {"chair", "table", "lamp", "wall", "remove tool", "door"}; // todo
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
-    private float _initRotation;
-    private float degreesPerObject;
-    public float lowestRotation = 0;
-    public float highestRotation = 0;
+    public float upperZeroRotation;
+    public float lowerZeroRotation;
+    public bool upperTurned;
+    public bool lowerTurned;
 
-    // Start is called before the first frame update
+    public bool objectsSelectable = false;
+    public bool objectsPlaceable = false;
+    public bool wallPlaceable = false;
+    public bool removeToolActivated = false;
+    public bool doorToolActivated = false;
+
+    private SpeechOut speechOut;
+    public SoundManager soundManager;
+
     void Start()
     {
+        speechOut = new SpeechOut();
+        objectHandler = GameObject.FindObjectsOfType<ObjectHandler>()[0];
+        soundManager = GameObject.FindObjectsOfType<SoundManager>()[0];
+        Debug.Log(GameObject.FindObjectsOfType<SoundManager>().Length);
+
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
 
-        _initRotation = _upperHandle.GetRotation();
+        _upperHandle.Rotate(0);
+        _lowerHandle.Rotate(0);
 
-        degreesPerObject = 360/objectNames.Length;
+        selectedObjectName = objectNames[selectedObjectId];
+
+        Invoke("SetInitialHandleRotation", 0.5f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        rot = _upperHandle.GetRotation();
-        //Debug.Log(rot);
+        rotU = _upperHandle.GetRotation();
+        rotL = _lowerHandle.GetRotation();
 
-        if (rot < lowestRotation) {
-            lowestRotation = rot;
-            highestRotation = rot+360;
-        } else if (rot > highestRotation) {
-            highestRotation = rot;
-            lowestRotation = rot-360;
+        if (objectsSelectable && !lowerTurned && Mathf.Abs(lowerZeroRotation-rotL) >= 30)
+        {
+            // feedback sound
+            lowerTurned = true;
+            if (lowerZeroRotation-rotL < 0) NextObject();
+            if (lowerZeroRotation-rotL > 0) PrevObject();
         }
 
-        //Debug.Log(Math.Floor(rotation/(360/objectNames.Length)));
+        if (!upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30)
+        {
+            upperTurned = true;
+            
+            if (objectsPlaceable && selectedObjectId < objectNames.Length - 3) // object selected
+            {
+                objectHandler.placeObject(selectedObjectName);
+            } else if (wallPlaceable && selectedObjectId == objectNames.Length - 3) // wall  selected
+            {
+                objectHandler.placeWall();
+            } else if (removeToolActivated && selectedObjectId == objectNames.Length - 2) // remove tool selected
+            {
+                objectHandler.destroyHoveredObject();
+            } else if (doorToolActivated && selectedObjectId == objectNames.Length - 1) // door tool selected
+            {
+                objectHandler.makeDoor();
+            }
+        }
 
-        int lastSelectedObjectId = selectedObjectId;
+        if (Mathf.Abs(lowerZeroRotation-rotL) <= 5)
+        {
+            lowerTurned = false;
+        }
 
-        selectedObjectId = (int)Math.Floor((rot-lowestRotation)/degreesPerObject);
-        //Debug.Log(selectedObjectId);
-        //Debug.Log(lowestRotation+degreesPerObject*(0.5+selectedObjectId));
-        //Debug.Log(rot);
+        if (Mathf.Abs(upperZeroRotation-rotU) <= 5)
+        {
+            upperTurned = false;
+        }
+    }
 
-        // if (lastSelectedObjectId != selectedObjectId) {
-            //Debug.Log((selectedObjectId)*degreesPerObject+lowestRotation);
-            //_upperHandle.Rotate(lowestRotation+degreesPerObject*(0.5f+selectedObjectId));
-            //_upperHandle.Rotate((selectedObjectId+0.5f)*degreesPerObject+lowestRotation);
-        // }
+    public void SetInitialHandleRotation()
+    {
+        upperZeroRotation = _upperHandle.GetRotation();
+        lowerZeroRotation = _lowerHandle.GetRotation();
+    }
 
-        //Debug.Log(degreesPerObject/2+degreesPerObject*selectedObjectId);
+    private void NextObject()
+    {
+        if (++selectedObjectId >= objectNames.Length-3 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0)) selectedObjectId = 0;
 
-        // if (Input.GetKeyDown(KeyCode.UpArrow)) {
-        //     Debug.Log(rot);
-        //     Debug.Log(rot-(lowestRotation+degreesPerObject*(0.5f+selectedObjectId)));
-        // }
+        Debug.Log("PLAY SOUND");
+        soundManager.playSelectSound();
 
-        // if (Input.GetKeyDown(KeyCode.DownArrow)) {
-        //     rotate_to_here = lowestRotation+degreesPerObject*(0.5f+selectedObjectId);
-        //     Debug.Log(rotate_to_here);
-        //     _upperHandle.Rotate(rotate_to_here);
-        // }
-        
+        selectedObjectName = objectNames[selectedObjectId];
+        speechOut.Speak(selectedObjectName + " selected.");
+    }
+
+    private void PrevObject()
+    {
+        if (--selectedObjectId < 0) selectedObjectId = objectNames.Length-4 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0);
+
+        Debug.Log("PLAY SOUND");
+        soundManager.playSelectSound();
+
+        selectedObjectName = objectNames[selectedObjectId];
+        speechOut.Speak(selectedObjectName + " selected.");
     }
 }
