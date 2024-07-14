@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3487847891248677839}
   - component: {fileID: 413682181083926117}
   - component: {fileID: 8619402460383762073}
-  - component: {fileID: 3140922644604810800}
   m_Layer: 0
   m_Name: Node
   m_TagString: PacmanNode
@@ -84,15 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3140922644604810800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3582895528920973442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9de705d6d9e3c4dbc97253b8b31e4737, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -16,6 +16,10 @@ TagManager:
   - LowerHandle
   - PacmanDotManager
   - PacmanNode
+  - PacmanNodeManager
+  - UpperHandle
+  - PacmanGhost
+  - PacmanPortal
   layers:
   - Default
   - TransparentFX

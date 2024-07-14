@@ -15,7 +15,7 @@ public class Dot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class Dot : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "LowerHandle") {
+        if (collision.gameObject.tag == "UpperHandle") {
             collided = true;
             manager.DotEaten();
             Destroy(this.gameObject);

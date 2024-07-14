@@ -12,8 +12,10 @@ public class LowerPacmanHandle : MonoBehaviour
     void Start()
     {
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-        target = GameObject.FindGameObjectsWithTag("PacmanTarget")[0];
+        target = GameObject.FindGameObjectsWithTag("PacmanGhost")[0];
+        lowerHandle.SwitchTo(target, 10f);
     }
+    
 
     void FixedUpdate()
     {

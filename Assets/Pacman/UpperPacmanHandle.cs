@@ -20,4 +20,10 @@ public class UpperPacmanHandle : MonoBehaviour
     {
         
     }
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "PacmanPortal") {
+            Debug.Log("Colliding");
+            upperHandle.MoveToPosition(collision.gameObject.GetComponent<Portal>().target, 10f ,true);
+        }
+    }
 }
