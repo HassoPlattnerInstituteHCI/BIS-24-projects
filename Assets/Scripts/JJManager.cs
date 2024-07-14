@@ -9,25 +9,30 @@ public class JJManager : MonoBehaviour
     PantoHandle lowerHandle;
     PantoCollider[] pantoColliders;
     GameObject panto; 
+    public bool ready;
+    public string startMessage;
     async void Start()
     {
+        ready = false;
         speech = new SpeechOut();
         panto =  GameObject.Find("Panto");
         upperHandle = panto.GetComponent<UpperHandle>();
         lowerHandle = panto.GetComponent<LowerHandle>();
-        Invoke("createObstacles", 1.0f);
 
-        // GameObject[] startObjects = GameObject.FindGameObjectsWithTag("StartPosition");
-        // await upperHandle.SwitchTo(startObjects[0], 10f);
+        GameObject[] startObjects = GameObject.FindGameObjectsWithTag("StartPosition");
+        await upperHandle.SwitchTo(startObjects[0], 4.0f);
         upperHandle.Free();
 
+        ready = true;
+        Invoke("createObstacles", 1.0f);
+
         GameObject[] targetObjects = GameObject.FindGameObjectsWithTag("TargetPosition");
-        await lowerHandle.SwitchTo(targetObjects[0], 10f);
-        Debug.Log("Finished starting");
-        await speech.Speak("Geh zu Haus K", 1.0f, SpeechBase.LANGUAGE.GERMAN);
+        await lowerHandle.SwitchTo(targetObjects[0], 4.0f);
+        //Invoke("Gefrieren", 1.0f);
+        await speech.Speak(startMessage, 1.0f, SpeechBase.LANGUAGE.GERMAN);
     }
-    void Update() {
-        
+    void Gefrieren() {
+        lowerHandle.Freeze();
     }
     void OnApplicationQuit()
     {
@@ -38,8 +43,17 @@ public class JJManager : MonoBehaviour
         pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
         foreach (PantoCollider collider in pantoColliders)
         {
+            Debug.Log("ccollider");
+            //Debug.Log(collider.name);
             collider.CreateObstacle();
             collider.Enable();
+        }
+    }
+    public void disableObstacles() {
+        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
+        foreach (PantoCollider collider in pantoColliders)
+        {
+            collider.Disable();
         }
     }
 

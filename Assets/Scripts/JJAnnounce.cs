@@ -22,7 +22,7 @@ public class JJAnnounce : MonoBehaviour
     }
     async void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Player" && GameObject.Find("JJManager").GetComponent<JJManager>().ready)
         {
             await speech.Speak(message, 1.0f, SpeechBase.LANGUAGE.GERMAN);
         }

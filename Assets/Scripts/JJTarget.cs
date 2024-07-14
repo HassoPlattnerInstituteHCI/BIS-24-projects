@@ -1,45 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class JJTarget : MonoBehaviour
 {
     AudioSource audioSource;
 
-    public AudioClip victory;
+    public string nextScene;
 
-    AudioSource AddAudio()
-    {
-        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
-        newAudio.loop = false;
-        newAudio.playOnAwake = false;
-        newAudio.volume = 0.4f;
-        return newAudio;
-    }
+    private string[] paths;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        audioSource = AddAudio();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void playSound(AudioSource source, AudioClip clip)
-    {
-        source.clip = clip;
-        source.Play();
+    public void Start() {
+        // AssetBundle assB = AssetBundle.LoadFromFile("Assets/Scenes");
+        // paths = assB.GetAllScenePaths();
+        // Debug.Log(paths);
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Player" && GameObject.Find("JJManager").GetComponent<JJManager>().ready)
         {
-            playSound(audioSource, victory);
+            Invoke("switchScene", 3.0f);
         }
+    }
+
+    void switchScene() {
+        GameObject.Find("JJManager").GetComponent<JJManager>().disableObstacles();
+        SceneManager.LoadScene(sceneName:nextScene);        
     }
 }

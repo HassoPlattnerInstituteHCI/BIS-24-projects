@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ffe2d75f460784893ea298380a07eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ready: 0
+  startMessage: Finde Haus K am HPI-Campus.
 --- !u!1 &380660586
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +184,7 @@ GameObject:
   - component: {fileID: 380660589}
   - component: {fileID: 380660588}
   m_Layer: 6
-  m_Name: Goal (2)
+  m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -533,7 +535,6 @@ GameObject:
   - component: {fileID: 489671364}
   - component: {fileID: 489671363}
   - component: {fileID: 489671362}
-  - component: {fileID: 489671361}
   m_Layer: 0
   m_Name: Start
   m_TagString: StartPosition
@@ -541,22 +542,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &489671361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489671360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7948ea43f9f03c647aa1ec214c4fbde9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traceShape: 0
-  isOnUpper: 0
-  description: First
-  priority: 10
 --- !u!65 &489671362
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -760,10 +745,9 @@ GameObject:
   - component: {fileID: 537950819}
   - component: {fileID: 537950818}
   - component: {fileID: 537950817}
-  - component: {fileID: 537950816}
   - component: {fileID: 537950815}
   m_Layer: 6
-  m_Name: Goal (3)
+  m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -797,22 +781,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: Haus A B C
---- !u!114 &537950816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537950813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7948ea43f9f03c647aa1ec214c4fbde9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traceShape: 0
-  isOnUpper: 0
-  description: First
-  priority: 10
 --- !u!65 &537950817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1152,10 +1120,9 @@ GameObject:
   - component: {fileID: 1336209294}
   - component: {fileID: 1336209293}
   - component: {fileID: 1336209292}
-  - component: {fileID: 1336209291}
   - component: {fileID: 1336209290}
   m_Layer: 6
-  m_Name: Goal (1)
+  m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1189,22 +1156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: Bibliothek
---- !u!114 &1336209291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336209288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7948ea43f9f03c647aa1ec214c4fbde9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traceShape: 0
-  isOnUpper: 0
-  description: First
-  priority: 10
 --- !u!65 &1336209292
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1407,10 +1358,9 @@ GameObject:
   - component: {fileID: 1514186160}
   - component: {fileID: 1514186159}
   - component: {fileID: 1514186158}
-  - component: {fileID: 1514186157}
   - component: {fileID: 1514186156}
   m_Layer: 6
-  m_Name: Goal (4)
+  m_Name: Target
   m_TagString: TargetPosition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1444,22 +1394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: Haus K
---- !u!114 &1514186157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514186154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7948ea43f9f03c647aa1ec214c4fbde9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traceShape: 0
-  isOnUpper: 0
-  description: First
-  priority: 10
 --- !u!65 &1514186158
 BoxCollider:
   m_ObjectHideFlags: 0
