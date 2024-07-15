@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using System;
 using DualPantoToolkit;
+using SpeechIO;
 using Unity.VisualScripting;
 using Object = System.Object;
 
@@ -16,6 +17,8 @@ public class Maze : MonoBehaviour
     private int currentLevel = 1;
     public GameObject WallLevel1;
     public GameObject WallLevel2;
+    private SpeechOut _speechOut;
+    public AudioSource audio;
 
     void Awake()
     {
@@ -23,8 +26,8 @@ public class Maze : MonoBehaviour
     }
 
     async void Start(){
-        // Explain what is going to happen
-        // Move Handle to start position
+        //_speechOut.SetLanguage(SpeechBase.LANGUAGE.GERMAN);
+        //await _speechOut.Speak("Willkommen im MAZE, das Ziel des Spiels ist es, es wieder zu verlassen und IT zuentkommen ");
         OnEnable();
     }
 
@@ -39,21 +42,26 @@ public class Maze : MonoBehaviour
         // Joa
     }
 
-    public void StartLevel(int level)
+    async public void StartLevel(int level)
     {
         Reset();
         if( level == 1)
         {
+            //_speechOut.SetLanguage(SpeechBase.LANGUAGE.GERMAN);
+            //await _speechOut.Speak("Level 1 beginnt");
+            //await _speechOut.Speak("Versuche den Ausgang zu finden!");
             Vector3 spawnPosition = new Vector3(3,0,-11);
             Quaternion myRotation = Quaternion.identity;
             myRotation.eulerAngles = new Vector3(0, 45, 0);
-            Instantiate(WallLevel1, spawnPosition, myRotation);
+            WallLevel1 = Instantiate(WallLevel1, spawnPosition, myRotation);
+            PantoCollider pc = WallLevel1.GetComponent<PantoCollider>();
+            pc.CreateObstacle();
+            pc.Enable();
         } else if( level == 2){
             Vector3 spawnPosition = new Vector3(2.3f,0,-12);
             Quaternion myRotation = Quaternion.identity;
             myRotation.eulerAngles = new Vector3(0, 80, 0);
             Instantiate(WallLevel2, spawnPosition, myRotation);
-            // ADD IT
         } else if( level == 3){
             // ADD WALLS
             // ADD IT
@@ -77,20 +85,23 @@ public class Maze : MonoBehaviour
         }
 
     }
-    async void Reset(){
+    void Reset(){
         // SET PLAYER TO START
         // DELETE INNER WALL
-        DisableWalls();
-        Vector3 start = GameObject.Find("Start").transform.position;
-        upperHandle =  GameObject.Find("Panto").GetComponent<UpperHandle>();
+        
+        // Vector3 start = GameObject.Find("Start").transform.position;
+        
         GameObject[] Innerwalls = GameObject.FindGameObjectsWithTag("InnerWall");
         foreach (GameObject wall in Innerwalls)
         {
+            PantoCollider pc = wall.GetComponent<PantoCollider>();
+            pc.Disable();
+            pc.Remove();
             Destroy(wall);
         }
-        Console.WriteLine(start);
+        Vector3 start = new Vector3(0,0,-12);
+        upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         upperHandle.MoveToPosition(start, handleSpeed);
-        EnableWalls();
     }
 
     public void EnteredArea(string areaName)
@@ -98,12 +109,17 @@ public class Maze : MonoBehaviour
         if (areaName == "End")
         {
             currentLevel++;
+            //_speechOut.SetLanguage(SpeechBase.LANGUAGE.GERMAN);
+            //_speechOut.Speak("Du bist den Maze entkommen");
+            //Application.Quit();
             StartLevel(currentLevel);
+            
         }
         if (areaName == "Start")
         {
-            // Play sound
+            // Play soun
         }
+        
     }
     public void DisableWalls()
     {
@@ -111,6 +127,7 @@ public class Maze : MonoBehaviour
         foreach (PantoCollider collider in pantoColliders)
         {
             collider.Disable();
+            collider.Remove();
         }
     }
     public void EnableWalls()
@@ -118,6 +135,7 @@ public class Maze : MonoBehaviour
         PantoCollider[] pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
         foreach (PantoCollider collider in pantoColliders)
         {
+            collider.CreateObstacle();
             collider.Enable();
         }
     }

@@ -6,7 +6,7 @@ public class ColliderHandler : MonoBehaviour
 {
     async void Start()
     {
-        await Task.Delay(2000);
+        await Task.Delay(4000);
         PantoCollider[] pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
         foreach (PantoCollider collider in pantoColliders)
         {
