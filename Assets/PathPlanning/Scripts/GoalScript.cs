@@ -16,6 +16,10 @@ public class GoalScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("ItHandle")) _speech.Speak("You have reached the goal. Yay.");
+        if (other.CompareTag("ItHandle"))
+        {
+            _speech.Speak("You have reached the goal. Yay.");
+            Destroy(this.gameObject);
+        }
     }
 }

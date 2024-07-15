@@ -24,7 +24,8 @@ public enum InputEvent
     HouseC,
     SetStart,
     House144,
-    HouseK
+    HouseK,
+    Library
 }
 
 public struct MenuOption

@@ -1,14 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DualPantoToolkit;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using System.Threading.Tasks;
-using UnityEngine.Serialization;
 using SpeechIO;
-using Task = System.Threading.Tasks.Task;
 
 public class PathPlanningGameManager : MonoBehaviour
 {
