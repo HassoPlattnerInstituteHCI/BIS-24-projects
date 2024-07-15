@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Pacman Final level BIG BOI 1.unity
+    guid: 8560a3c7e317141cfb008223216425f0
   m_configObjects: {}
