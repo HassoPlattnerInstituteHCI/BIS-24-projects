@@ -6,12 +6,12 @@ using SpeechIO;
 
 
 public class destroy_red_bubbles : MonoBehaviour
-{   
+{
     SpeechOut _speechOut;
     // Start is called before the first frame update
     public int red_bubbles = 2;
     void Start()
-    {   
+    {
         _speechOut = new SpeechOut();
     }
 
@@ -19,15 +19,17 @@ public class destroy_red_bubbles : MonoBehaviour
     void Update()
     {
 
-        
+
     }
 
-    async void OnTriggerEnter(Collider other){
-        if (other.tag == "red") {
-            await _speechOut.Speak("red");
+    async void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "red")
+        {
+            await _speechOut.Speak("Yay");
             GameObject.Destroy(other.gameObject);
             red_bubbles--;
-    }
+        }
 
-}
+    }
 }
