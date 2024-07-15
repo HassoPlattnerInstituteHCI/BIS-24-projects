@@ -22,8 +22,8 @@ public class Level3 : MonoBehaviour
 
         // speechOut.Speak("Level 3... You can now place walls... Do so by placing both ends... Now finish the room.");
         oS.soundLocked = true;
-        speechOut.Speak("Level 3 . Wähle das Wandobjekt aus. Platziere eine Wand, indem du beide Enden der Wand mit dem oberen Griff platzierst.");
-        Invoke("unlockSound", 7);
+        speechOut.Speak("Level 3 . Es wurde ein neues Objekt deiner Liste hinzugefügt. Wähle das Wandobjekt aus. Platziere eine Wand, indem du beide Enden der Wand mit dem oberen Griff platzierst.");
+        Invoke("unlockSound", 12);
     }
 
     void Update()

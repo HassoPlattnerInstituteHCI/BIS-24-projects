@@ -32,7 +32,7 @@ public class Level2 : MonoBehaviour
 
         // speechOut.Speak("Level 2... Turn the lower handle to select objects... Place three different objects by turning the upper handle.");
         oS.soundLocked = true;
-        speechOut.Speak("Level 2 . Drehe den unteren Griff leicht nach rechts um das nächste Objekt, und nach links um das vorherige Objekt auszuwählen.");
+        speechOut.Speak("Level 2 . Mit dem unteren Griff kannst du mit leichtem Drehen durch eine Liste an Objekten iterieren. Also Ojekte auswählen.");
         Invoke("unlockSound", 10);
         Invoke("saySecondPart", 20);
     }
@@ -72,6 +72,6 @@ public class Level2 : MonoBehaviour
 
     private void saySecondPart()
     {
-        speechOut.Speak("Platziere jetzt 3 unterschiedliche Objekte indem du den oberen Griff leicht drehst.");
+        speechOut.Speak("Bewege den oberen Griff an eine Position im Raum und platziere dort das ausgewählte Objekt durch leichtes drehen des oberen Griffs.");
     }
 }

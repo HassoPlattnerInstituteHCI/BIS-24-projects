@@ -23,8 +23,8 @@ public class Level4 : MonoBehaviour
 
         // speechOut.Speak("Level 4... Select the remove tool... Then remove all objects and then all walls");
         oS.soundLocked = true;
-        speechOut.Speak("Level 4 . Wähle das Löschenobjektaus. . Lösche mit dem oberen Griff alle Objekte und dann alle Wände.");
-        Invoke("unlockSound", 6);
+        speechOut.Speak("Level 4 . Es wurde ein neues Objekt deiner List hinzugefügt. Wähle das Löschenobjektaus. . Lösche mit dem oberen Griff alle Objekte und dann alle Wände.");
+        Invoke("unlockSound", 10);
     }
 
     void Update()

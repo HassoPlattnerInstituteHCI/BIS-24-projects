@@ -22,8 +22,8 @@ public class Level5 : MonoBehaviour
 
         // speechOut.Speak("Level 5... Place a door in the left wall to get to the next room.");
         oS.soundLocked = true;
-        speechOut.Speak("Level 5 . Wähle das Türobjekt aus. Platziere eine Tür in der linken Wand und gehe in den Raum.");
-        Invoke("unlockSound", 5);
+        speechOut.Speak("Level 5 . Es wurde ein neues Objekt deiner Liste hinzugefügt. Wähle das Türobjekt aus. Platziere eine Tür in der linken Wand und gehe in den Raum.");
+        Invoke("unlockSound", 10);
     }
 
     public void levelFinished()
