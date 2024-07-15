@@ -25,8 +25,10 @@ public class IT : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Black") && ME.player) {
             sp.Speak("Black");
+            ME.ItWiggle(other.gameObject);
         } else if(other.CompareTag("White") && !ME.player) {
             sp.Speak("White");
+            ME.ItWiggle(other.gameObject);
         }
     }
     

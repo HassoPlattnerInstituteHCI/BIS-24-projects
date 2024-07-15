@@ -11,10 +11,10 @@ public class ME : MonoBehaviour {
     public static bool player;
     Dictionary <string, (int, int)> dic = new Dictionary<string, (int, int)>();
     Dictionary <(int, int), GameObject> dicr = new Dictionary<(int, int), GameObject>();
-    PantoHandle upperHandle;
-    PantoHandle lowerHandle;
-    private float lastRotationU;
-    private float lastRotationL;
+    static PantoHandle upperHandle;
+    static PantoHandle lowerHandle;
+    static private float lastRotationU;
+    static private float lastRotationL;
     private float timer = 0f;
     private float interval = 0.2f;
     Collider currentCollider = null;
@@ -73,11 +73,12 @@ public class ME : MonoBehaviour {
         {
             if (rotatedHandle(upperHandle))
             {
+                string outp = "";
                 if(currentCollider != null && ((currentCollider.CompareTag("White") && player ) || (currentCollider.CompareTag("Black") && !player))) {
                     selected = currentCollider;
-                    sp.Speak("Selected");
-                }
-                if(selected != null && currentCollider != null && currentCollider.CompareTag("Green")) {
+                    outp += "Selected";
+                    //sp.Speak("Selected");
+                } else if(selected != null && currentCollider != null && currentCollider.CompareTag("Green")) {
                     int pgx = dic[currentCollider.gameObject.name].Item1;
                     int ppx = dic[selected.gameObject.name].Item1;
                     int pgy = dic[currentCollider.gameObject.name].Item2;
@@ -92,12 +93,14 @@ public class ME : MonoBehaviour {
                                 b = true;
                                 dicr[tupelT].tag = "Green";
                                 dicr[tupelT].GetComponent<MeshRenderer> ().material = currentCollider.GetComponent<MeshRenderer>().material;
+                                outp += "Captured ";
                             } 
                         } else if (!player && ty == 2){
                             if (dicr[tupelT].CompareTag("White")) {
                                 b  = true;
                                 dicr[tupelT].tag = "Green";
                                 dicr[tupelT].GetComponent<MeshRenderer> ().material = currentCollider.GetComponent<MeshRenderer>().material;
+                                outp += "Captured ";
                             }
                         }
                     }
@@ -128,24 +131,27 @@ public class ME : MonoBehaviour {
                     }
                     if(b) {
                         swapGameObjects(selected.gameObject, currentCollider.gameObject);
-                        if(player && dic[selected.gameObject.name].Item2 == 1) {
+                        if(player && dic[selected.gameObject.name].Item2 == 1 && selected.gameObject.name[0] != 'D') {
                             selected.gameObject.GetComponent<MeshRenderer>().material = GameObject.Find("ME").GetComponent<MeshRenderer>().material;
                             string tempName = selected.gameObject.name;
                             selected.gameObject.name = selected.gameObject.name.Replace('W', 'D');
                             dic[selected.gameObject.name] = dic[tempName];
-                        } else if(!player && dic[selected.gameObject.name].Item2 == 8) {
+                            outp += "Promoted";
+                        } else if(!player && dic[selected.gameObject.name].Item2 == 8 && selected.gameObject.name[0] != 'D') {
                             selected.gameObject.name = selected.gameObject.name.Replace('B', 'D');
                             string tempName = selected.gameObject.name;
                             selected.gameObject.GetComponent<MeshRenderer>().material = GameObject.Find("IT").GetComponent<MeshRenderer>().material;
                             dic[selected.gameObject.name] = dic[tempName];
+                            outp += "Promoted";
                         }
                         if(toRemove != null) {
                             toRemove.tag = "Green";
                             toRemove.GetComponent<MeshRenderer> ().material = currentCollider.GetComponent<MeshRenderer>().material;
+                            outp += " Captured";
                         }
                         selected = null;
                         sp.Stop();
-                        sp.Speak("swapped");
+                        sp.Speak("Placed");
                         player = !player;
                         if(GameObject.FindGameObjectsWithTag("Black").Length == 0) {
                             sp.Stop();
@@ -156,6 +162,7 @@ public class ME : MonoBehaviour {
                         }
                     }
                 }
+                sp.Speak(outp);
             }
             timer -= interval;
         }
@@ -166,11 +173,15 @@ public class ME : MonoBehaviour {
         if(other.CompareTag("White") && player) {
             outp += "White";
             currentCollider = other;
+            wiggle(upperHandle, other.gameObject);
         } else if(other.CompareTag("Black") && !player) {
             outp += "Black";
             currentCollider = other;
-        } else if(other.CompareTag("Green")) {
+            wiggle(upperHandle, other.gameObject);
+        } else if(other.CompareTag("Green") && selected != null) {
+            outp += "Empty";
             currentCollider = other;
+            //wiggle(upperHandle, other.gameObject);
         }
         if(other.gameObject.name[0] == 'D') {
             outp += " Queen";
@@ -217,6 +228,27 @@ public class ME : MonoBehaviour {
         dicr[dic[g1.name]] = g1;
         dicr[dic[g2.name]] = g2;
 
+    }
+
+    public static async void wiggle(PantoHandle ph, GameObject g1) {
+        GameObject go = GameObject.Find("ME");
+        Vector3 v = go.transform.position;
+        v += new Vector3(0.05f, 0, 0.05f);
+        g1.transform.Rotate(ph.transform.rotation.eulerAngles);
+        await ph.SwitchTo(g1, 5f);
+        //await ph.MoveToPosition(g1.transform.position, 5f);
+        if(ph == upperHandle) {
+            lastRotationU = 0; //ph.GetRotation();
+        } else {
+            lastRotationL = 0; //ph.GetRotation();
+        }
+        
+        //await ph.MoveToPosition(go.transform.position, 1f);
+        ph.Free();
+    }
+
+    public static void ItWiggle(GameObject go) {
+        wiggle(lowerHandle, go);
     }
     
 }
