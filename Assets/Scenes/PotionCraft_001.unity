@@ -193,7 +193,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: overwriteDefaultPort
@@ -203,6 +203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panto
       objectReference: {fileID: 0}
+    - target: {fileID: 826605487606422812, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
+      propertyPath: propertyHandlerObject
+      value: 
+      objectReference: {fileID: 933049841}
     - target: {fileID: 826605487606422813, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -414,6 +418,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+--- !u!114 &573236367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573236364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dec50b8262937349bb5375620cd9dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyHandlerObject: {fileID: 933049841}
+  trigger: {fileID: 933049841}
+  handle: {fileID: 1776695995}
+  potionName: EARTH
+--- !u!65 &573236368
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573236364}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 10, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &585933574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -464,6 +497,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5785319b28145614cb5325a3a617d4b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5785319b28145614cb5325a3a617d4b5, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: 5785319b28145614cb5325a3a617d4b5, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -666,6 +703,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+--- !u!114 &833730390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833730387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dec50b8262937349bb5375620cd9dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyHandlerObject: {fileID: 933049841}
+  trigger: {fileID: 933049841}
+  handle: {fileID: 1776695995}
+  potionName: AIR
+--- !u!65 &833730391
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833730387}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 10, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &933049840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -786,6 +852,14 @@ MonoBehaviour:
   directionSelectorActive: 0
   selectionWasActive: 1
   path: []
+  madePotion: NONE
+  startPosition: {x: 0, y: 0, z: 0}
+  soundLocked: 0
+  firstStirr: 0
+  firstSlotTriggered: 0
+  ingredientAdded: 0
+  potionMade: 0
+  tutorialDone: 0
 --- !u!114 &933049846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,21 +872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb16b223526079b4c99d26fa22114d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &933049848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 933049841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a0cd99c2b2a343ab975bb8748134731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isUpper: 1
-  angle: 0
-  angleStep: 0.01
 --- !u!1001 &1002635047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -879,19 +938,35 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5785319b28145614cb5325a3a617d4b5, type: 3}
   m_PrefabInstance: {fileID: 585933574}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1153426102
+--- !u!65 &1153426104
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153426101}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 10, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1153426105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153426101}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5872553ba449d7409075d789fd74bdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dec50b8262937349bb5375620cd9dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  propertyHandlerObject: {fileID: 933049841}
+  trigger: {fileID: 933049841}
+  handle: {fileID: 1776695995}
+  potionName: WATER
 --- !u!1 &1419773934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5785319b28145614cb5325a3a617d4b5, type: 3}
@@ -910,6 +985,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+--- !u!114 &1419773937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419773934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dec50b8262937349bb5375620cd9dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyHandlerObject: {fileID: 933049841}
+  trigger: {fileID: 933049841}
+  handle: {fileID: 1776695995}
+  potionName: FIRE
+--- !u!65 &1419773938
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419773934}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 10, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1456127367
 PrefabInstance:
   m_ObjectHideFlags: 0

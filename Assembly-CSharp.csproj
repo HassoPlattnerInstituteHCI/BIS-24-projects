@@ -60,6 +60,7 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\PantoBoxCollider.cs" />
     <Compile Include="Assets\CollisionReporter.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\ForceField.cs" />
+    <Compile Include="Assets\PotionDoneDetector.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\ForcefieldLabyrinth\LabyrinthFinishLine.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\ExampleScripts\MeHandle.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\Resources\clipper_library\clipper.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\WindowsVoiceProject\WindowsVoice.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\PantoScripts\CenterForceField.cs" />
     <Compile Include="Assets\unity-dualpanto-toolkit\Assets\SpeechIOForUnity\Assets\Scripts\Speech Output Core Scripts\LinuxSpeechOut.cs" />
-    <Compile Include="Assets\PotionDoneDetector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\unity-dualpanto-toolkit\Assets\Resources\Visualization\Path.compute" />

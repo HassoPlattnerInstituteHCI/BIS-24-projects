@@ -42,7 +42,7 @@ public class BezierCurveBuilder : MonoBehaviour
         DrawBezierCurve();
     }
 
-    void DrawBezierCurve()
+    public void DrawBezierCurve()
     {
         segmentCount = (controlPoints.Count - 1) * initialSegmentCount;
         lineRenderer.positionCount = segmentCount + 1;
@@ -126,7 +126,7 @@ public class BezierCurveBuilder : MonoBehaviour
                 Debug.Log("RIGHT");
                 break;
             default:
-                Debug.Log("NOPE");
+                //Debug.Log("NOPE");
                 // Add default behavior
                 break;
         }

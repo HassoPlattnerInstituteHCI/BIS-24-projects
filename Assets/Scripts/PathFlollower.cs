@@ -44,7 +44,8 @@ public class PathFlollower : MonoBehaviour
 
     void MoveAlongPath()
     {
-        Debug.Log(currentSegment);
+
+        propertyHandler.firstStirr = true;
         if (currentSegment >= propertyHandler.path.Length) {
             propertyHandler.pathCompleted = true;
             return;

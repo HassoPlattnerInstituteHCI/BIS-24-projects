@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using SpeechIO;
+using Unity.VisualScripting;
 
 public class DirectionSelector : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class DirectionSelector : MonoBehaviour
     private RotatingHandle handle;
     private List<string> directions = new List<string>();
     private SpeechOut speaker;
+    private bool invoked = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,15 @@ public class DirectionSelector : MonoBehaviour
         directions.Add("EARTH");
         directions.Add("FIRE");
         directions.Add("WATER");
-        InvokeRepeating("SetNewDirection", 5f, 5f);
+    }
+
+    private void Update()
+    {
+        if (propertyHandler.tutorialDone && !invoked)
+        {
+            InvokeRepeating("SetNewDirection", 5f, 5f);
+            invoked = true;
+        }
     }
 
     async private void SetNewDirection()

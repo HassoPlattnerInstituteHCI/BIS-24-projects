@@ -7,6 +7,7 @@ public class PotionDoneDetector : MonoBehaviour
 {
     public GameObject propertyHandlerObject;
     public GameObject trigger;
+    public GameObject handle;
     public string potionName;
 
     private Collider collider;
@@ -41,7 +42,43 @@ public class PotionDoneDetector : MonoBehaviour
     {
         if (IsWithinBounds(trigger.transform.position))
         {
-            propertyHandler.madePotion = potionname
+            propertyHandler.madePotion = potionName;
+        }
+
+        if (IsWithinBounds(handle.transform.position))
+        {
+            if (potionName == "AIR")
+            {
+                propertyHandler.firstSlotTriggered = true;
+                propertyHandler.Say("SWOOOSH");
+                propertyHandler.soundLocked = true;
+                Invoke("UnlockSound", 3);
+                return;
+            }
+
+            if (potionName == "WATER")
+            {
+                propertyHandler.Say("Splash");
+                propertyHandler.soundLocked = true;
+                Invoke("UnlockSound", 3);
+                return;
+            }
+
+            if (potionName == "FIRE")
+            {
+                propertyHandler.Say("HOT HOT HOT");
+                propertyHandler.soundLocked = true;
+                Invoke("UnlockSound", 3);
+                return;
+            }
+
+            if (potionName == "EARTH")
+            {
+                propertyHandler.Say("Knirsch");
+                propertyHandler.soundLocked = true;
+                Invoke("UnlockSound", 3);
+                return;
+            }
         }
 
     }
@@ -50,6 +87,14 @@ public class PotionDoneDetector : MonoBehaviour
     {
         Boolean isValid = collider.bounds.Contains(position);
 
+        propertyHandler.soundLocked = true;
+        Invoke("UnlockSound", 3);
+
         return isValid;
+    }
+
+    void UnlockSound()
+    {
+        propertyHandler.soundLocked = false;
     }
 }
