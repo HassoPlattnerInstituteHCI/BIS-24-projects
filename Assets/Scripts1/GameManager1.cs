@@ -14,6 +14,8 @@ public class GameManager1 : MonoBehaviour
     public GameObject fieldPrefab;
     private int level = -1;
     private GameObject[,] fields;
+    
+    private bool debug = false;
 
 
     private int startX = -4;
@@ -30,7 +32,7 @@ public class GameManager1 : MonoBehaviour
     private float[,] colorsRGB = {{0,0,0},{0,0,0},{1,1,1},{1,0,0},{0,0.6f,0},{0,0,1},{1,0.474f,0},{1,1,0},{1,0.753f,0.796f},{0.4f,0.2f,0.6f},{0,1,0},{0.678f,0.847f,0.902f},{0,0.4f,0},{0,0,0.545f},{0.25f,0.88f,0.88f}};
     private int colorSet = 1;
     private string[] sizes = {"One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten"};
-    private string[] levels = {"One","Two","Three","Four","Five"};
+    private string[] levels = {"One","Two","Three","Four"/*,"Five"*/};
 
     private bool massSelecting = false;
 
@@ -39,6 +41,8 @@ public class GameManager1 : MonoBehaviour
     private SpeechOut _speechOut;
     private SpeechIn _speechIn;
     private bool level4Intro = true;
+
+    GameObject go;
 
     private float rotation = 0;
     
@@ -50,6 +54,7 @@ public class GameManager1 : MonoBehaviour
     {
         _speechOut = new SpeechOut();
         _speechIn = new SpeechIn(onRecognized);
+        go = new GameObject();
     }
 
     void Start()
@@ -155,19 +160,27 @@ public class GameManager1 : MonoBehaviour
         }
     }
     async void levelSelection() {
-        await _speechOut.Speak("Choose level.");
-        _speechIn.Listen(levels);
-        // Introduction();
+        if(debug) {
+            level = 4;
+            Introduction();
+        } else {
+            await _speechOut.Speak("Choose level.");
+            _speechIn.Listen(levels);
+        }
     }
     async void Introduction()
     {
-
-        if(level>3) {
-           if(level == 4) await _speechOut.Speak("Before starting drawing you can now choose how big the Canvas should be.",0.7f);
-           if(level==5) await _speechOut.Speak("Now you can rotate the it-Handle to the right to enter the selection mode. Then you can hover over multiple pixels, and then rotate the me-handle to color them all at once. To exit selection mode rotate it-handle to the left.",0.7f);
-           await _speechOut.Speak("How big should the Canvas be?");
-            _speechIn.Listen(sizes);
-            return;
+        if(debug) {
+            size = 3;
+        }
+        else {
+            if(level>3) {
+               if(level == 4) await _speechOut.Speak("Before starting drawing you can now choose how big the Canvas should be.",0.7f);
+               if(level==5) await _speechOut.Speak("Now you can rotate the it-Handle to the right to enter the selection mode. Then you can hover over multiple pixels, and then rotate the me-handle to color them all at once. To exit selection mode rotate it-handle to the left.",0.7f);
+               await _speechOut.Speak("How big should the Canvas be?");
+                _speechIn.Listen(sizes);
+                return;
+            }
         }
 
         await StartGame();
@@ -189,33 +202,26 @@ public class GameManager1 : MonoBehaviour
                 fields[x,z].transform.localScale = new Vector3(fieldSize,1.0f,fieldSize);
             }
         }
-        // TODO 4: activate PlayerWall game object at Unity editor, and remove this comment-out
         if(level==1) await _speechOut.Speak("Move the me-handle to move on the grid-shaped canvas. The it-handle shows your current position on the canvas. Starting at Position 0x0",0.7f);
         await _upperHandle.MoveToPosition(new Vector3(startX+fieldSize/2,0,startZ+fieldSize/2), 1.0f, false);
+        await _lowerHandle.SwitchTo(go, 50.0f);
         await moveLowerHandle();
-
         await RenderObstacle();
         if(level>1) {
             _speechIn.Listen(colors);
         }
 
-        // await _speechOut.Speak("Introduction finished. Rotate me-handle to the right to colour a pixel");
-
-        // Instantiate(player, playerSpawn);
-        // Instantiate(enemy, new Vector3(0.35f, 0.0f, -5.64f), Quaternion.identity);
-        // GameObject sb = Instantiate(ball, ballSpawn);
-
-        
-        // TODO 3:
-        // await _lowerHandle.SwitchTo(sb, 50.0f);
         _upperHandle.Free();
         rotation = _upperHandle.GetRotation();
         started = true;
     }
     async Task moveLowerHandle() {
         
-        _lowerHandle.Free();
-        await _lowerHandle.MoveToPosition(new Vector3(startX+me_HandlePos[0]*fieldSize+fieldSize/2,0.0f,startZ+me_HandlePos[1]*fieldSize+fieldSize/2), 2.0f, false);
+        // _lowerHandle.Free();
+        // await _lowerHandle.MoveToPosition(new Vector3(startX+me_HandlePos[0]*fieldSize+fieldSize/2,0.0f,startZ+me_HandlePos[1]*fieldSize+fieldSize/2), 4.0f, false);
+
+        go.transform.position = new Vector3(startX+me_HandlePos[0]*fieldSize+fieldSize/2,0.0f,startZ+me_HandlePos[1]*fieldSize+fieldSize/2);
+
         _speechOut.Stop(false);
         await _speechOut.Speak("Moved to Pixel Row:" + me_HandlePos[0] + " Column:" + me_HandlePos[1]);
     }
