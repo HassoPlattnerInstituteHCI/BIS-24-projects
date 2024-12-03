@@ -12,6 +12,3 @@ git submodule update --init --recursive
 
 Each group has a dedicated branch for their DualPanto application.
 
-i am your father 
-
-look at my horse, my horse is aMAZEing
