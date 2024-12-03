@@ -13,3 +13,4 @@ git submodule update --init --recursive
 Each group has a dedicated branch for their DualPanto application.
 
 Hallo
+Hallo2
