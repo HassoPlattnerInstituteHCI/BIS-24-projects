@@ -12,4 +12,4 @@ git submodule update --init --recursive
 
 Each group has a dedicated branch for their DualPanto application.
 
-xoxo gossip girl 
+i am your father 
