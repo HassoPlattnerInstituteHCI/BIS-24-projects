@@ -17,10 +17,8 @@ public class Level1 : MonoBehaviour
 
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
-        objectsFound = new bool[3];
+        objectsFound = new bool[1];
         objectsFound[0] = false;
-        objectsFound[1] = false;
-        objectsFound[2] = false;
 
         oS = GameObject.FindObjectsOfType<ObjectSelector>()[0];
         oS.objectsSelectable = false;
@@ -30,7 +28,7 @@ public class Level1 : MonoBehaviour
         oS.doorToolActivated = false;
 
         // speechOut.Speak("Level 1. Explore the room with the lower handle.");
-        speechOut.Speak("Level 1 . Erkunde den Raum mit dem unteren Griff.");
+        speechOut.Speak("Level 1 . You are in a room. Find the door!");
     }
 
     public void foundObject(int objectId) 
