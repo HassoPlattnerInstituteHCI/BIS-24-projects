@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
         //_speechOut.Speak("Move both handles in the middle to start the intro.");
         
-        _speechOut.Speak("Bewege beide Griffe in die Mitte um das Intro zu starten.");
+        _speechOut.Speak("Move both handles in the middle to start the game");
     }
 
     async void Introduction()
