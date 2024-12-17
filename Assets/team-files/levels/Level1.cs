@@ -52,7 +52,7 @@ public class Level1 : MonoBehaviour
     private void levelFinished()
     {
         // speechOut.Speak("Well done! You have found all Objects. Move the handles in the middle to continue to the next level");
-        speechOut.Speak("Du hast alle Objekte gefunden. Bewege beide Griffe in die Mitte um das nächste Level zu starten.");
+        speechOut.Speak("You found the door. Oh no! The door is locked. Move the handles to the middle to continue");
         Invoke("finish", 6);
     }
 
