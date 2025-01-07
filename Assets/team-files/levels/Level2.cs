@@ -48,23 +48,23 @@ public class Level2 : MonoBehaviour
         }
     }
 
-    public void foundObject(int objectId)
-    {
-        if (finished) return;
+    // public void foundObject(int objectId)
+    // {
+    //     if (finished) return;
 
-        Debug.Log("found object");
-        objectsFound[objectId] = true;
+    //     Debug.Log("found object");
+    //     objectsFound[objectId] = true;
 
-        foreach (bool objectFound in objectsFound)
-        {
-            if (!objectFound)
-            {
-                return;
-            }
-        }
-        finished = true;
-        Invoke("levelFinished", 1);
-    }
+    //     foreach (bool objectFound in objectsFound)
+    //     {
+    //         if (!objectFound)
+    //         {
+    //             return;
+    //         }
+    //     }
+    //     finished = true;
+    //     Invoke("levelFinished", 1);
+    // }
     private void levelFinished()
     {
         // speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
