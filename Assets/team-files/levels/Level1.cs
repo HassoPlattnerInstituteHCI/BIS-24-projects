@@ -31,7 +31,7 @@ public class Level1 : MonoBehaviour
         speechOut.Speak("Level 1 . You are in a room. Find the door!");
     }
 
-    public void foundObject(int objectId) 
+    public void foundObject(int objectId)
     {
         if (finished) return;
 
@@ -58,6 +58,6 @@ public class Level1 : MonoBehaviour
 
     private void finish()
     {
-        GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0,0,-10);
+        GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0, 0, -10);
     }
 }
