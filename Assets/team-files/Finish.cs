@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-    private bool finished = false;
+    private bool finished = true;
 
     void OnTriggerEnter(Collider col)
     {
