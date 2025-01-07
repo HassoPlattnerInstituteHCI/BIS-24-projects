@@ -17,8 +17,6 @@ public class Level2 : MonoBehaviour
 
     private string name1 = "";
 
-    private string name2 = "";
-
     void Start()
     {
         speechOut = new SpeechOut();
@@ -43,17 +41,30 @@ public class Level2 : MonoBehaviour
         {
             name1 = name;
         }
-        else if (name2 == "")
-        {
-            name2 = name;
-        }
-        else if (!finished && name1 != name && name2 != name)
+        else if (!finished && name1 != name)
         {
             finished = true;
             Invoke("levelFinished", 1);
         }
     }
 
+    public void foundObject(int objectId)
+    {
+        if (finished) return;
+
+        Debug.Log("found object");
+        objectsFound[objectId] = true;
+
+        foreach (bool objectFound in objectsFound)
+        {
+            if (!objectFound)
+            {
+                return;
+            }
+        }
+        finished = true;
+        Invoke("levelFinished", 1);
+    }
     private void levelFinished()
     {
         // speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
