@@ -9,7 +9,7 @@ public class ObjectSelector : MonoBehaviour
     public string selectedObjectName;
     private ObjectHandler objectHandler;
     private int selectedObjectId = 0;
-    private string[] objectNames = {"Selector", "Move", "Zoom", "Textbox", "Circle", "Text"}; // todo
+    private string[] objectNames = {"Selector", "Deletor","Connector", "Textbox", "Circle", "Text"}; // todo //move und zoom ist für Blinde eher ungeeignet/verwirrend
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     public float upperZeroRotation;
@@ -58,6 +58,14 @@ public class ObjectSelector : MonoBehaviour
                     objectHandler.placeBox(); break;
                 case "Circle":
                     objectHandler.placeCircle(); break;
+                case "Selector":
+                    objectHandler.editBox(); break;
+                case "Deletor":
+                    objectHandler.destroyHoveredObject();break;
+                case "Connector":
+                    objectHandler.connectObjects();break;
+
+
             }
         }
 
@@ -65,6 +73,7 @@ public class ObjectSelector : MonoBehaviour
         if(!lowerTurned && Mathf.Abs(lowerZeroRotation-rotL) >= 30){
             upperTurned = true;
             selectedObjectId++;
+            objectHandler.resetPlacementStarted();
             if(selectedObjectId == objectNames.Length){
                 selectedObjectId = 0;
             }

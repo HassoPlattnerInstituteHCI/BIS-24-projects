@@ -27,6 +27,9 @@ public class ObjectHandler : MonoBehaviour
         _objectSelector = GetComponent<ObjectSelector>();
     }
 
+    public void resetPlacementStarted(){
+        placementStarted = false;
+    }
 
     public void placeBox(){
         soundManager.playPlaceSound();
@@ -54,6 +57,58 @@ public class ObjectHandler : MonoBehaviour
             placementStarted = true;
         }
     }
+
+    public void connectObjects(){
+        soundManager.playPlaceSound();
+        if (placementStarted) 
+        {
+            _speechOut.Speak("Textbox editiert.");
+
+            boxPos2 = hoveredObject.transform.position;
+
+            //Check box rotation here
+            GameObject clone = Instantiate(box, boxPos1, 0, Vector3.up); //todo: Box ersetzen mit Pfeil oder andere Verbindung
+            //ggf. mit .magnitude
+            clone.transform.localScale = new Vector3(boxPos1.x - boxPos2.x, 1, boxPos1.z - boxPos2.z);
+
+            PantoCollider _pantoCollider = clone.GetComponent<PantoCollider>();
+
+            _pantoCollider.CreateObstacle();
+            _pantoCollider.Enable();
+
+            placementStarted = false;
+
+        } else 
+        {
+            boxPos1 = hoveredObject.transform.position;
+            placementStarted = true;
+        }
+    }
+
+    public void editBox(){
+        soundManager.playPlaceSound();
+        if (placementStarted) 
+        {
+            _speechOut.Speak("Textbox editiert.");
+
+            boxPos2 = _upperHandle.GetPosition();
+
+            hoveredObject.transform.localScale = new Vector3(boxPos1.x - boxPos2.x, 1, boxPos1.z - boxPos2.z);
+
+            PantoCollider _pantoCollider = clone.GetComponent<PantoCollider>();
+
+            _pantoCollider.CreateObstacle();
+            _pantoCollider.Enable();
+
+            placementStarted = false;
+
+        } else 
+        {
+            boxPos1 = hoveredObject.transform.position;
+            placementStarted = true;
+        }
+    }
+
 
      public void placeCircle(){
         soundManager.playPlaceSound();
@@ -90,6 +145,8 @@ public class ObjectHandler : MonoBehaviour
             Destroy(hoveredObject);
         }
     }
+
+
 
     public void setHoveredObject(GameObject obj)
     {
