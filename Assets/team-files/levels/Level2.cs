@@ -19,7 +19,7 @@ public class Level2 : MonoBehaviour
 
     private string name2 = "";
 
-    public GameObject door;
+    private GameObject door;
 
 
 
@@ -36,7 +36,7 @@ public class Level2 : MonoBehaviour
 
         // speechOut.Speak("Level 2... Turn the lower handle to select objects... Place three different objects by turning the upper handle.");
         oS.soundLocked = true;
-        speechOut.Speak("Find the Key and turn the lower handle to select.");
+        speechOut.Speak("Find the Key and turn the lower handle to select. Then open the door by turning the upper handle");
         Invoke("unlockSound", 10);
         Invoke("saySecondPart", 20);
     }
@@ -52,13 +52,23 @@ public class Level2 : MonoBehaviour
 
     }
 
-     public void foundObject(string name)
-    {
-         if (name == "key")
-        {
-            speechOut.Speak("You found a key, now go back to the door and open it by turning the upper handle.");
-        }
-    }
+    // public void foundObject(int objectId)
+    // {
+    //     if (finished) return;
+
+    //     Debug.Log("found object");
+    //     objectsFound[objectId] = true;
+
+    //     foreach (bool objectFound in objectsFound)
+    //     {
+    //         if (!objectFound)
+    //         {
+    //             return;
+    //         }
+    //     }
+    //     finished = true;
+    //     Invoke("levelFinished", 1);
+    // }
     private void levelFinished()
     {
         // speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
