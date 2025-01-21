@@ -35,27 +35,27 @@ public class ObjectHandler : MonoBehaviour
         _speechOut = new SpeechOut();
     }
 
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.gameObject.tag == "PlacedObject") 
-    //     {
-    //         hoveredObject = collision.gameObject;
-    //         _speechOut.Speak(collision.gameObject.GetComponent<Object>().name);
-    //     }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "PlacedObject") 
+        {
+            hoveredObject = collision.gameObject;
+            _speechOut.Speak(collision.gameObject.GetComponent<Object>().name);
+        }
 
-    //     if (collision.gameObject.tag == "Wall") 
-    //     {
-    //         hoveredObject = collision.gameObject;
-    //     }
-    // }
+        if (collision.gameObject.tag == "Wall") 
+        {
+            hoveredObject = collision.gameObject;
+        }
+    }
 
-    // void OnCollisionLeave(Collision collision)
-    // {
-    //     if (collision.gameObject.tag == "PlacedObject" || collision.gameObject.tag == "Wall") 
-    //     {
-    //         hoveredObject = null;
-    //     }
-    // }
+    void OnCollisionLeave(Collision collision)
+    {
+        if (collision.gameObject.tag == "PlacedObject" || collision.gameObject.tag == "Wall") 
+        {
+            hoveredObject = null;
+        }
+    }
 
     public void placeWall()
     {
@@ -88,24 +88,47 @@ public class ObjectHandler : MonoBehaviour
             wallPlacementStarted = true;
         }
         
-    }
-
-    public void placeObject(string name) 
+    }    public void placeObject(string name) 
     {
+        // Spielt einen Sound ab, der das Platzieren eines Objekts signalisiert
         soundManager.playPlaceSound();
+        
+        // Erstellt eine Instanz des Objekts 'obj' an der Position des '_upperHandle' mit einer Standardrotation
         GameObject o = Instantiate(obj, _upperHandle.GetPosition(), Quaternion.identity);
+        
+        // Setzt den Namen des neuen Objekts auf den übergebenen Namen
         o.GetComponent<Object>().name = name;
-
+    
+        // Findet das erste GameObject mit dem Tag "Level"
         GameObject level = GameObject.FindGameObjectsWithTag("Level")[0];
-
-        // place sound
+    
+        // Gibt eine Sprachausgabe aus, die bestätigt, dass das Objekt platziert wurde
         _speechOut.Speak(name + " platziert.");
-
+    
+        // Überprüft, ob das gefundene Level-Objekt "Level 2(Clone)" heißt
         if (level.name == "Level 2(Clone)")
         {
-            level.GetComponent<Level2>().objectPlaced(name);
+            // Ruft die Methode 'objectPlaced' in der 'Level2'-Klasse auf und übergibt den Namen des Objekts
+            level.GetComponent<Level2>().objectPlaced(name, _upperHandle.GetPosition());
         }
     }
+
+    // public void placeObject(string name) 
+    // {
+    //     soundManager.playPlaceSound();
+    //     GameObject o = Instantiate(obj, _upperHandle.GetPosition(), Quaternion.identity);
+    //     o.GetComponent<Object>().name = name;
+
+    //     GameObject level = GameObject.FindGameObjectsWithTag("Level")[0];
+
+    //     // place sound
+    //     _speechOut.Speak(name + " platziert.");
+
+    //     if (level.name == "Level 2(Clone)")
+    //     {
+    //         level.GetComponent<Level2>().objectPlaced(name);
+    //     }
+    // }
 
     public void destroyAllObjectsWithTag(string tag)
     {

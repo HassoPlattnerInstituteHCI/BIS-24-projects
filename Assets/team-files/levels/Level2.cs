@@ -19,6 +19,10 @@ public class Level2 : MonoBehaviour
 
     private string name2 = "";
 
+    private GameObject door;
+
+
+
     void Start()
     {
         speechOut = new SpeechOut();
@@ -37,20 +41,15 @@ public class Level2 : MonoBehaviour
         Invoke("saySecondPart", 20);
     }
 
-    public void objectPlaced(string name)
+    public void objectPlaced(string name, Vector3 position)
     {
-        if (name1 == "")
-        {
-            name1 = name;
-        } else if (name2 == "")
-        {
-            name2 = name;
-        }
-        else if (!finished && name1 != name && name2 != name)
+    
+        if (name == "key" && door!= null && position == door.transform.position)
         {
             finished = true;
             Invoke("levelFinished", 1);
         }
+
     }
 
     private void levelFinished()

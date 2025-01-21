@@ -126,7 +126,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2024708753950522641, guid: 674d9769a47f34f6084b3278ec6ea3fa, type: 3}
       propertyPath: name
-      value: Door
+      value: key
       objectReference: {fileID: 0}
     - target: {fileID: 2024708753950522641, guid: 674d9769a47f34f6084b3278ec6ea3fa, type: 3}
       propertyPath: level
@@ -134,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2024708753950522642, guid: 674d9769a47f34f6084b3278ec6ea3fa, type: 3}
       propertyPath: m_Name
-      value: Key
+      value: key
       objectReference: {fileID: 0}
     - target: {fileID: 2024708753950522653, guid: 674d9769a47f34f6084b3278ec6ea3fa, type: 3}
       propertyPath: m_RootOrder

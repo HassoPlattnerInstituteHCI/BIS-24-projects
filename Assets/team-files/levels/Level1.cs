@@ -6,6 +6,8 @@ using SpeechIO;
 public class Level1 : MonoBehaviour
 {
     public LevelManager levelManager;
+
+    public GameObject door;
     private bool[] objectsFound;
     private SpeechOut speechOut;
     private ObjectSelector oS;
@@ -29,6 +31,11 @@ public class Level1 : MonoBehaviour
 
         // speechOut.Speak("Level 1. Explore the room with the lower handle.");
         speechOut.Speak("Level 1 . You are in a room. Find the door!");
+        if (door != null)
+        {
+            Vector3 doorPosition = door.transform.position;
+            Debug.Log("Door position: " + doorPosition);
+        }
     }
 
     public void foundObject(int objectId) 

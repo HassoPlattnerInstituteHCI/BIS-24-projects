@@ -14,7 +14,7 @@ public class ObjectSelector : MonoBehaviour
     public string selectedObjectName;
     private ObjectHandler objectHandler;
     private int selectedObjectId = 0;
-    private string[] objectNames = {"Stuhl", "Tisch", "Lampe", "Wand", "Löschen", "Tür"}; // todo
+    private string[] objectNames = {"Key"}; // todo
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     public float upperZeroRotation;
