@@ -60,14 +60,14 @@ public class ObjectHandler : MonoBehaviour
     public void placeWall()
     {
         soundManager.playPlaceSound();
-        if (wallPlacementStarted) 
+        if (wallPlacementStarted)
         {
             _speechOut.Speak("Wand platziert.");
 
             wallPos2 = _upperHandle.GetPosition();
 
-            GameObject clone = Instantiate(wall, (wallPos1+wallPos2)/2, Quaternion.LookRotation((wallPos2-wallPos1), Vector3.up));
-            clone.transform.localScale = new Vector3(1, 1, (wallPos2-wallPos1).magnitude);
+            GameObject clone = Instantiate(wall, (wallPos1 + wallPos2) / 2, Quaternion.LookRotation((wallPos2 - wallPos1), Vector3.up));
+            clone.transform.localScale = new Vector3(1, 1, (wallPos2 - wallPos1).magnitude);
 
             PantoCollider _pantoCollider = clone.GetComponent<PantoCollider>();
 
@@ -82,13 +82,16 @@ public class ObjectHandler : MonoBehaviour
             {
                 level.GetComponent<Level3>().wallPlaced();
             }
-        } else 
+        }
+        else
         {
             wallPos1 = _upperHandle.GetPosition();
             wallPlacementStarted = true;
         }
-        
-    }    public void placeObject(string name) 
+
+    }
+
+    public void placeObject(string name)
     {
         // Spielt einen Sound ab, der das Platzieren eines Objekts signalisiert
         soundManager.playPlaceSound();
@@ -101,11 +104,10 @@ public class ObjectHandler : MonoBehaviour
     
         // Findet das erste GameObject mit dem Tag "Level"
         GameObject level = GameObject.FindGameObjectsWithTag("Level")[0];
-    
-        // Gibt eine Sprachausgabe aus, die bestätigt, dass das Objekt platziert wurde
-        _speechOut.Speak(name + " platziert.");
-    
-        // Überprüft, ob das gefundene Level-Objekt "Level 2(Clone)" heißt
+
+        // place sound
+        _speechOut.Speak(name + " placed.");
+
         if (level.name == "Level 2(Clone)")
         {
             // Ruft die Methode 'objectPlaced' in der 'Level2'-Klasse auf und übergibt den Namen des Objekts
@@ -147,11 +149,11 @@ public class ObjectHandler : MonoBehaviour
         soundManager.playDestroySound();
         if (hoveredObject)
         {
-            if (hoveredObject.tag == "Wall") 
+            if (hoveredObject.tag == "Wall")
             {
                 hoveredObject.GetComponent<PantoCollider>().Remove();
                 _speechOut.Speak("Wand entfernt.");
-            } 
+            }
             else
             {
                 _speechOut.Speak(hoveredObject.GetComponent<Object>().name + " entfernt.");
@@ -171,24 +173,24 @@ public class ObjectHandler : MonoBehaviour
         Quaternion wallRotation;
 
         wallLength = hoveredObject.transform.localScale.z;
-        wallRotation = Quaternion.Euler(0, hoveredObject.transform.rotation.y+90, 0);
+        wallRotation = Quaternion.Euler(0, hoveredObject.transform.rotation.y + 90, 0);
 
-        Vector3 wallBegin = wallMid - hoveredObject.transform.rotation * (new Vector3(0, 0, wallLength/2));
-        Vector3 wallEnd = wallMid + hoveredObject.transform.rotation * (new Vector3(0, 0, wallLength/2));
+        Vector3 wallBegin = wallMid - hoveredObject.transform.rotation * (new Vector3(0, 0, wallLength / 2));
+        Vector3 wallEnd = wallMid + hoveredObject.transform.rotation * (new Vector3(0, 0, wallLength / 2));
 
         Vector3 doorPosition = wallBegin + Vector3.Project(_upperHandle.GetPosition() - wallBegin, wallEnd - wallBegin);
 
-        Vector3 doorBegin = doorPosition - hoveredObject.transform.rotation * (new Vector3(0, 0, doorSize/2));
-        Vector3 doorEnd = doorPosition + hoveredObject.transform.rotation * (new Vector3(0, 0, doorSize/2));
+        Vector3 doorBegin = doorPosition - hoveredObject.transform.rotation * (new Vector3(0, 0, doorSize / 2));
+        Vector3 doorEnd = doorPosition + hoveredObject.transform.rotation * (new Vector3(0, 0, doorSize / 2));
 
-        Vector3 wall1Mid = (wallBegin + doorBegin)/2;
-        Vector3 wall2Mid = (doorEnd + wallEnd)/2;
+        Vector3 wall1Mid = (wallBegin + doorBegin) / 2;
+        Vector3 wall2Mid = (doorEnd + wallEnd) / 2;
 
         GameObject wall1 = Instantiate(wall, wall1Mid, hoveredObject.transform.rotation);
         GameObject wall2 = Instantiate(wall, wall2Mid, hoveredObject.transform.rotation);
-        
-        wall1.transform.localScale = new Vector3(1,1,(wallBegin - doorBegin).magnitude);
-        wall2.transform.localScale = new Vector3(1,1,(doorEnd - wallEnd).magnitude);
+
+        wall1.transform.localScale = new Vector3(1, 1, (wallBegin - doorBegin).magnitude);
+        wall2.transform.localScale = new Vector3(1, 1, (doorEnd - wallEnd).magnitude);
 
         hoveredObject.GetComponent<PantoCollider>().Remove();
         Destroy(hoveredObject);

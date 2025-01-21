@@ -52,6 +52,23 @@ public class Level2 : MonoBehaviour
 
     }
 
+    // public void foundObject(int objectId)
+    // {
+    //     if (finished) return;
+
+    //     Debug.Log("found object");
+    //     objectsFound[objectId] = true;
+
+    //     foreach (bool objectFound in objectsFound)
+    //     {
+    //         if (!objectFound)
+    //         {
+    //             return;
+    //         }
+    //     }
+    //     finished = true;
+    //     Invoke("levelFinished", 1);
+    // }
     private void levelFinished()
     {
         // speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
@@ -61,7 +78,7 @@ public class Level2 : MonoBehaviour
 
     private void finish()
     {
-        GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0,0,-10);
+        GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0, 0, -10);
     }
 
     private void unlockSound()
