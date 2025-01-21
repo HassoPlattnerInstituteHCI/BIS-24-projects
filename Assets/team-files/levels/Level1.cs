@@ -56,6 +56,21 @@ public class Level1 : MonoBehaviour
         Invoke("levelFinished", 1);
     }
 
+    void Update()
+    {
+    // Überprüft, ob alle Objekte gefunden wurden
+    foreach (bool objectFound in objectsFound)
+    {
+        if (!objectFound)
+        {
+            return; // Wenn ein Objekt nicht gefunden wurde, wird die Methode beendet
+        }
+    }
+    finished = true; // Setzt den Status auf abgeschlossen
+    Invoke("levelFinished", 1); // Ruft die Methode levelFinished nach 1 Sekunde auf
+    }
+
+
     private void levelFinished()
     {
         // speechOut.Speak("Well done! You have found all Objects. Move the handles in the middle to continue to the next level");
@@ -66,5 +81,13 @@ public class Level1 : MonoBehaviour
     private void finish()
     {
         GameObject.FindGameObjectsWithTag("PlayArea")[0].transform.position = new Vector3(0, 0, -10);
+    }
+
+
+    private void loadNextLevel()
+    {
+    // Hier wird der Übergang zu Level 2 initiiert
+    // Beispiel: SceneManager.LoadScene("Level2");
+    SceneManager.LoadScene("Level2");
     }
 }
