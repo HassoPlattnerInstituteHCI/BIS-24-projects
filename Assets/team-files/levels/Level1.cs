@@ -44,32 +44,12 @@ public class Level1 : MonoBehaviour
 
         Debug.Log("found object");
         objectsFound[objectId] = true;
-
-        foreach (bool objectFound in objectsFound)
-        {
-            if (!objectFound)
-            {
-                return;
-            }
-        }
-
         finished = true;
         Invoke("levelFinished", 1);
     }
 
-    void Update()
-    {
-    // Überprüft, ob alle Objekte gefunden wurden
-    foreach (bool objectFound in objectsFound)
-    {
-        if (!objectFound)
-        {
-            return; // Wenn ein Objekt nicht gefunden wurde, wird die Methode beendet
-        }
-    }
-    finished = true; // Setzt den Status auf abgeschlossen
-    Invoke("levelFinished", 1); // Ruft die Methode levelFinished nach 1 Sekunde auf
-    }
+   
+   
 
 
     private void levelFinished()
@@ -91,4 +71,4 @@ public class Level1 : MonoBehaviour
     // Beispiel: SceneManager.LoadScene("Level2");
     levelManager.StartNextLevel();
     }
-}
+ }

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41fc774a3fc6648c2b714bea664bb9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 0}
+  level: {fileID: 4329063382280901431, guid: f8611ef05b7c949cda494ce216733052, type: 3}
   name: Door
   description: 
   id: 0

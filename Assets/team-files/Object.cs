@@ -35,12 +35,11 @@ public class Object : MonoBehaviour
                 soundLocked = true;
                 Invoke("unlockSound", 2);
             }
-            
-
-            
-            // if (level.name == "Level 1(Clone)")
-            if (level.name == "Level 1"){
+            if (level.name == "Level 1(Clone)"){
                 level.GetComponent<Level1>().foundObject(id);
+            }
+            if (level.name == "Level 2(Clone)" && name == "key"){
+                level.GetComponent<Level2>().foundKey();
             }
         }
 
