@@ -37,8 +37,9 @@ public class Object : MonoBehaviour
             }
             
 
-            if (level.name == "Level 1(Clone)")
-            {
+            
+            // if (level.name == "Level 1(Clone)")
+            if (level.name == "Level 1"){
                 level.GetComponent<Level1>().foundObject(id);
             }
         }

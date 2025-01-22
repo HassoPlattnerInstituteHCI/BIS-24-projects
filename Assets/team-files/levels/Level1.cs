@@ -52,6 +52,7 @@ public class Level1 : MonoBehaviour
                 return;
             }
         }
+
         finished = true;
         Invoke("levelFinished", 1);
     }
@@ -88,6 +89,6 @@ public class Level1 : MonoBehaviour
     {
     // Hier wird der Übergang zu Level 2 initiiert
     // Beispiel: SceneManager.LoadScene("Level2");
-    SceneManager.LoadScene("Level2");
+    levelManager.StartNextLevel();
     }
 }
