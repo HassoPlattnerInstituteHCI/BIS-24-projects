@@ -53,7 +53,7 @@ public class Level2 : MonoBehaviour
 
     public void foundKey()
     {
-        speechOut.Speak("You found the key. Now select");
+        speechOut.Speak("You found the key. Now select by turning the lower handle.");
     }
 
     // public void foundObject(int objectId)
