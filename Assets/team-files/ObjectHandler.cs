@@ -209,6 +209,11 @@ public class ObjectHandler : MonoBehaviour
         hoveredObject = obj;
     }
 
+    public string getHoveredObjectName()
+    {
+        return hoveredObject.name;
+    }
+
     public void resetHoveredObject(GameObject obj)
     {
         if (hoveredObject == obj)

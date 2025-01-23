@@ -59,27 +59,29 @@ public class ObjectSelector : MonoBehaviour
         {
             // feedback sound
             lowerTurned = true;
-            if (lowerZeroRotation-rotL < 0) NextObject();
-            if (lowerZeroRotation-rotL > 0) PrevObject();
+            // if (lowerZeroRotation-rotL < 0) NextObject();
+            // if (lowerZeroRotation-rotL > 0) PrevObject();
         }
 
         if (!soundLocked && !upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30)
         {
             upperTurned = true;
             
-            if (objectsPlaceable && selectedObjectId < objectNames.Length - 3) // object selected
-            {
-                objectHandler.placeObject(selectedObjectName);
-            } else if (wallPlaceable && selectedObjectId == objectNames.Length - 3) // wall  selected
-            {
-                objectHandler.placeWall();
-            } else if (removeToolActivated && selectedObjectId == objectNames.Length - 2) // remove tool selected
-            {
-                objectHandler.destroyHoveredObject();
-            } else if (doorToolActivated && selectedObjectId == objectNames.Length - 1) // door tool selected
-            {
-                objectHandler.makeDoor();
-            }
+            
+            // if (objectsPlaceable && selectedObjectId < objectNames.Length - 3) // object selected
+            // {
+            //     objectHandler.placeObject(selectedObjectName);
+            // } else if (wallPlaceable && selectedObjectId == objectNames.Length - 3) // wall  selected
+            // {
+            //     objectHandler.placeWall();
+            // } else if (removeToolActivated && selectedObjectId == objectNames.Length - 2) // remove tool selected
+            // {
+            //     objectHandler.destroyHoveredObject();
+            // } else if (doorToolActivated && selectedObjectId == objectNames.Length - 1) // door tool selected
+            // {
+            //     objectHandler.makeDoor();
+            // }
+
         }
 
         if (Mathf.Abs(lowerZeroRotation-rotL) <= 5)
@@ -91,6 +93,15 @@ public class ObjectSelector : MonoBehaviour
         {
             upperTurned = false;
         }
+
+        if(lowerTurned){
+            objectHandler.placeObject("key");
+
+        }
+        if(upperTurned&&objectHandler.getHoveredObjectName()=="key"){
+            objectHandler.destroyHoveredObject();
+            speechOut.Speak("Key selected.");
+        }   
     }
 
     public void SetInitialHandleRotation()
