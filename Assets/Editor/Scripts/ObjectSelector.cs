@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using SpeachIO;
+using DualPantoToolkit;
 
 public class ObjectSelector : MonoBehaviour
 {
@@ -21,14 +23,14 @@ public class ObjectSelector : MonoBehaviour
     public bool objectsPlaceable = false;
     public bool removeToolActivated = false;
 
-    private SpeechOut speechOut;
+    //private SpeechOut speechOut;
     public bool soundLocked = false;
     public SoundManager soundManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        speechOut = new SpeechOut();
+        //speechOut = new SpeechOut();
         objectHandler = GameObject.FindObjectsOfType<ObjectHandler>()[0];
         soundManager = GameObject.FindObjectsOfType<SoundManager>()[0];
         Debug.Log(GameObject.FindObjectsOfType<SoundManager>().Length);
@@ -77,8 +79,8 @@ public class ObjectSelector : MonoBehaviour
             if(selectedObjectId == objectNames.Length){
                 selectedObjectId = 0;
             }
-            selectedObjectName = objectNames[selectedObjectId]
-            speechOut.Speak(selectedObjectName + " ausgewählt.");
+            selectedObjectName = objectNames[selectedObjectId];
+            //speechOut.Speak(selectedObjectName + " ausgewählt.");
         }
 
 

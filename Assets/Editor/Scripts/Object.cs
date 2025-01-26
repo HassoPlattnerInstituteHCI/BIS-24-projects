@@ -1,13 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DualPantoToolkit;
 using UnityEngine;
+using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
+using SpeechIO;
 
 public class Object : MonoBehaviour
 {
+    private SoundManager sM;
+    private SpeechOut speechOut;
+
+    public GameObject level;
+
+    public string name;
+    public string description;
+    public int id;
+    private bool soundLocked = false;
+    
     // Start is called before the first frame update
     void Start()
     {
-        speechOut = new SpeechOut();
+        //speechOut = new SpeechOut();
         sM = GameObject.FindObjectsOfType<SoundManager>()[0];
     }
     
@@ -17,7 +32,7 @@ public class Object : MonoBehaviour
         {
             sM.startLoop();
             if (!soundLocked) {
-                speechOut.Speak(name);
+                //speechOut.Speak(name);
                 soundLocked = true;
                 Invoke("unlockSound", 2);
             }
