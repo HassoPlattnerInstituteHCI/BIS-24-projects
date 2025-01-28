@@ -14,7 +14,7 @@ public class ObjectSelector : MonoBehaviour
     public string selectedObjectName;
     private ObjectHandler objectHandler;
     private int selectedObjectId = 0;
-    private string[] objectNames = {"Stuhl", "Tisch", "Lampe", "Wand", "Löschen", "Tür"}; // todo
+    private string[] objectNames = {"Selector", "Deletor","Connector", "Textbox", "Circle", "Text"}; // todo //move und zoom ist für Blinde eher ungeeignet/verwirrend
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     public float upperZeroRotation;
@@ -24,14 +24,19 @@ public class ObjectSelector : MonoBehaviour
 
     public bool objectsSelectable = false;
     public bool objectsPlaceable = false;
-    public bool wallPlaceable = false;
     public bool removeToolActivated = false;
-    public bool doorToolActivated = false;
 
     private SpeechOut speechOut;
     public bool soundLocked = false;
     public SoundManager soundManager;
 
+    public void SetInitialHandleRotation()
+    {
+        upperZeroRotation = _upperHandle.GetRotation();
+        lowerZeroRotation = _lowerHandle.GetRotation();
+    }
+    
+    // Start is called before the first frame update
     void Start()
     {
         speechOut = new SpeechOut();
@@ -50,37 +55,43 @@ public class ObjectSelector : MonoBehaviour
         Invoke("SetInitialHandleRotation", 0.5f);
     }
 
+    // Update is called once per frame
     void Update()
     {
         rotU = _upperHandle.GetRotation();
         rotL = _lowerHandle.GetRotation();
 
-        if (objectsSelectable && !lowerTurned && Mathf.Abs(lowerZeroRotation-rotL) >= 30)
-        {
-            // feedback sound
-            lowerTurned = true;
-            if (lowerZeroRotation-rotL < 0) NextObject();
-            if (lowerZeroRotation-rotL > 0) PrevObject();
-        }
-
-        if (!soundLocked && !upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30)
-        {
+        //object placement - bug fix
+        if(!upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30){
             upperTurned = true;
-            
-            if (objectsPlaceable && selectedObjectId < objectNames.Length - 3) // object selected
-            {
-                objectHandler.placeObject(selectedObjectName);
-            } else if (wallPlaceable && selectedObjectId == objectNames.Length - 3) // wall  selected
-            {
-                objectHandler.placeWall();
-            } else if (removeToolActivated && selectedObjectId == objectNames.Length - 2) // remove tool selected
-            {
-                objectHandler.destroyHoveredObject();
-            } else if (doorToolActivated && selectedObjectId == objectNames.Length - 1) // door tool selected
-            {
-                objectHandler.makeDoor();
+            switch (selectedObjectName){
+                case "Textbox": 
+                    objectHandler.placeBox(); break;
+                case "Circle":
+                    objectHandler.placeCircle(); break;
+                case "Selector":
+                    objectHandler.editBox(); break;
+                case "Deletor":
+                    objectHandler.destroyHoveredObject();break;
+                case "Connector":
+                    objectHandler.connectObjects();break;
+
+
             }
         }
+
+        //mode selection
+        if(!lowerTurned && Mathf.Abs(lowerZeroRotation-rotL) >= 30){
+            lowerTurned = true;
+            selectedObjectId++;
+            objectHandler.resetPlacementStarted();
+            if(selectedObjectId == objectNames.Length){
+                selectedObjectId = 0;
+            }
+            selectedObjectName = objectNames[selectedObjectId];
+            speechOut.Speak(selectedObjectName + " ausgewählt.");
+        }
+
 
         if (Mathf.Abs(lowerZeroRotation-rotL) <= 5)
         {
@@ -91,33 +102,5 @@ public class ObjectSelector : MonoBehaviour
         {
             upperTurned = false;
         }
-    }
-
-    public void SetInitialHandleRotation()
-    {
-        upperZeroRotation = _upperHandle.GetRotation();
-        lowerZeroRotation = _lowerHandle.GetRotation();
-    }
-
-    private void NextObject()
-    {
-        if (soundLocked) return;
-        if (++selectedObjectId >= objectNames.Length-3 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0)) selectedObjectId = 0;
-
-        soundManager.playSelectSound();
-
-        selectedObjectName = objectNames[selectedObjectId];
-        speechOut.Speak(selectedObjectName + " ausgewählt.");
-    }
-
-    private void PrevObject()
-    {
-        if (soundLocked) return;
-        if (--selectedObjectId < 0) selectedObjectId = objectNames.Length-4 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0);
-
-        soundManager.playSelectSound();
-
-        selectedObjectName = objectNames[selectedObjectId];
-        speechOut.Speak(selectedObjectName + " ausgewählt.");
     }
 }

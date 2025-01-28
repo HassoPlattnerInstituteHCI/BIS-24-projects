@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     private LowerHandle _lowerHandle;
     
     private SpeechOut _speechOut;
+    private SoundManager soundManager;
+    private ObjectHandler objectHandler;
+    private ObjectSelector objectSelector;
     
     PantoCollider[] pantoColliders;
 
@@ -35,42 +38,13 @@ public class GameManager : MonoBehaviour
     async void Introduction()
     {
         Debug.Log("Intro");
-        Level level = GetComponent<Level>();
-
-        _upperHandle.Freeze();
-        _lowerHandle.Freeze();
-
-        Debug.Log("play Intro");
-
-        await level.PlayIntroduction(1.0f, 500);
-        
-        await StartGame();
-    }
-
-    public async Task StartGame()
-    {
-
-        await RenderObstacle();
         
     }
 
-    async Task RenderObstacle()
-    {
-        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
-        foreach (PantoCollider collider in pantoColliders)
-        {
-            collider.CreateObstacle();
-            collider.Enable();
-        }
-    }
+    
 
-    public async Task DestroyObstacle()
-    {
-        pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
-        foreach (PantoCollider collider in pantoColliders)
-        {
-            collider.Remove();
-        }
-    }
+   
+
+   
 
 }

@@ -12,19 +12,20 @@ public class Object : MonoBehaviour
     private SoundManager sM;
     private SpeechOut speechOut;
 
-    public GameObject level;
+    //public GameObject level;
 
-    public string name;
+    public string objectName;
     public string description;
     public int id;
     private bool soundLocked = false;
     
+    // Start is called before the first frame update
     void Start()
     {
         speechOut = new SpeechOut();
         sM = GameObject.FindObjectsOfType<SoundManager>()[0];
     }
-
+    
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "ItHandle") 
@@ -34,12 +35,6 @@ public class Object : MonoBehaviour
                 speechOut.Speak(name);
                 soundLocked = true;
                 Invoke("unlockSound", 2);
-            }
-            
-
-            if (level.name == "Level 1(Clone)")
-            {
-                level.GetComponent<Level1>().foundObject(id);
             }
         }
 

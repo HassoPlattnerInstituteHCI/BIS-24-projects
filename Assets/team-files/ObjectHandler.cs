@@ -11,111 +11,133 @@ public class ObjectHandler : MonoBehaviour
 {
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
-    public GameObject wall;
-    public GameObject obj;
+    public GameObject box;
+    public GameObject circle;
     private ObjectSelector _objectSelector;
-    private bool wallPlacementStarted;
-    private Vector3 wallPos1;
-    private Vector3 wallPos2;
+    private bool placementStarted;
+    private Vector3 boxPos1;
+    private Vector3 boxPos2;
+    private Vector3 circleCenter;
+    private Vector3 circleRadius;
     private GameObject hoveredObject = null;
     private SpeechOut _speechOut;
 
-    public float doorSize = 1f;
-
     private SoundManager soundManager;
 
+    // Start is called before the first frame update
     void Start()
-    {
-        _objectSelector = GetComponent<ObjectSelector>();
-        soundManager = GameObject.FindObjectsOfType<SoundManager>()[0];
-
+    { 
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
-
-        _speechOut = new SpeechOut();
+        _objectSelector = GetComponent<ObjectSelector>();
     }
 
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.gameObject.tag == "PlacedObject") 
-    //     {
-    //         hoveredObject = collision.gameObject;
-    //         _speechOut.Speak(collision.gameObject.GetComponent<Object>().name);
-    //     }
+    public void resetPlacementStarted(){
+        placementStarted = false;
+    }
 
-    //     if (collision.gameObject.tag == "Wall") 
-    //     {
-    //         hoveredObject = collision.gameObject;
-    //     }
-    // }
-
-    // void OnCollisionLeave(Collision collision)
-    // {
-    //     if (collision.gameObject.tag == "PlacedObject" || collision.gameObject.tag == "Wall") 
-    //     {
-    //         hoveredObject = null;
-    //     }
-    // }
-
-    public void placeWall()
-    {
+    public void placeBox(){
         soundManager.playPlaceSound();
-        if (wallPlacementStarted) 
+        if (placementStarted) 
         {
-            _speechOut.Speak("Wand platziert.");
+            _speechOut.Speak("Textbox platziert.");
 
-            wallPos2 = _upperHandle.GetPosition();
+            boxPos2 = _upperHandle.GetPosition();
 
-            GameObject clone = Instantiate(wall, (wallPos1+wallPos2)/2, Quaternion.LookRotation((wallPos2-wallPos1), Vector3.up));
-            clone.transform.localScale = new Vector3(1, 1, (wallPos2-wallPos1).magnitude);
+            //Check box rotation here
+            GameObject clone = Instantiate(box, boxPos1,  Quaternion.identity);
+            //ggf. mit .magnitude
+            clone.transform.localScale = new Vector3(boxPos1.x - boxPos2.x, 1, boxPos1.z - boxPos2.z);
 
             PantoCollider _pantoCollider = clone.GetComponent<PantoCollider>();
 
             _pantoCollider.CreateObstacle();
             _pantoCollider.Enable();
 
-            wallPlacementStarted = false;
+            placementStarted = false;
 
-            GameObject level = GameObject.FindGameObjectsWithTag("Level")[0];
-
-            if (level.name == "Level 3(Clone)")
-            {
-                level.GetComponent<Level3>().wallPlaced();
-            }
         } else 
         {
-            wallPos1 = _upperHandle.GetPosition();
-            wallPlacementStarted = true;
+            boxPos1 = _upperHandle.GetPosition();
+            placementStarted = true;
         }
-        
     }
 
-    public void placeObject(string name) 
-    {
+    public void connectObjects(){
         soundManager.playPlaceSound();
-        GameObject o = Instantiate(obj, _upperHandle.GetPosition(), Quaternion.identity);
-        o.GetComponent<Object>().name = name;
-
-        GameObject level = GameObject.FindGameObjectsWithTag("Level")[0];
-
-        // place sound
-        _speechOut.Speak(name + " platziert.");
-
-        if (level.name == "Level 2(Clone)")
+        if (placementStarted) 
         {
-            level.GetComponent<Level2>().objectPlaced(name);
+            _speechOut.Speak("Objekte verbunden.");
+
+            boxPos2 = hoveredObject.transform.position;
+
+            //Check box rotation here
+            GameObject clone = Instantiate(box, boxPos1, Quaternion.identity); //todo: Box ersetzen mit Pfeil oder andere Verbindung
+            //ggf. mit .magnitude
+            clone.transform.localScale = new Vector3(boxPos1.x - boxPos2.x, 1, boxPos1.z - boxPos2.z);
+
+            PantoCollider _pantoCollider = clone.GetComponent<PantoCollider>();
+
+            _pantoCollider.CreateObstacle();
+            _pantoCollider.Enable();
+
+            placementStarted = false;
+
+        } else 
+        {
+            boxPos1 = hoveredObject.transform.position;
+            placementStarted = true;
         }
     }
 
-    public void destroyAllObjectsWithTag(string tag)
-    {
-        GameObject[] objects;
-
-        objects = GameObject.FindGameObjectsWithTag(tag);
-
-        foreach (GameObject g in objects)
+    public void editBox(){
+        //soundManager.playPlaceSound();
+        if (placementStarted) 
         {
-            Destroy(g);
+            _speechOut.Speak("Textbox editiert.");
+
+            boxPos2 = _upperHandle.GetPosition();
+
+            hoveredObject.transform.localScale = new Vector3(boxPos1.x - boxPos2.x, 1, boxPos1.z - boxPos2.z);
+
+            PantoCollider _pantoCollider = hoveredObject.GetComponent<PantoCollider>();
+
+            _pantoCollider.CreateObstacle();
+            _pantoCollider.Enable();
+
+            placementStarted = false;
+
+        } else 
+        {
+            boxPos1 = hoveredObject.transform.position;
+            placementStarted = true;
+        }
+    }
+
+
+     public void placeCircle(){
+        soundManager.playPlaceSound();
+        if (placementStarted) 
+        {
+            _speechOut.Speak("Kreis erstellt.");
+
+            circleRadius = _upperHandle.GetPosition();
+
+            //Check circle placement here
+            GameObject clone = Instantiate(circle, circleCenter, Quaternion.identity);
+            clone.transform.localScale = new Vector3((boxPos2-boxPos1).magnitude, 1, (boxPos2-boxPos1).magnitude);
+
+            PantoCollider _pantoCollider = clone.GetComponent<PantoCollider>();
+
+            _pantoCollider.CreateObstacle();
+            _pantoCollider.Enable();
+
+            placementStarted = false;
+
+        } else 
+        {
+            circleCenter = _upperHandle.GetPosition();
+            placementStarted = true;
         }
     }
 
@@ -124,60 +146,12 @@ public class ObjectHandler : MonoBehaviour
         soundManager.playDestroySound();
         if (hoveredObject)
         {
-            if (hoveredObject.tag == "Wall") 
-            {
-                hoveredObject.GetComponent<PantoCollider>().Remove();
-                _speechOut.Speak("Wand entfernt.");
-            } 
-            else
-            {
-                _speechOut.Speak(hoveredObject.GetComponent<Object>().name + " entfernt.");
-            }
+            _speechOut.Speak(hoveredObject.GetComponent<Object>().objectName + " entfernt.");
             Destroy(hoveredObject);
-            // delete sound
         }
     }
 
-    public void makeDoor()
-    {
-        if (!hoveredObject || hoveredObject.tag != "Wall") return;
 
-        Vector3 wallMid = hoveredObject.transform.position;
-
-        float wallLength;
-        Quaternion wallRotation;
-
-        wallLength = hoveredObject.transform.localScale.z;
-        wallRotation = Quaternion.Euler(0, hoveredObject.transform.rotation.y+90, 0);
-
-        Vector3 wallBegin = wallMid - hoveredObject.transform.rotation * (new Vector3(0, 0, wallLength/2));
-        Vector3 wallEnd = wallMid + hoveredObject.transform.rotation * (new Vector3(0, 0, wallLength/2));
-
-        Vector3 doorPosition = wallBegin + Vector3.Project(_upperHandle.GetPosition() - wallBegin, wallEnd - wallBegin);
-
-        Vector3 doorBegin = doorPosition - hoveredObject.transform.rotation * (new Vector3(0, 0, doorSize/2));
-        Vector3 doorEnd = doorPosition + hoveredObject.transform.rotation * (new Vector3(0, 0, doorSize/2));
-
-        Vector3 wall1Mid = (wallBegin + doorBegin)/2;
-        Vector3 wall2Mid = (doorEnd + wallEnd)/2;
-
-        GameObject wall1 = Instantiate(wall, wall1Mid, hoveredObject.transform.rotation);
-        GameObject wall2 = Instantiate(wall, wall2Mid, hoveredObject.transform.rotation);
-        
-        wall1.transform.localScale = new Vector3(1,1,(wallBegin - doorBegin).magnitude);
-        wall2.transform.localScale = new Vector3(1,1,(doorEnd - wallEnd).magnitude);
-
-        hoveredObject.GetComponent<PantoCollider>().Remove();
-        Destroy(hoveredObject);
-
-        wall1.GetComponent<PantoCollider>().CreateObstacle();
-        wall2.GetComponent<PantoCollider>().CreateObstacle();
-
-        wall1.GetComponent<PantoCollider>().Enable();
-        wall2.GetComponent<PantoCollider>().Enable();
-
-        _speechOut.Speak("Tür platziert.");
-    }
 
     public void setHoveredObject(GameObject obj)
     {
