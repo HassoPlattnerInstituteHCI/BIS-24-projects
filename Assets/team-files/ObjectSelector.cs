@@ -61,6 +61,9 @@ public class ObjectSelector : MonoBehaviour
         rotL = _lowerHandle.GetRotation();
 
     
+        if( objectHandler.getHoveredObjectName() == "key"){
+            Debug.Log("there is a key");
+        }
         if (objectsSelectable && !lowerTurned && Mathf.Abs(lowerZeroRotation - rotL) >= 30)
         {
             // feedback sound
