@@ -21,6 +21,8 @@ public class Level2 : MonoBehaviour
 
     public GameObject door;
 
+    bool keyfoundOnce = false;
+
 
 
     void Start()
@@ -42,8 +44,8 @@ public class Level2 : MonoBehaviour
 
     public void objectPlaced(string name, Vector3 position)
     {
-    
-        if (name == "key" && door!= null && position == door.transform.position)
+
+        if (name == "key" && door != null && position == door.transform.position)
         {
             finished = true;
             Invoke("levelFinished", 1);
@@ -51,14 +53,15 @@ public class Level2 : MonoBehaviour
 
     }
 
-    int keyFoundOnce = 0;
     public void foundKey()
     {
-        if (keyfoundOnce !=1){
+        if (!keyfoundOnce)
+        {
             speechOut.Speak("You found the key. Now select by turning the lower handle.");
+            keyfoundOnce = true;
         }
-        keyfoundOnce++;
-        
+
+
     }
 
     // public void foundObject(int objectId)
@@ -80,7 +83,7 @@ public class Level2 : MonoBehaviour
     // }
     private void levelFinished()
     {
-         speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
+        speechOut.Speak("Well done! Move the handles in the middle to continue to the next level");
         //speechOut.Speak("Sehr gut! Bewege beide Griffe in die Mitte um in das nächste Level zu kommen.");
         Invoke("finish", 5);
     }
