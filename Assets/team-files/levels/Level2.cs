@@ -19,7 +19,7 @@ public class Level2 : MonoBehaviour
 
     private string name2 = "";
 
-    private GameObject door;
+    public GameObject door;
 
 
 
