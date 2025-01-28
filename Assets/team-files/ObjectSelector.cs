@@ -94,11 +94,11 @@ public class ObjectSelector : MonoBehaviour
             upperTurned = false;
         }
 
-        if(lowerTurned){
+        if(upperTurned){
             objectHandler.placeObject("key");
 
         }
-        if(upperTurned&&objectHandler.getHoveredObjectName()=="key"){
+        if(lowerTurned&&objectHandler.getHoveredObjectName()=="key"){
             objectHandler.destroyHoveredObject();
             speechOut.Speak("Key selected.");
         }   

@@ -36,7 +36,7 @@ public class Level2 : MonoBehaviour
 
         // speechOut.Speak("Level 2... Turn the lower handle to select objects... Place three different objects by turning the upper handle.");
         oS.soundLocked = true;
-        speechOut.Speak("Find the Key and turn the lower handle to select. ");
+        speechOut.Speak("Find the Key");
         Invoke("unlockSound", 10);
     }
 
