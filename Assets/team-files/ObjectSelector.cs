@@ -60,10 +60,15 @@ public class ObjectSelector : MonoBehaviour
         rotU = _upperHandle.GetRotation();
         rotL = _lowerHandle.GetRotation();
 
+        if(Mathf.Abs(lowerZeroRotation - rotL) >= 30){
+             Debug.Log("Lower handle turn recognized");
+        }
+
         if (objectsSelectable && !lowerTurned && Mathf.Abs(lowerZeroRotation - rotL) >= 30)
         {
             // feedback sound
             lowerTurned = true;
+            Debug.Log("Lower handle turned");
             // if (lowerZeroRotation-rotL < 0) NextObject();
             // if (lowerZeroRotation-rotL > 0) PrevObject();
         }
