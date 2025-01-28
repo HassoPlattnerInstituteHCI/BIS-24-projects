@@ -9,26 +9,27 @@ public class PlayArea : MonoBehaviour
     private bool upperHasEntered = false;
     private bool lowerHasEntered = false;
 
-    void OnTriggerEnter(Collider col) 
+    void OnTriggerEnter(Collider col)
     {
+        Debug.Log("lololllooooooll");
         if (col.gameObject.tag == "MeHandle")
         {
-            if (lowerHasEntered) 
+            if (lowerHasEntered)
             {
                 levelManagerObject.GetComponent<LevelManager>().StartNextLevel();
-                transform.position = new Vector3(0,0,10);
+                transform.position = new Vector3(0, 0, 10);
                 Invoke("resetHandleStates", 5);
             }
 
             upperHasEntered = true;
         }
-        
+
         if (col.gameObject.tag == "ItHandle")
         {
-            if (upperHasEntered) 
+            if (upperHasEntered)
             {
                 levelManagerObject.GetComponent<LevelManager>().StartNextLevel();
-                transform.position = new Vector3(0,0,10);
+                transform.position = new Vector3(0, 0, 10);
                 Invoke("resetHandleStates", 5);
             }
 
@@ -41,7 +42,7 @@ public class PlayArea : MonoBehaviour
         if (col.gameObject.tag == "MeHandle") upperHasEntered = false;
 
         if (col.gameObject.tag == "ItHandle") lowerHasEntered = false;
-        
+
     }
 
     void resetHandleStates()

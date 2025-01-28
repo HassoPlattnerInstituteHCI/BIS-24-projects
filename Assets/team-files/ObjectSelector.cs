@@ -14,7 +14,7 @@ public class ObjectSelector : MonoBehaviour
     public string selectedObjectName;
     private ObjectHandler objectHandler;
     private int selectedObjectId = 0;
-    private string[] objectNames = {"Key"}; // todo
+    private string[] objectNames = { "Key" }; // todo
     private UpperHandle _upperHandle;
     private LowerHandle _lowerHandle;
     public float upperZeroRotation;
@@ -31,6 +31,11 @@ public class ObjectSelector : MonoBehaviour
     private SpeechOut speechOut;
     public bool soundLocked = false;
     public SoundManager soundManager;
+
+    private double nextplacement = 0.0;
+    private double placementRate = 0.5;
+
+    private bool hasKeyInInventory = false;
 
     void Start()
     {
@@ -55,7 +60,7 @@ public class ObjectSelector : MonoBehaviour
         rotU = _upperHandle.GetRotation();
         rotL = _lowerHandle.GetRotation();
 
-        if (objectsSelectable && !lowerTurned && Mathf.Abs(lowerZeroRotation-rotL) >= 30)
+        if (objectsSelectable && !lowerTurned && Mathf.Abs(lowerZeroRotation - rotL) >= 30)
         {
             // feedback sound
             lowerTurned = true;
@@ -63,11 +68,11 @@ public class ObjectSelector : MonoBehaviour
             // if (lowerZeroRotation-rotL > 0) PrevObject();
         }
 
-        if (!soundLocked && !upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30)
+        if (!soundLocked && !upperTurned && Mathf.Abs(upperZeroRotation - rotU) >= 30)
         {
             upperTurned = true;
-            
-            
+
+
             // if (objectsPlaceable && selectedObjectId < objectNames.Length - 3) // object selected
             // {
             //     objectHandler.placeObject(selectedObjectName);
@@ -84,24 +89,33 @@ public class ObjectSelector : MonoBehaviour
 
         }
 
-        if (Mathf.Abs(lowerZeroRotation-rotL) <= 5)
+        if (Mathf.Abs(lowerZeroRotation - rotL) <= 5)
         {
             lowerTurned = false;
         }
 
-        if (Mathf.Abs(upperZeroRotation-rotU) <= 5)
+        if (Mathf.Abs(upperZeroRotation - rotU) <= 5)
         {
             upperTurned = false;
         }
 
-        if(lowerTurned){
-            objectHandler.placeObject("key");
+        if (upperTurned && hasKeyInInventory)
+        {
+            if (Time.time < nextplacement)
+            {
+                return;
+            }
 
+            nextplacement = Time.time + placementRate;
+            objectHandler.placeObject("key");
+            hasKeyInInventory = false;
         }
-        if(upperTurned&&objectHandler.getHoveredObjectName()=="key"){
+        if (lowerTurned && objectHandler.getHoveredObjectName() == "key")
+        {
+            hasKeyInInventory = true;
             objectHandler.destroyHoveredObject();
-            speechOut.Speak("Key selected.");
-        }   
+            speechOut.Speak("Key picked up.");
+        }
     }
 
     public void SetInitialHandleRotation()
@@ -113,7 +127,7 @@ public class ObjectSelector : MonoBehaviour
     private void NextObject()
     {
         if (soundLocked) return;
-        if (++selectedObjectId >= objectNames.Length-3 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0)) selectedObjectId = 0;
+        if (++selectedObjectId >= objectNames.Length - 3 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0)) selectedObjectId = 0;
 
         soundManager.playSelectSound();
 
@@ -124,7 +138,7 @@ public class ObjectSelector : MonoBehaviour
     private void PrevObject()
     {
         if (soundLocked) return;
-        if (--selectedObjectId < 0) selectedObjectId = objectNames.Length-4 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0);
+        if (--selectedObjectId < 0) selectedObjectId = objectNames.Length - 4 + (wallPlaceable ? 1 : 0) + (removeToolActivated ? 1 : 0) + (doorToolActivated ? 1 : 0);
 
         soundManager.playSelectSound();
 

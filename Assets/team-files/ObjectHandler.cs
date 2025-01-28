@@ -37,13 +37,13 @@ public class ObjectHandler : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "PlacedObject") 
+        if (collision.gameObject.tag == "PlacedObject")
         {
             hoveredObject = collision.gameObject;
             _speechOut.Speak(collision.gameObject.GetComponent<Object>().name);
         }
 
-        if (collision.gameObject.tag == "Wall") 
+        if (collision.gameObject.tag == "Wall")
         {
             hoveredObject = collision.gameObject;
         }
@@ -51,7 +51,7 @@ public class ObjectHandler : MonoBehaviour
 
     void OnCollisionLeave(Collision collision)
     {
-        if (collision.gameObject.tag == "PlacedObject" || collision.gameObject.tag == "Wall") 
+        if (collision.gameObject.tag == "PlacedObject" || collision.gameObject.tag == "Wall")
         {
             hoveredObject = null;
         }
@@ -95,13 +95,13 @@ public class ObjectHandler : MonoBehaviour
     {
         // Spielt einen Sound ab, der das Platzieren eines Objekts signalisiert
         soundManager.playPlaceSound();
-        
+
         // Erstellt eine Instanz des Objekts 'obj' an der Position des '_upperHandle' mit einer Standardrotation
         GameObject o = Instantiate(obj, _upperHandle.GetPosition(), Quaternion.identity);
-        
+
         // Setzt den Namen des neuen Objekts auf den übergebenen Namen
         o.GetComponent<Object>().name = name;
-    
+
         // Findet das erste GameObject mit dem Tag "Level"
         GameObject level = GameObject.FindGameObjectsWithTag("Level")[0];
 
@@ -211,6 +211,10 @@ public class ObjectHandler : MonoBehaviour
 
     public string getHoveredObjectName()
     {
+        if (hoveredObject == null)
+        {
+            return "";
+        }
         return hoveredObject.name;
     }
 
