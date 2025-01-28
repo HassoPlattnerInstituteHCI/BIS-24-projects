@@ -51,9 +51,14 @@ public class Level2 : MonoBehaviour
 
     }
 
+    int keyFoundOnce = 0;
     public void foundKey()
     {
-        speechOut.Speak("You found the key. Now select by turning the lower handle.");
+        if (keyfoundOnce !=1){
+            speechOut.Speak("You found the key. Now select by turning the lower handle.");
+        }
+        keyfoundOnce++;
+        
     }
 
     // public void foundObject(int objectId)
