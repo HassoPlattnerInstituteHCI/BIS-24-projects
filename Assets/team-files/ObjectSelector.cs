@@ -91,15 +91,7 @@ public class ObjectSelector : MonoBehaviour
 
         }
 
-        if (Mathf.Abs(lowerZeroRotation - rotL) <= 5)
-        {
-            lowerTurned = false;
-        }
-
-        if (Mathf.Abs(upperZeroRotation - rotU) <= 5)
-        {
-            upperTurned = false;
-        }
+        
 
         if (upperTurned && hasKeyInInventory)
         {
@@ -117,6 +109,16 @@ public class ObjectSelector : MonoBehaviour
             hasKeyInInventory = true;
             objectHandler.destroyHoveredObject();
             speechOut.Speak("Key picked up.");
+        }
+
+        if (Mathf.Abs(lowerZeroRotation - rotL) <= 5)
+        {
+            lowerTurned = false;
+        }
+
+        if (Mathf.Abs(upperZeroRotation - rotU) <= 5)
+        {
+            upperTurned = false;
         }
     }
 
