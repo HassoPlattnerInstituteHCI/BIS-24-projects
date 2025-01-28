@@ -41,6 +41,7 @@ public class ObjectSelector : MonoBehaviour
     {
         speechOut = new SpeechOut();
         objectHandler = GameObject.FindObjectsOfType<ObjectHandler>()[0];
+        Debug.Log(objectHandler);
         soundManager = GameObject.FindObjectsOfType<SoundManager>()[0];
         Debug.Log(GameObject.FindObjectsOfType<SoundManager>().Length);
 
@@ -62,7 +63,7 @@ public class ObjectSelector : MonoBehaviour
         rotL = _lowerHandle.GetRotation();
 
         //object placement - bug fix
-        if(!upperTurned && Mathf.Abs(upperZeroRotation-rotU) >= 30){
+        if(Input.GetKeyDown(KeyCode.Space)){ //Rotation funktioniert nicht
             upperTurned = true;
             switch (selectedObjectName){
                 case "Textbox": 
@@ -81,7 +82,7 @@ public class ObjectSelector : MonoBehaviour
         }
 
         //mode selection
-        if(!lowerTurned && Mathf.Abs(lowerZeroRotation-rotL) >= 30){
+        if(Input.GetKeyDown(KeyCode.W)){ //Rotation funktioniert nicht !lowerTurned && Mathf.Abs(lowerZeroRotation-rotL) >= 30
             lowerTurned = true;
             selectedObjectId++;
             objectHandler.resetPlacementStarted();
@@ -89,11 +90,11 @@ public class ObjectSelector : MonoBehaviour
                 selectedObjectId = 0;
             }
             selectedObjectName = objectNames[selectedObjectId];
-            speechOut.Speak(selectedObjectName + " ausgewählt.");
+            speechOut.Speak(selectedObjectName + " selected.");
         }
 
 
-        if (Mathf.Abs(lowerZeroRotation-rotL) <= 5)
+        /*if (Mathf.Abs(lowerZeroRotation-rotL) <= 5)
         {
             lowerTurned = false;
         }
@@ -101,6 +102,6 @@ public class ObjectSelector : MonoBehaviour
         if (Mathf.Abs(upperZeroRotation-rotU) <= 5)
         {
             upperTurned = false;
-        }
+        }*/
     }
 }

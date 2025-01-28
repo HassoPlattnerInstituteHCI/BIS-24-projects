@@ -30,6 +30,14 @@ public class ObjectHandler : MonoBehaviour
         _upperHandle = GetComponent<UpperHandle>();
         _lowerHandle = GetComponent<LowerHandle>();
         _objectSelector = GetComponent<ObjectSelector>();
+
+        //Test:
+        if (box == null)
+        {
+            Debug.LogError("Fehler: 'box' wurde nicht zugewiesen!");
+            return;
+        }
+
     }
 
     public void resetPlacementStarted(){
@@ -58,8 +66,10 @@ public class ObjectHandler : MonoBehaviour
 
         } else 
         {
+
             boxPos1 = _upperHandle.GetPosition();
             placementStarted = true;
+            Debug.Log("placementStarted: " + boxPos1);
         }
     }
 
@@ -109,8 +119,12 @@ public class ObjectHandler : MonoBehaviour
 
         } else 
         {
+            if (hoveredObject != null){
             boxPos1 = hoveredObject.transform.position;
             placementStarted = true;
+            
+            _speechOut.Speak("Textbox ausgewählt.");
+            }
         }
     }
 
